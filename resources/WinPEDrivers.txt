@@ -1,0 +1,9 @@
+WinPE3_Dell=http://downloads.dell.com/FOLDER03652574M/1/WINPE3.0-DRIVERS-A20-CT5DP.CAB
+WinPE4_Dell=http://downloads.dell.com/FOLDER03048988M/1/WinPE4.0-Drivers-A06-F1YJC.CAB
+WinPE5_Dell=http://downloads.dell.com/FOLDER03651630M/1/WINPE5.0-DRIVERS-A08-VGRK8.CAB
+WinPE10_Dell=http://downloads.dell.com/FOLDER03652534M/1/WINPE10.0-DRIVERS-A03-2K3RC.CAB
+WinPE3_HP=http://ftp.hp.com/pub/softpaq/sp71501-72000/sp71913.exe
+WinPE4_HP=http://ftp.hp.com/pub/softpaq/sp64501-65000/sp64529.exe
+WinPE5_HP=http://ftp.hp.com/pub/softpaq/sp71501-72000/sp71912.exe
+WinPE10_HP=http://ftp.hp.com/pub/softpaq/sp71501-72000/sp71562.exe
+Lenovo=https://support.lenovo.com/us/en/documents/ht074984

@@ -1,0 +1,2 @@
+Win7AIK=https://download.microsoft.com/download/8/E/9/8E9BBC64-E6F8-457C-9B8D-F6C9A16E6D6A/KB3AIK_EN.iso
+Win7AIKSupplement=https://download.microsoft.com/download/0/4/C/04C805CC-4C04-4D76-BE80-7D67B951CF73/waik_supplement_en-us.iso
