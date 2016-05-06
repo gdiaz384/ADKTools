@@ -15,6 +15,7 @@ set ADK10Path=%ADKDownloadPath%\ADK10
 
 set resourcePath=resources
 set toolPath=%resourcePath%\tools
+set archivePath=%resourcePath%\archives
 set sevenZ=7z.exe
 set AIK7StagingExe=aria2c.exe
 set Win7AIKURLtxt=Win7AIK.txt
@@ -24,7 +25,7 @@ set shortcutsArchive=shortcuts.zip
 
 if /i "%processor_architecture%" equ "x86" set architecture=x86
 if /i "%processor_architecture%" equ "AMD64" set architecture=x64
-if not defined processor_architecture (echo    unspecified error
+if not defined architecture (echo    unspecified error
 goto end)
 
 set AIK7DetectionFile=KB3AIK_EN.iso
@@ -209,9 +210,9 @@ robocopy "%cd%\%AIK7Path%\%AIK7SupplementFolder%" "%AIK7InstallPath%\Tools\PEToo
 ::xcopy E:\ "C:\Program Files\Windows AIK\Tools\PETools" /ERDY
 echo.
 echo   Finished updating AIK 7 with supplement
-if not exist "%resourcePath%\%shortcutsArchive%" goto :eof
+if not exist "%archivePath%\%shortcutsArchive%" goto :eof
 if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
-call "%toolPath%\%sevenZ%" x "%resourcePath%\%shortcutsArchive%" -o"%resourcePath%\shortcuts" -y -aos
+call "%toolPath%\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
 if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 7 Deployment Tools Command Prompt.lnk" "%userprofile%\desktop\Win 7 Deployment Tools Command Prompt.lnk" /y
 copy "%resourcePath%\shortcuts\x86\Win 7 Deployment Tools Command Prompt.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 7 Deployment Tools Command Prompt.lnk" /y)
 if /i "%architecture%" equ "x64" (copy "%resourcePath%\shortcuts\x64\Win 7 Deployment Tools Command Prompt.lnk" "%userprofile%\desktop\Win 7 Deployment Tools Command Prompt.lnk" /y
@@ -249,9 +250,9 @@ call :detectADK81UandADK10
 if /i "%ADK81UInstalled%" neq "true" (echo   ADK 81 U did not install sucessfully, please install it manually
 goto :eof)
 if /i "%ADK81UInstalled%" equ "true" echo   ADK 81 U Installed Sucessfully
-if not exist "%resourcePath%\%shortcutsArchive%" goto :eof
+if not exist "%archivePath%\%shortcutsArchive%" goto :eof
 if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
-call "%toolPath%\%sevenZ%" x "%resourcePath%\%shortcutsArchive%" -o"%resourcePath%\shortcuts" -y -aos
+call "%toolPath%\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
 if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 81 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 81 Deployment and Tools Environment.lnk" /y
 copy "%resourcePath%\shortcuts\x86\Win 81 Deployment and Tools Environment.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 81 Deployment and Tools Environment.lnk" /y)
 if /i "%architecture%" equ "x64" (copy "%resourcePath%\shortcuts\x64\Win 81 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 81 Deployment and Tools Environment.lnk" /y
@@ -286,9 +287,9 @@ call :detectADK81UandADK10
 if /i "%ADK10Installed%" neq "true" (echo   ADK 10 did not install sucessfully, please install it manually
 goto :eof)
 if /i "%ADK10Installed%" equ "true" echo   ADK 10 Installed Sucessfully
-if not exist "%resourcePath%\%shortcutsArchive%" goto :eof
+if not exist "%archivePath%\%shortcutsArchive%" goto :eof
 if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
-call "%toolPath%\%sevenZ%" x "%resourcePath%\%shortcutsArchive%" -o"%resourcePath%\shortcuts" -y -aos
+call "%toolPath%\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
 if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 10 Deployment and Tools Environment.lnk" /y
 copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 10 Deployment and Tools Environment.lnk" /y)
 if /i "%architecture%" equ "x64" (copy "%resourcePath%\shortcuts\x64\Win 10 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 10 Deployment and Tools Environment.lnk" /y

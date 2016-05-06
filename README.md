@@ -9,7 +9,7 @@ The project goals are to:
 
 The development emphasis is on zero-configuration "just works" software.
 
-## Key Features:
+## Features:
 
 - Automatically install AIK 7, ADK 81 U and ADK 10
 - Automatically generate WinPE.wim images (3.1,5.1,10)
@@ -28,6 +28,13 @@ The development emphasis is on zero-configuration "just works" software.
 - Supports WIM <-> ESD conversion
 - Creates a WinPE workspace enviornment to easily make changes to WIM images.
 
+## Download:
+```
+Latest Version: 0.0.1-pre-alpha
+In Development: 0.0.1-alpha
+```
+Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the top to download the latest version.
+
 ## Basic Usage Guide:
 
 1. Download and extract.
@@ -40,14 +47,6 @@ The development emphasis is on zero-configuration "just works" software.
 6. USB: Use [Rufus](//rufus.akeo.ie) to make a USB drive bootable and then copy the WinPE.iso contents to the USB drive
 7. Copy any WIM images to deploy to the \images folder on the disk
     - [Windows 7](//www.microsoft.com/en-us/software-download/windows7), [Windows 8.1](//www.microsoft.com/en-us/software-download/windows8), [Windows 10](//www.microsoft.com/en-us/software-download/windows10)
-8. (Optional) Add additional DaRT/WinRE/WinPE.wim images to the boot menu and USB drive.
-
-## Download:
-```
-Latest Version: 0.0.1-pre-alpha
-In Development: 0.0.1-alpha
-```
-Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the top to download the latest version.
 
 ## Advanced Usage Guide:
 
@@ -71,7 +70,6 @@ Add additional DaRT/WinRE/WinPE.wim images to the boot menu and USB drive:
 
 - Requires Microsoft Windows 7 or newer (but Vista will probably work).
 - Requires Administrative access.
-- A relatively recent toaster. Note: "Toaster ovens" are not supported.
 - 30GB+ HD space (The ADKs take like 17GB alone).
 
 ## License:

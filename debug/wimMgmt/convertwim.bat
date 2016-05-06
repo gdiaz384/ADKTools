@@ -180,10 +180,10 @@ echo     PE v5 boot files are the default
 echo     The architecture option changes the boot files and the efisys.bin used
 echo.
 echo     UEFI compatibility:
-echo     Uefi and operating system architectures must match (x86 or x64)
-echo     Isos are x64 uefi bootable by default
-echo     Use the x86 option to switch support from native x64 uefi to x86 uefi
-echo     x86 uefi support begins at PEv4
+echo     UEFI and operating system architectures must match (x86 or x64)
+echo     Isos are x64 UEFI bootable by default
+echo     Use the x86 option to switch support from native x64 UEFI to x86 UEFI
+echo     x86 UEFI support begins at PEv4
 echo.
 echo     SanityCheck: 
 echo     Do not put a sysprepped windows image into an iso file as a boot.wim

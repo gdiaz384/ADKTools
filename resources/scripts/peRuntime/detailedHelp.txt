@@ -1,0 +1,85 @@
+//create basic PE image
+copype.cmd amd64 D:\WinPE_x64
+xcopy .\amd64\winpe.wim D:\WinPE_x64\sources\boot.wim
+
+
+//create iso image, all files/folders in the D:\WinPE_x64\ISO will be included
+//remember to include imagex from WAIK\Tools\amd64\imagex.exe to D:\WinPE_x64\iso\
+//it's also possible to copy imagex into the PE's "Windows\system32" folder by mounting it first
+xcopy .\..\amd64\imagex.exe d:\winPE_x64\iso\tools\ /y
+oscdimg -n -bD:\WinPE_x64\etfsboot.com D:\Winpe_x64\iso D:\WinPE_x64\WinPE_x64_3.1.iso
+
+//dynamically load drivers when already in WinPE, Note: Using dism (syntax below) 
+//to add drivers to WinPE is prefered since "drvload" must be done manually each time
+//drvload E:\e1000NIC\driver1.inf
+
+//capture image after booted into Windows PE
+imagex /compress fast /capture c: c:\Win7Sp1x64_Ult_slim.wim "Win7Sp1x64_Ult_slim.wim" /verify
+//Note: If C:\capture.wim is in a directory such as C:\sources\capture.wim, then
+//the directory must exist prior to invoking imagex.
+
+//transfer image to server
+net use Y: \\192.168.106.150\d$ /u:localhost\admin
+xcopy C:\Win7Sp1x64_Ult_slim.wim Y:\sources
+
+
+//dism commands
+//get index info (multiple images can be in a single wim)
+dism /get-wiminfo /wimfile:d:\sources\Windows7Sp1x64\install.wim
+//mount Wim file
+dism /Mount-wim /wimfile:D:\WinPE_x64\iso\sources\boot.wim /index:1 /mountdir:D:\winpe_x64\mount
+//add drivers (.inf or .oem files) found in the D:\updates\drivers directory
+dism /Image:D:\winpe_x64\mount /Add-Driver /Driver:D:\updates\drivers /recurse
+//the installed drivers are located at D:\winpe_x64\mount\windows\inf\
+//Note: dism /image:C:\ /add-driver /driver:Y:\updates\Win7_x64\storage /recurse 
+//also works to add drivers to an already-deployed image from a PE environment
+//unmount the image, either committing changes or discarding them
+dism /Unmount-Wim /MountDir:D:\winpe_x64\mount /Commit
+dism /Unmount-Wim /MountDir:C:\test\offline /discard
+
+
+//reformat hard disk
+//cd c:\tools\scripts
+//c:
+//diskpart.exe /s .\diskpart.bat
+select disk 0
+clean
+create partition primary
+select partition 1
+format fs=ntfs quick
+assign letter=c: noerr
+active
+exit
+
+//for uefi/gpt, suggested sizes: efi 100-500, msr 128-300
+select disk 0
+clean
+convert gpt
+create partition efi size=500
+format fs=fat32 quick
+assign letter=S: noerr
+create partition msr size=300
+create part pri
+format fs=ntfs quick
+assign letter=B: noerr
+exit
+
+
+//copy image from network share to local disk
+net use Y: \\192.168.106.150\d$
+xcopy Y:\sources\Win7Sp1x64_Ult_slim.wim C:\
+
+//apply image to local disk
+E:\tools\imagex /apply C:\Win7Sp1x64_Ult_slim.wim 1 C:\
+//the 1 specifies the index, make sure it's correct via:
+//dism /get-wiminfo /wimfile:d:\sources\Windows7Sp1x64\install.wim
+xcopy Y:\unattend.xml C:\Windows\system32\sysprep /y
+xcopy Y:\unattend.xml C:\Windows\system32\sysprep\Panther /y
+
+//make disk bootable by copying the bootable files
+//found in c:\windows to the root of that drive (to C:)
+bcdboot C:\Windows /l en-US
+//Run msconfig to get rid of the extra boot entry. or 
+scripts\bcdboot\bcdfix
+//can also edit directly
+bcdedit /store B:\Boot\BCD  OR   bcdedit /store S:\EFI\Microsoft\Boot\BCD
