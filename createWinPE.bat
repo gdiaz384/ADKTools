@@ -2,12 +2,41 @@
 
 ::check if adks are installed
 ::prompt to install an ADK if one is not already installed
+unzip basic workspace -(create workspace) with pe versions, bootfiles and updates folder (scripts\tools\drivers)
+copype amd64 pe_x64\iso (must be empty)
+delete extra muis (annoying)
+copy originalpe found under media\sources\boot.wim to pe_x64\originalwim\winpe31.wim
+
+ask? to update winpe 5->5.1, then copy 5.1 over sources\boot.wim
+
+fill tools directory with latest tools available (should already have gimagex/chm/7za/aria2c)
+extract out PEscripts to peworkpace\updates\pescripts
+download dell drivers (hp?) -need to test driver dl reliability (hash check) dell3=http:url  dell3crc32hash=crc32hash
+extract drivers appropriately
+update environment.bat
+update enviornment.bat in the adks
+run enviornment setting script (from adk)
+
+del boot.wim
+mount originalpe.wim and update (same as reset scenario)
 ::mount pe version with it's dism version (use setenv.bat)
 ::update drivers
 ::update packages
-::update PEimage (5.0->5.1)
 ::update scripts
 ::update tools
+::unmount and save
+call createiso (aik 7 might be tricky)
+move iso
+
+move on to next adk
+
+
+
+
+
+
+
+
 
 call :detectAIK7
 call :detectADK81UandADK10
