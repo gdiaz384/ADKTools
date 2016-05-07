@@ -5,6 +5,7 @@ if /i "%~1" equ "/?" goto usagehelp
 if /i "%~1" equ "" goto usagehelp
 if /i "%~2" equ "" goto usagehelp
 
+set MikuModeEnabled=true
 set default_updateType=scripts
 ::set peToolsPath_x86=D:\updates\tools\x86
 ::set peToolsPath_x64=D:\updates\tools\x64
@@ -128,7 +129,7 @@ if exist "%mountPoint%\windows\system32\tools" rmdir "%mountPoint%\windows\syste
 if exist "%toolSource%" robocopy "%toolSource%" "%mountPoint%\windows\system32\tools" /e >nul
 echo Scripts copied to "%mountPoint%"
 echo Updated PEv%version% %architecture% successfully.
-if "%architecture%" equ "x64" goto mikumode
+if /i "%MikuModeEnabled%" equ "true" if /i "%architecture%" equ "x64" goto mikumode
 goto end
 )
 echo.

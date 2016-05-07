@@ -57,18 +57,25 @@ To update WinPE drivers:
 To update packages:
 
 To reset the WinPE images:
-
+```
+1. open a Deployment Tools Environment
+2. massupdate reset 5 x64
+3. massupdate reset all
+```
 Add additional DaRT/WinRE/WinPE.wim images to the boot menu and USB drive:
 
 ## Release Notes:
 
 - If downloading from github manually (instead of using an official release.zip) remember to change the line ending format from Unix back to Windows using Notepad++.
-- Consider adding to env path
+- MUI versions of WinPE and other ADKTools aspects are not currently supported.
 - ADKtools is not developed, tested against or designed to work with UAC enabled.
+- WinPEx64 versions have Miku mode enabled by default.
+- To disable Miku mode: ADKTools\resources\scripts\wimMgmt\update.bat->set MikuModeEnabled=false and then reset the image (massupdate reset)
 
 ## Dependencies:
 
 - Requires Microsoft Windows 7 or newer (but Vista will probably work).
+- The ADKs require Microsoft .NET Framework 4.5 (included in Win 8+)
 - Requires Administrative access.
 - 30GB+ HD space (The ADKs take like 17GB alone).
 

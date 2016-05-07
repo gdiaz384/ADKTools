@@ -35,6 +35,8 @@ set AIK7SupplementFolder=waik_supplement_en-us
 if /i "%architecture%" equ "x86" set AIK7InstallExe=wAIKX86.msi
 if /i "%architecture%" equ "x64" set AIK7InstallExe=wAIKAMD64.msi
 set AIK7SupplementExtractedDetectionFile=copype.cmd
+set ADK81UDetectionFolder=Installers
+set ADK10DetectionFolder=Installers
 set ADK81UInstallExe=adksetup.exe
 set ADK10InstallExe=adksetup.exe
 
@@ -96,32 +98,33 @@ goto startInput
 
 ::download and install all ADKs
 :One
-call :ADK81UDownload
+if /i "%AIK7Installed%" neq "true" call :AIK7Download
+call :AIK7Install
+echo.
+if /i "%ADK81UInstalled%" neq "true" call :ADK81UDownload
 call :ADK81UInstall
 echo.
-call :ADK10Download
+if /i "%ADK10Installed%" neq "true" call :ADK10Download
 call :ADK10Install
-echo.
-call :AIK7Download
-call :AIK7Install
+
 goto end
 
 ::download and install AIK7
 :Two
-call :AIK7Download
+if /i "%AIK7Installed%" neq "true" call :AIK7Download
 call :AIK7Install
 goto end
 
 ::download and install ADK81U
 :Three
-call :ADK81UDownload
+if /i "%ADK81UInstalled%" neq "true" call :ADK81UDownload
 call :ADK81UInstall
 goto end
 
 ::download and install ADK10
 :Four
-call :ADK10Download
-call: ADK10Install
+if /i "%ADK10Installed%" neq "true" call :ADK10Download
+call :ADK10Install
 goto end
 
 ::download AIK7
@@ -155,28 +158,43 @@ goto :eof)
 
 if not exist "%resourcePath%\%Win7AIKURLtxt%" (echo  Unable to find ADK 7 Download URLs
 goto :eof)
-for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIK=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKURL=%%i
-for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplement=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKSupplementURL=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKURL=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKURL=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplementURL=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKSupplementURL=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKCRC32=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKCRC32=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplementCRC32=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKSupplementCRC32=%%i
 if not defined Win7AIKURL (echo  Unable to find ADK 7 Download URL in %resourcePath%\%Win7AIKURLtxt%
 goto :eof)
+if not defined Win7AIKCRC32 (echo  Unable to find ADK 7 CRC32 in %resourcePath%\%Win7AIKURLtxt%
+goto :eof)
 if not defined Win7AIKSupplementURL (echo  Unable to find ADK 7 Supplement Download URL %resourcePath%\%Win7AIKURLtxt%
+goto :eof)
+if not defined Win7AIKSupplementCRC32 (echo  Unable to find ADK 7 Supplement CRC32 in %resourcePath%\%Win7AIKURLtxt%
 goto :eof)
 
 if not exist "%AIK7Path%" mkdir "%AIK7Path%"
 if exist "%AIK7Path%\%AIK7DetectionFile%" goto afterAIKDownload
 call "%toolPath%\%AIK7StagingExe%"  --out="%AIK7Path%\%AIK7DetectionFile%" "%Win7AIKURL%"
 if not exist "%AIK7Path%\%AIK7DetectionFile%" (echo  Error downloading Win 7 AIK, please download manually
-echo "%Win7AIKURL%")
+echo "%Win7AIKURL%"
+goto :eof)
+call :hashCheck "%AIK7Path%\%AIK7DetectionFile%" "%Win7AIKCRC32%" crc32
+if /i "!hash!" neq "valid" (echo  Error downloading Win 7 AIK, please download manually
+echo "%Win7AIKURL%"
+goto :eof)
 :afterAIKDownload
 
 if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" goto :eof
 call "%toolPath%\%AIK7StagingExe%" --out="%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplementURL%"
 if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (echo  Error downloading Win 7 AIK Sup, please download manually
 echo "%Win7AIKSupplementURL%")
+call :hashCheck "%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplementCRC32%" crc32
+if /i "!hash!" neq "valid" (echo  Error downloading Win 7 AIK Sup, please download manually
+echo "%Win7AIKSupplementURL%")
 goto :eof
 
 
 :AIK7Install
+If /i "%downloadOnly%" equ "true" goto :eof
 if not exist "%AIK7Path%\%AIK7DetectionFile%" if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (echo  Win7AIK and Supplement not yet downloaded
 goto :eof)
 if /i "%AIK7installed%" equ "true" (echo   AIK 7 already installed
@@ -187,11 +205,11 @@ echo  extracting AIK 7...
 call "%toolPath%\%sevenZ%" x "%AIK7Path%\%AIK7DetectionFile%" -o"%AIK7Path%\%AIK7Folder%" -y -aos
 if not exist "%AIK7Path%\%AIK7Folder%\%AIK7InstallExe%" (echo  failed to extract AIK for Win7, please install it manually
 goto :eof)
-
+::@echo on
 echo.
 echo  AIK 7 must be installed with a full UI, please go Next-^>Next-^>Next
 echo.
-call msiexec /i "%AIK7Path%\%AIK7Folder%\%AIK7InstallExe%"
+call "%AIK7Path%\%AIK7Folder%\%AIK7InstallExe%"
 call :detectAIK7
 if /i "%AIK7Installed%" neq "true" (echo   AIK 7 not installed, please install it manually
 goto :eof)
@@ -224,15 +242,15 @@ goto :eof
 
 
 :ADK81UDownload
-if exist "%ADK81UPath%\%ADK81UInstallExe%" (echo   ADK 81 U already downloaded at
-echo   "%cd%\%ADK81UPath%\%ADK81UInstallExe%"
+if exist "%ADK81UPath%\%ADK81UDetectionFolder%" (echo   ADK 81 U already downloaded at
+echo   "%cd%\%ADK81UPath%"
 goto :eof)
 
 echo    Please wait, Downloading ADK 81 U (3GB will take a while)...
 echo    Check Resource Monitor-^>Network for transfer speed
 if not exist "%ADK81UPath%" mkdir "%ADK81UPath%"
 call "%toolPath%\%ADK81UStagingExe%" /layout "%ADK81UPath%" /q /ceip off
-if not exist "%ADK81UPath%\%ADK81UInstallExe%" echo Error downloading ADK 81 U, please download it manually
+if not exist "%ADK81UPath%\%ADK81UDetectionFolder%" echo Error downloading ADK 81 U, please download it manually
 goto :eof
 
 
@@ -240,7 +258,7 @@ goto :eof
 If /i "%downloadOnly%" equ "true" goto :eof
 if /i "%ADK81Uinstalled%" equ "true" (echo   ADK 81 U already installed
 goto :eof)
-if not exist "%ADK81UPath%\%ADK81UInstallExe%" (echo ADK 81 U not downloaded
+if not exist "%ADK81UPath%\%ADK81UDetectionFolder%" (echo ADK 81 U not downloaded
 goto :eof)
 echo    Please wait, installing ADK 81 U (will take a while)...
 
@@ -261,15 +279,15 @@ goto :eof
 
 
 :ADK10Download
-if exist "%ADK10Path%\%ADK10InstallExe%" (echo   ADK 10 already downloaded at
-echo   "%cd%\%ADK10Path%\%ADK10InstallExe%"
+if exist "%ADK10Path%\%ADK10DetectionFolder%" (echo   ADK 10 already downloaded at
+echo   "%cd%\%ADK10Path%"
 goto :eof)
 
 echo    Please wait, Downloading ADK 10 (3.3GB will take a while)...
 echo    Check Resource Monitor-^>Network for transfer speed
 if not exist "%ADK10Path%" mkdir "%ADK10Path%"
 call "%toolPath%\%ADK10StagingExe%" /layout "%ADK10Path%" /q /ceip off
-if not exist "%ADK10Path%\%ADK10InstallExe%" echo Error downloading ADK 10, please download it manually
+if not exist "%ADK10Path%\%ADK10DetectionFolder%" echo Error downloading ADK 10, please download it manually
 goto :eof
 
 
@@ -277,7 +295,7 @@ goto :eof
 If /i "%downloadOnly%" equ "true" goto :eof
 if /i "%ADK10installed%" equ "true" (echo   ADK 10 already installed
 goto :eof)
-if not exist "%ADK10Path%\%ADK10InstallExe%" (echo ADK 10 not downloaded
+if not exist "%ADK10Path%\%ADK10DetectionFolder%" (echo ADK 10 not downloaded
 goto :eof)
 echo    Please wait, installing ADK 10 (will take a while)...
 
@@ -345,7 +363,46 @@ if exist "%ADK10installpath%" if exist "%ADK10installpath%\%Win10packagesPath%" 
 ::if /i "%ADK81UInstalled%" equ "true" if /i "%architecture%" equ "x64" set path=%ADK81Uinstallpath%\Assessment and Deployment Kit\Deployment Tools\amd64\DISM;%path%
 ::if /i "%ADK10Installed%" equ "true" if /i "%architecture%" equ "x86" set path=%ADK10installpath%\Assessment and Deployment Kit\Deployment Tools\x86\DISM;%path%
 ::if /i "%ADK10Installed%" equ "true" if /i "%architecture%" equ "x64" set path=%ADK10installpath%\Assessment and Deployment Kit\Deployment Tools\amd64\DISM;%path%
+goto :eof
 
+
+::Usage hashCheck myfile.wim hashData hashType   #returns hash=valid or hash=%hashData%
+::hashType is crc32, crc64, sha1, sha256
+::ex: hashCheck x:\myfile.wim 5AB54248 crc32
+:hashCheck 
+@echo off
+if not exist "%~1" (echo   %~1 does not exist
+set hash=invalid
+goto :eof)
+if /i "%~2" equ "" (echo  no hashData entered
+set hash=invalid
+goto :eof) else (set hashData=%~2)
+if /i "%~3" equ "" (set hashtype=crc32) else (set hashtype=%~3)
+
+set tempfile=rawHashOutput.txt
+"%toolPath%\%sevenz%" h -scrc%hashtype% "%~1">%tempfile%
+
+set errorlevel=0
+for /f "tokens=1-10" %%a in ('find /i /c "Cannot open" %tempfile%') do set errorlevel=%%c
+if /i "%errorlevel%" neq "0" (echo   Unable to generate hash, file currently in use
+if exist "%tempfile%" del "%tempfile%"
+goto :eof)
+
+for /f "skip=2 tokens=1-10" %%a in ('find /i "for data" %tempfile%') do (set calculatedHash=%%d)
+::echo %%d "%~1"
+if exist "%tempfile%" del "%tempfile%"
+
+::echo  comparing: hash:"%hashData%"  %~1
+::echo  with       hash:"%calculatedHash%"  %~1
+if "%calculatedHash%" equ "%hashData%" (
+echo.
+echo   %~1% successfully downloaded
+set hash=valid
+) else (
+echo   Hash check failed, please redownload
+echo   %~1
+set hash=%hashData%
+)
 goto :eof
 
 
