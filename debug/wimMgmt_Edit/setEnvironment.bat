@@ -3,7 +3,6 @@
 ::set winPERoot=D:\WinPE
 set winPERoot=%~dp0
 ::set pe root to wherever the current script (setEnvironment.bat) is being run from
-::sets it to d:\convertwimportable\resources\
 set peFileName=boot
 set default_mountPath=D:\mount
 set peRuntimeScripts=D:\scripts\peRuntime

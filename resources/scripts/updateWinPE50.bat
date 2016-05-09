@@ -13,10 +13,10 @@ setlocal enabledelayedexpansion
 
 ::change these 3 paths to be valid
 set resourcePath=resources
-set downloadPath=%resourcePath%\..\..\win81UpdateMSUs
-set workspaceDest=%userprofile%\desktop
+set downloadPath=%resourcePath%\..\win81UpdateMSUs
+set workspaceDest=.
 
-set toolPath=%resourcePath%\tools
+set toolsPath=%resourcePath%\tools
 set sevenZ=7z.exe
 set aria=aria2c.exe
 set x86mountDir=%workspaceDest%\winPEWorkspace\5_x\PE_x86\ISO\mount
@@ -40,7 +40,7 @@ if not exist "%downloadPath%" mkdir "%downloadPath%"
 call :readx86MSUs
 set count=0
 :downloadx86MSUs
-for /l %%i in (0,1,6) do if not exist "%downloadPath%\!update%%i!" call "%toolPath%\%aria%" !update%%iurl! --dir="%cd%\%downloadPath%"
+for /l %%i in (0,1,6) do if not exist "%downloadPath%\!update%%i!" call "%toolsPath%\%architecture%\aria2\%aria%" !update%%iurl! --dir="%cd%\%downloadPath%"
 set /a count+=1
 
 for /l %%i in (0,1,6) do (if not exist "%downloadPath%\!update%%i!" if %count% leq 1 goto downloadx86MSUs
@@ -59,7 +59,7 @@ if not exist "%downloadPath%" mkdir "%downloadPath%"
 call :readx64MSUs
 set count=0
 :downloadx64MSUs
-for /l %%i in (0,1,6) do if not exist "%downloadPath%\!update%%i!" call "%toolPath%\%aria%" !update%%iurl! --dir="%cd%\%downloadPath%"
+for /l %%i in (0,1,6) do if not exist "%downloadPath%\!update%%i!" call "%toolsPath%\%architecture%\aria2\%aria%" !update%%iurl! --dir="%cd%\%downloadPath%"
 set /a count+=1
 
 for /l %%i in (0,1,6) do (if not exist "%downloadPath%\!update%%i!" if %count% leq 1 goto downloadx64MSUs
@@ -144,7 +144,7 @@ goto :eof) else (set hashData=%~2)
 if /i "%~3" equ "" (set hashtype=crc32) else (set hashtype=%~3)
 
 set tempfile=rawHashOutput.txt
-"%toolPath%\%sevenz%" h -scrc%hashtype% "%~1">%tempfile%
+"%toolsPath%\%architecture%\7z\%sevenz%" h -scrc%hashtype% "%~1">%tempfile%
 
 set errorlevel=0
 for /f "tokens=1-10" %%a in ('find /i /c "Cannot open" %tempfile%') do set errorlevel=%%c
@@ -272,4 +272,3 @@ echo   Error: Invalid hash found.
 
 :end
 endlocal
-if exist "%mountDir%" rmdir /s /q "%mountDir%"

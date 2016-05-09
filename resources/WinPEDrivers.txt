@@ -1,34 +1,35 @@
 WinPE3_Dell=WINPE3.0-DRIVERS-A20-CT5DP.CAB
 WinPE3_DellURL=http://downloads.dell.com/FOLDER03652574M/1/WINPE3.0-DRIVERS-A20-CT5DP.CAB
-WinPE3_DellCRC32=
+WinPE3_DellCRC32=CC02EE66
 
 WinPE4_Dell=WinPE4.0-Drivers-A06-F1YJC.CAB
 WinPE4_DellURL=http://downloads.dell.com/FOLDER03048988M/1/WinPE4.0-Drivers-A06-F1YJC.CAB
-WinPE4_DellCRC32=
+WinPE4_DellCRC32=CE8D0986
 
 WinPE5_Dell=WINPE5.0-DRIVERS-A08-VGRK8.CAB
 WinPE5_DellURL=http://downloads.dell.com/FOLDER03651630M/1/WINPE5.0-DRIVERS-A08-VGRK8.CAB
-WinPE5_DellCRC32=
+WinPE5_DellCRC32=362F8EFE
 
 WinPE10_Dell=WINPE10.0-DRIVERS-A03-2K3RC.CAB
 WinPE10_DellURL=http://downloads.dell.com/FOLDER03652534M/1/WINPE10.0-DRIVERS-A03-2K3RC.CAB
-WinPE10_DellCRC32=
+WinPE10_DellCRC32=B05AD7D7
 
 WinPE3_HP=sp71913.exe
 WinPE3_HPURL=http://ftp.hp.com/pub/softpaq/sp71501-72000/sp71913.exe
-WinPE3_HPCRC32=
+WinPE3_HPCRC32=6379C209
 
+::this drivers pack is a mess
 WinPE4_HP=sp64529.exe
 WinPE4_HPURL=http://ftp.hp.com/pub/softpaq/sp64501-65000/sp64529.exe
-WinPE4_HPCRC32=
+WinPE4_HPCRC32=62DA6054
 
 WinPE5_HP=sp71912.exe
 WinPE5_HPURL=http://ftp.hp.com/pub/softpaq/sp71501-72000/sp71912.exe
-WinPE5_HPCRC32=
+WinPE5_HPCRC32=A1138CB0
 
 WinPE10_HP=sp71562.exe
 WinPE10_HPURL=http://ftp.hp.com/pub/softpaq/sp71501-72000/sp71562.exe
-WinPE10_HPCRC32=
+WinPE10_HPCRC32=09AD964E
 
 
 Lenovo=https://support.lenovo.com/us/en/documents/ht074984
