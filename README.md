@@ -14,6 +14,7 @@ The development emphasis is on zero-configuration "just works" software.
 - Automatically install AIK 7, ADK 81 U and ADK 10
 - Automatically generate WinPE.wim images (3.1,5.1,10)
 - Supports WinPE.wim -> WinPE.iso conversion
+- Supports WIM <-> ESD conversion
 - Supports updating the following WinPE aspects:
     - Drivers (Dell, HP, Lenovo)
     - Packages (WMI)
@@ -25,12 +26,11 @@ The development emphasis is on zero-configuration "just works" software.
     - Stage AutoImage (Automatically detect and install WIM/ESD images)
     - Provide a CLI frontend for DISM to help capture/deploy WIM images manually
         - Note: GImageX is also included.
-- Supports WIM <-> ESD conversion
 - Creates a WinPE workspace enviornment to easily make changes to WIM images.
 
 ## Download:
 ```
-Latest Version: 0.0.1-pre-alpha
+Latest Version: none
 In Development: 0.0.1-alpha
 ```
 Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the top to download the latest version.
@@ -50,11 +50,9 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 
 ## Advanced Usage Guide:
 
-To update WinPE 5.0->5.1:
+To automatically map network drives:
 
-To update WinPE drivers:
-
-To update packages:
+To update the WinPE scripts:
 
 To reset the WinPE images:
 ```
@@ -77,7 +75,7 @@ Add additional DaRT/WinRE/WinPE.wim images to the boot menu and USB drive:
 - Requires Microsoft Windows 7 or newer (but Vista will probably work).
 - The ADKs require Microsoft .NET Framework 4.5 (included in Win 8+)
 - Requires Administrative access.
-- 30GB+ HD space (The ADKs take like 17GB alone).
+- 30GB+ HD space (The ADKs take like 17GB alone) + 2hrs.
 
 ## License:
 Pick your License: GPL (any) or BSD (any) or MIT/Apache

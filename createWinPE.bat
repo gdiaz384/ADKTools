@@ -42,7 +42,10 @@ set aria=aria2c.exe
 set WinPEDriversURLtxt=WinPEDrivers.txt
 
 set winPEWorkspaceArchive=winPEWorkspace.7z
+set winPEBootFilesArchive=winPEBootFiles.7z
 set workspaceDest=.
+set setEnvironmentScript=setEnvironment.bat
+set setEnvironmentTemplate=setEnvironment.template
 
 ::AIK stores tools as x86\bcdboot.exe  and  amd64\servicing\dism.exe
 ::Tools\PETools\amd64\boot\efisys_noprompt.efi
@@ -103,6 +106,10 @@ goto end)
 if not exist "%workspaceDest%\winPEWorkspace" "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%winPEWorkspaceArchive%" -o"%workspaceDest%" -y -aos
 if not exist "%workspaceDest%\winPEWorkspace" (echo   error extracting workspace
 goto end)
+
+
+::TODO: unarchive boot files to workspace\ root
+if not exist "%workspaceDest%\winPEWorkspace\winPEBootFiles" "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%winPEBootFilesArchive%" -o"%workspaceDest%\winPEWorkspace" -y -aos
 
 
 :populateWorkspaces
@@ -269,18 +276,98 @@ goto reportErrorInDL)
 
 set oem=dell
 :extractOutDriverArchives
-if exist "%pe3downloadPath%\!WinPE3_%oem%!" call :extractOutDriverArchivesFunct "%pe3downloadPath%\!WinPE3_%oem%!" "%pe3downloadPath%" "%oem%"
-if exist "%pe5downloadPath%\!WinPE5_%oem%!" call :extractOutDriverArchivesFunct "%pe5downloadPath%\!WinPE5_%oem%!" "%pe5downloadPath%" "%oem%"
-if exist "%pe10downloadPath%\!WinPE10_%oem%!" call :extractOutDriverArchivesFunct "%pe10downloadPath%\!WinPE10_%oem%!" "%pe10downloadPath%" "%oem%"
+::if the driver cab exists and an oem folder both architectures exist, then assume the drivers have already been extracted
+if exist "%pe3downloadPath%\!WinPE3_%oem%!" if not exist "%pe3downloadPath%\x86\%oem%" if not exist "%pe3downloadPath%\x64\%oem%" call :extractOutDriverArchivesFunct "%pe3downloadPath%\!WinPE3_%oem%!" "%pe3downloadPath%" "%oem%"
+if exist "%pe5downloadPath%\!WinPE5_%oem%!" if not exist "%pe5downloadPath%\x86\%oem%" if not exist "%pe5downloadPath%\x64\%oem%" call :extractOutDriverArchivesFunct "%pe5downloadPath%\!WinPE5_%oem%!" "%pe5downloadPath%" "%oem%"
+if exist "%pe10downloadPath%\!WinPE10_%oem%!" if not exist "%pe10downloadPath%\x86\%oem%" if not exist "%pe10downloadPath%\x64\%oem%" call :extractOutDriverArchivesFunct "%pe10downloadPath%\!WinPE10_%oem%!" "%pe10downloadPath%" "%oem%"
 
 if /i "%oem%" equ "dell" (set oem=hp
 goto extractOutDriverArchives)
 :afterExtractingDrivers
 
 
-::update environment.bat
+::update/create environment.bat
+if not exist "%scriptPath%\wimMgmt\resources\%setEnvironmentTemplate%" (echo   unspecified error
+goto end)
+echo set ADKToolsRoot=%cd%>"%scriptPath%\wimMgmt\resources\%setEnvironmentScript%"
+echo. >>"%scriptPath%\wimMgmt\resources\%setEnvironmentScript%"
+type "%scriptPath%\wimMgmt\resources\%setEnvironmentTemplate%">>"%scriptPath%\wimMgmt\resources\%setEnvironmentScript%"
+
+
 ::update enviornment.bat in the adks
-::run enviornment setting script (from adk)
+::okay so this change will mess up the copype.cmd commands, that makes it difficult to rebuild the workspace enviornment later
+::might want to figure out the conflict and change variable names so they don't conflict
+
+if /i "%AIK7Installed%" equ "true" (
+echo. >>"%AIK7InstallPath%\%AIK7legacyWinPEPath%\%AIK7legacysetEnvScript%"
+echo "%cd%\resources\scripts\wimMgmt\resources\setEnvironment.bat" >>"%AIK7InstallPath%\%AIK7legacyWinPEPath%\%AIK7legacysetEnvScript%"
+echo. >>"%AIK7InstallPath%\%AIK7legacyWinPEPath%\%AIK7legacysetEnvScript%"
+)
+
+if /i "%ADK81UInstalled%" equ "true" (
+echo. >>"%ADK81Uinstallpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+echo "%cd%\resources\scripts\wimMgmt\resources\setEnvironment.bat" >>"%ADK81Uinstallpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+echo. >>"%ADK81Uinstallpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+)
+
+if /i "%ADK10Installed%" equ "true" (
+echo. >>"%ADK10installpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+echo "%cd%\resources\scripts\wimMgmt\resources\setEnvironment.bat" >>"%ADK10installpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+echo. >>"%ADK10installpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+)
+
+
+::run environment setting script (from adk)
+::mount boot.wim and update (same as reset scenario) -wait, how does the reset scenario work again?
+::mount pe version with it's dism version (use setenv.bat) -skip building pe3 if no newer ADK is installed, (cuz lazy)
+::update drivers
+::update packages
+::update scripts
+::update tools
+::delete boot.wim
+::save to boot.wim and unmount discard
+::call createiso (aik 7 might be tricky), should work
+::copy iso
+
+if /i "%AIK7Installed%" neq "true" goto afterBuildingPE3
+if /i "%ADK81UInstalled%" neq "true" if /i "%ADK10Installed%" neq "true" (echo    AIK 7 installed but no newer ADK detected, please 
+echo    also install a newer ADK. WinPE3 images will NOT be built.
+goto afterBuildingPE3)
+setlocal
+call "%AIK7InstallPath%\%AIK7legacyWinPEPath%\%AIK7legacysetEnvScript%"
+massupdate reset 3 x86
+massupdate reset 3 x64
+massupdate export 3 x86
+massupdate export 3 x64
+endlocal
+:afterBuildingPE3
+
+
+if /i "%ADK81UInstalled%" neq "true" goto afterBuildingPE5
+setlocal
+call "%ADK81UInstalled%\%ADKWinPEPath%\%ADKsetEnvScript%"
+massupdate reset 5 x86
+massupdate reset 5 x64
+massupdate export 5 x86
+massupdate export 5 x64
+endlocal
+:afterBuildingPE5
+
+
+if /i "%ADK10Installed%" neq "true" goto afterBuildingPE10
+setlocal
+call "%ADK10Installed%\%ADKWinPEPath%\%ADKsetEnvScript%"
+massupdate reset 10 x86
+massupdate reset 10 x64
+massupdate export 10 x86
+massupdate export 10 x64
+endlocal
+:afterBuildingPE10
+
+
+::extract WININSTALLER directory
+::extract winPEBootFiles.zip contents into WININSTALLER 
+::copy existing pe images (boot.wim->rename WinPE31_x86.wim) to folder (if exist)
 
 
 goto end
