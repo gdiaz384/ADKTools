@@ -16,7 +16,7 @@ set peRuntimeScripts=%winPERoot2%\Updates\peRuntime
 set peDriverRoot=%winPERoot2%\Updates\drivers
 set pxePath=C:\RemoteInstall\boot
 
-set bootFilesPath=%winPERoot2%winPEBootFiles
+set bootFilesPath=%winPERoot2%\winPEBootFiles
 ::set bootFilesPath=%winPERoot2%\bootFiles
 ::Note: The directory tree should look like this:
 ::bootFilesPath\bootManager\3\x86\ (boot/efi folders and bootmgr/bootmgr.efi)

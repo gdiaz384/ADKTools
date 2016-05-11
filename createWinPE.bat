@@ -8,7 +8,7 @@ setlocal enabledelayedexpansion
 ::copype amd64 pe_x64\iso (must be empty)
 ::delete extra muis (annoying)
 ::copy originalpe found under media\sources\boot.wim to pe_x64\originalwim\winpe31.wim
-::TODO: unarchive boot files to workspace\ root
+::unarchive boot files to workspace\ root
 
 ::ask? to update winpe 5->5.1, then copy 5.1 over sources\boot.wim
 
@@ -43,7 +43,8 @@ set WinPEDriversURLtxt=WinPEDrivers.txt
 
 set winPEWorkspaceArchive=winPEWorkspace.7z
 set winPEBootFilesArchive=winPEBootFiles.7z
-set workspaceDest=.
+set workspaceDest=%cd%
+if /i "%workspaceDest:~-1%" equ "\" set workspaceDest=%workspaceDest:~,-1%
 set setEnvironmentScript=setEnvironment.bat
 set setEnvironmentTemplate=setEnvironment.template
 
@@ -108,7 +109,7 @@ if not exist "%workspaceDest%\winPEWorkspace" (echo   error extracting workspace
 goto end)
 
 
-::TODO: unarchive boot files to workspace\ root
+::unarchive boot files to workspace\ root
 if not exist "%workspaceDest%\winPEWorkspace\winPEBootFiles" "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%winPEBootFilesArchive%" -o"%workspaceDest%\winPEWorkspace" -y -aos
 
 
@@ -329,45 +330,47 @@ echo. >>"%ADK10installpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
 ::call createiso (aik 7 might be tricky), should work
 ::copy iso
 
+pushd "%cd%"
 if /i "%AIK7Installed%" neq "true" goto afterBuildingPE3
 if /i "%ADK81UInstalled%" neq "true" if /i "%ADK10Installed%" neq "true" (echo    AIK 7 installed but no newer ADK detected, please 
-echo    also install a newer ADK. WinPE3 images will NOT be built.
+echo    also install a newer ADK. Updated WinPE3 images will NOT be built.
 goto afterBuildingPE3)
 setlocal
-call "%AIK7InstallPath%\%AIK7legacyWinPEPath%\%AIK7legacysetEnvScript%"
-massupdate reset 3 x86
-massupdate reset 3 x64
-massupdate export 3 x86
-massupdate export 3 x64
+if /i "%ADK81UInstalled%" neq "true" if /i "%ADK10Installed%" equ "true" call "%ADK10installpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+if /i "%ADK81UInstalled%" equ "true" call "%ADK81Uinstallpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+call massupdate reset 3 x86
+call massupdate reset 3 x64
+call massupdate export 3 x86
+call massupdate export 3 x64
 endlocal
 :afterBuildingPE3
 
 
 if /i "%ADK81UInstalled%" neq "true" goto afterBuildingPE5
 setlocal
-call "%ADK81UInstalled%\%ADKWinPEPath%\%ADKsetEnvScript%"
-massupdate reset 5 x86
-massupdate reset 5 x64
-massupdate export 5 x86
-massupdate export 5 x64
+call "%ADK81Uinstallpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+call massupdate reset 5 x86
+call massupdate reset 5 x64
+call massupdate export 5 x86
+call massupdate export 5 x64
 endlocal
 :afterBuildingPE5
 
 
 if /i "%ADK10Installed%" neq "true" goto afterBuildingPE10
 setlocal
-call "%ADK10Installed%\%ADKWinPEPath%\%ADKsetEnvScript%"
-massupdate reset 10 x86
-massupdate reset 10 x64
-massupdate export 10 x86
-massupdate export 10 x64
+call "%ADK10installpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
+call massupdate reset 10 x86
+call massupdate reset 10 x64
+call massupdate export 10 x86
+call massupdate export 10 x64
 endlocal
 :afterBuildingPE10
+popd
 
 
-::extract WININSTALLER directory
-::extract winPEBootFiles.zip contents into WININSTALLER 
-::copy existing pe images (boot.wim->rename WinPE31_x86.wim) to folder (if exist)
+::copy and rename all existing winpe.wim's into .\WININSTALLER
+call exportWININSTALLER
 
 
 goto end

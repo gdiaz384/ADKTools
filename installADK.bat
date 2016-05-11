@@ -7,7 +7,7 @@
 ::go to install, and abort if not requested
 
 pushd "%~dp0"
-set ADKDownloadPath=..\WindowsADKs
+set ADKDownloadPath=WindowsADKs
 
 set AIK7Path=%ADKDownloadPath%\AIK7
 set ADK81UPath=%ADKDownloadPath%\ADK81U

@@ -172,12 +172,12 @@ goto end
 ::set defaults
 set default_adk3installpath=C:\Program Files\Windows AIK
 
-if /i "%architecture%" equ "x86" (
-set default_adk5installpath=C:\Program Files\Windows Kits\8.1
-set default_adk10installpath=C:\Program Files\Windows Kits\10
+if /i "%processor_architecture%" equ "x86" (
+set default_adk5installpath=%ProgramFiles%\Windows Kits\8.1
+set default_adk10installpath=%ProgramFiles%\Windows Kits\10
 ) else (
-set default_adk5installpath=C:\Program Files ^(x86^)\Windows Kits\8.1
-set default_adk10installpath=C:\Program Files ^(x86^)\Windows Kits\10
+set default_adk5installpath=%programfiles(x86)%\Windows Kits\8.1
+set default_adk10installpath=%programfiles(x86)%\Windows Kits\10
 )
 
 set default_legacyx86packagesPath=Tools\PETools\x86\WinPE_FPs
@@ -211,7 +211,8 @@ goto doneConfiguringPackageInfo
 
 :detectADK5
 set KitsRootRegValueName=KitsRoot81
-set regKeyPath=HKLM\Software\Wow6432Node\Microsoft\Windows Kits\Installed Roots
+if /i "%processor_architecture%" equ "x86" set regKeyPath=HKLM\Software\Microsoft\Windows Kits\Installed Roots
+if /i "%processor_architecture%" equ "amd64" set regKeyPath=HKLM\Software\Wow6432Node\Microsoft\Windows Kits\Installed Roots
 for /f "skip=2 tokens=2*" %%i in ('reg query "%regKeyPath%" /v %kitsRootRegValueName%') do set ADKInstallPath=%%j
 ::path includes a trailing backslash \
 if not defined ADKInstallPath set ADKInstallPath=%default_adk5installpath%
@@ -220,14 +221,15 @@ if /i "%ADKInstallPath:~-1%" equ "\" set ADKInstallPath=%ADKInstallPath:~,-1%
 if /i "%architecture%" equ "x86" (set packagesPath=%default_x86packagesPath%) else (
 set packagesPath=%default_x64packagesPath%)
 
-if exist "%ADKInstallPath%" if /i "%architecture%" equ "x86" set path=%ADKInstallPath%\Assessment and Deployment Kit\Deployment Tools\x86\DISM;%path%
-if exist "%ADKInstallPath%" if /i "%architecture%" equ "x64" set path=%ADKInstallPath%\Assessment and Deployment Kit\Deployment Tools\amd64\DISM;%path%
+if exist "%ADKInstallPath%" if /i "%processor_architecture%" equ "x86" set path=%ADKInstallPath%\Assessment and Deployment Kit\Deployment Tools\x86\DISM;%path%
+if exist "%ADKInstallPath%" if /i "%processor_architecture%" equ "amd64" set path=%ADKInstallPath%\Assessment and Deployment Kit\Deployment Tools\amd64\DISM;%path%
 
 goto doneConfiguringPackageInfo
 
 :detectADK10
 set KitsRootRegValueName=KitsRoot10
-set regKeyPath=HKLM\Software\Wow6432Node\Microsoft\Windows Kits\Installed Roots
+if /i "%processor_architecture%" equ "x86" set regKeyPath=HKLM\Software\Microsoft\Windows Kits\Installed Roots
+if /i "%processor_architecture%" equ "amd64" set regKeyPath=HKLM\Software\Wow6432Node\Microsoft\Windows Kits\Installed Roots
 for /f "skip=2 tokens=2*" %%i in ('reg query "%regKeyPath%" /v %kitsRootRegValueName%') do set ADKInstallPath=%%j
 ::path includes a trailing backslash \
 if not defined ADKInstallPath set ADKInstallPath=%default_adk10installpath%
@@ -236,8 +238,8 @@ if /i "%ADKInstallPath:~-1%" equ "\" set ADKInstallPath=%ADKInstallPath:~,-1%
 if /i "%architecture%" equ "x86" (set packagesPath=%default_x86packagesPath%) else (
 set packagesPath=%default_x64packagesPath%)
 
-if exist "%ADKInstallPath%" if /i "%architecture%" equ "x86" set path=%ADKInstallPath%\Assessment and Deployment Kit\Deployment Tools\x86\DISM;%path%
-if exist "%ADKInstallPath%" if /i "%architecture%" equ "x64" set path=%ADKInstallPath%\Assessment and Deployment Kit\Deployment Tools\amd64\DISM;%path%
+if exist "%ADKInstallPath%" if /i "%processor_architecture%" equ "x86" set path=%ADKInstallPath%\Assessment and Deployment Kit\Deployment Tools\x86\DISM;%path%
+if exist "%ADKInstallPath%" if /i "%processor_architecture%" equ "amd64" set path=%ADKInstallPath%\Assessment and Deployment Kit\Deployment Tools\amd64\DISM;%path%
 
 goto doneConfiguringPackageInfo
 
@@ -262,6 +264,7 @@ if "%version%" neq "3" dism /add-Package /image:"%mountPoint%" /packagePath:"%AD
 dism /add-Package /image:"%mountPoint%" /packagePath:"%ADKAndPackagesPath%\%databasePackage%"
 
 goto end
+::start functions::
 
 
 :troubleshoot
