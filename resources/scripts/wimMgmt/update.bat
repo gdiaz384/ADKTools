@@ -150,12 +150,12 @@ echo @color 0B > "%mountPoint%\Windows\system32\temp.txt"
 type "%mountPoint%\Windows\system32\startnet.cmd" >> "%mountPoint%\Windows\system32\temp.txt"
 del "%mountPoint%\Windows\system32\startnet.cmd"
 ren "%mountPoint%\Windows\system32\temp.txt" startnet.cmd
-if exist "%winPERoot2%\winpe_miku.bmp" takeown /f "%mountPoint%\windows\system32\winpe.bmp" >nul 2>nul
-if exist "%winPERoot2%\winpe_miku.bmp" icacls "%mountPoint%\windows\system32\winpe.bmp" /grant "%username%":(F) >nul 2>nul
-if exist "%winPERoot2%\winpe_miku.bmp" copy "%winPERoot2%\winpe_miku.bmp" "%mountPoint%\windows\system32\winpe.bmp" /y >nul 2>nul
-if exist "%winPERoot2%\winpe_miku.jpg" takeown /f "%mountPoint%\windows\system32\winpe.jpg" >nul 2>nul
-if exist "%winPERoot2%\winpe_miku.jpg" icacls "%mountPoint%\windows\system32\winpe.jpg" /grant "%username%":(F) >nul 2>nul
-if exist "%winPERoot2%\winpe_miku.jpg" copy "%winPERoot2%\winpe_miku.jpg" "%mountPoint%\windows\system32\winpe.jpg" /y >nul 2>nul
+if exist "%winPERoot2%\Updates\winpe_miku.bmp" takeown /f "%mountPoint%\windows\system32\winpe.bmp" >nul 2>nul
+if exist "%winPERoot2%\Updates\winpe_miku.bmp" icacls "%mountPoint%\windows\system32\winpe.bmp" /grant "%username%":(F) >nul 2>nul
+if exist "%winPERoot2%\Updates\winpe_miku.bmp" copy "%winPERoot2%\Updates\winpe_miku.bmp" "%mountPoint%\windows\system32\winpe.bmp" /y >nul 2>nul
+if exist "%winPERoot2%\Updates\winpe_miku.jpg" takeown /f "%mountPoint%\windows\system32\winpe.jpg" >nul 2>nul
+if exist "%winPERoot2%\Updates\winpe_miku.jpg" icacls "%mountPoint%\windows\system32\winpe.jpg" /grant "%username%":(F) >nul 2>nul
+if exist "%winPERoot2%\Updates\winpe_miku.jpg" copy "%winPERoot2%\Updates\winpe_miku.jpg" "%mountPoint%\windows\system32\winpe.jpg" /y >nul 2>nul
 echo Miku mode activated.
 goto end
 

@@ -132,6 +132,7 @@ echo.
 echo Part A                       Select Version                             Part A
 echo.
 echo   Please select one of the following to install:
+echo   0: Exit %~nx0
 if "%winVistaStatus%" equ "valid" echo   1: Install Windows Vista
 if "%win7Status%" equ "valid" echo   2: Install Windows 7
 if "%win8Status%" equ "valid" echo   3: Install Windows 8
@@ -203,6 +204,8 @@ set /a wimCount-=1
 ::for /L %%i in (1,1,%wimCount%) do echo wimFile%%i:!wimFile[%%i]!  Indexes:!wimFile[%%i]TotalIndexes!
 
 ::@echo on
+echo   0: Exit %~nx0
+echo   B: Go Back
 for /L %%i in (1,1,%wimCount%) do (
 echo   From: !wimFile[%%i]!
 call :displayWimFile !wimFile[%%i]! !wimFile[%%i]TotalIndexes! %%i
@@ -293,7 +296,7 @@ if /i "%winPEArchitecture%" neq "x86" if /i "%winPEArchitecture%" neq "x64" echo
 if /i "%peOSType%" neq "legacy" if /i "%peOSType%" neq "modern" echo error determining winPE version "%peOSType%"
 
 ::okay so user has selected a .wim and index to install and all info has been parsed
-::time to set the defaults for stufs like partitiontableformat
+::time to set the defaults for stuffs like partitiontableformat
 
 ::partition structure (mbr or gpt, based upon uefi/bios)
 set partitionTableFormat=MBR
@@ -318,6 +321,9 @@ set recoveryToolsDestinationDrive=R
 ::oobe automated or not
 set setupUnattend=true
 
+::expose all options with a 3rd menu or not
+set advancedMode=false
+
 :setInstallMode
 ::Present warnings about selected version of windows (incl edition and architecture) and current bootmode
 cls
@@ -338,6 +344,8 @@ echo   Windows %wimOSVersion% %wimArchitecture% %wimEdition% "%wimName%"
 
 
 ::present menu to user  (-detail every option in corner)
+echo   0: Exit %~nx0
+echo   B: Go Back
 echo.
 echo   Enter "1" for a Normal install
 echo                  (recommended and includes recovery options)
@@ -409,6 +417,7 @@ goto finalMenu
 
 :advancedInstall
 ::expose everything! (toggle mode)
+set advancedMode=true
 cls
 echo.
 echo   Just because you can doesn't mean it's a good idea...
@@ -479,6 +488,7 @@ goto advancedInstallMenu
 
 
 :finalMenu
+if /i "%advancedMode%" equ "false" goto deploy
 echo.
 echo Part D                    Confirm Install Options                        Part D
 echo.
@@ -499,7 +509,7 @@ echo   winPEArchitecture: %winPEArchitecture%    winPEBootMode: %winPEBootMode%
 echo.
 echo   Enter "1" or "c" to continue
 echo   Enter "0" or "exit" to exit %~nx0 to a command prompt
-echo   Enter "back" to change the Install Mode (Part C)
+echo   Enter "b" or "back" to change the Install Mode (Part C)
 echo   Enter "main" to return to the Main Menu (Part A)
 set /p userInput=
 if /i "%userInput%" equ "0" goto end

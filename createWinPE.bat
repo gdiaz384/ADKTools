@@ -370,7 +370,7 @@ popd
 
 
 ::copy and rename all existing winpe.wim's into .\WININSTALLER
-call exportWININSTALLER
+call exportToWININSTALLER
 
 
 goto end
