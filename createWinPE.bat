@@ -104,7 +104,7 @@ goto end)
 
 
 ::extract workspace
-if not exist "%workspaceDest%\winPEWorkspace" "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%winPEWorkspaceArchive%" -o"%workspaceDest%" -y -aos
+"%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%winPEWorkspaceArchive%" -o"%workspaceDest%" -y -aos
 if not exist "%workspaceDest%\winPEWorkspace" (echo   error extracting workspace
 goto end)
 

@@ -21,9 +21,10 @@ The development emphasis is on zero-configuration "just works" software.
 - Supports WinPE.wim -> WinPE.iso conversion
 - Supports WIM <-> ESD conversion
 - Create WinPE images that support booting via: CD/USB/HD or PXE
-- Supports updating the following WinPE aspects:
-    - Drivers (Dell, HP, Lenovo)
-    - Packages (WMI)
+- Image systems from local media WIMs or over the network transparently
+- Automatically update the following WinPE aspects:
+    - Drivers (Dell, HP, Lenovo*)
+    - Packages (add WMI support)
     - Tools (DISM/BCDboot)
     - Scripts
 - The included PE scripts transparently:
@@ -33,6 +34,8 @@ The development emphasis is on zero-configuration "just works" software.
     - Provide a CLI frontend for DISM to help capture/deploy WIM images manually
         - Note: GImageX is also included as a gooey front-end.
 - Creates a WinPE workspace to easily make changes to WIM images.
+
+*Lenovo drivers can be installed automatically but must be downloaded/extracted manually.
 
 ## Use Cases:
 
@@ -66,17 +69,17 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 4. Start an administrative cmd prompt (or disable UAC) and navigate to ADKTools\
 5. Run installADK.bat to install at least one of the ADKs (AIK != ADK). All 3 (AIK + ADKs x2) are preferred.
 6. Wait to install AIK manually (next->next->next)
-7. Run createWinPE.bat to generate updated WinPE.wim files
-    - Note: Windows Deployment Services (WDS) can PXE boot these WinPE.wim files (WDS 2012+ does both BIOS PXE and UEFI PXE)
-8. If not using WDS: Use a Deployment Prompt and run "convertWim" or "massupdate" to generate ISO files from WinPE.wim. (massupdate export)
-    - Note: It is possible to burn these ISO files to optical media.
+7. Run createWinPE.bat to generate updated WinPE.wim and WinPE.iso files
+    - Note: Windows Deployment Services can PXE boot these WinPE.wim files (WDS 2012+ does both BIOS/UEFI PXE)
+8. If not using WDS or USB: It is possible to burn these ISO files to optical media.
+    - Use a Deployment Prompt and run "convertwim toiso" or "massupdate export" to regenerate ISO files.
 9. Obtain installer.wim files (or ISOs) for the versions/architectures/editions of windows to install. MS links:
     - [Windows 7](//www.microsoft.com/en-us/software-download/windows7), [Windows 8.1](//www.microsoft.com/en-us/software-download/windows8), [Windows 10](//www.microsoft.com/en-us/software-download/windows10)
     - Note: With ISOs, look for sources\install.wim, (not boot.wim). Extract out and rename them appropriately.
     - "dism /get-wiminfo /wimfile:c:\install.wim" to check the included editions
 10. Copy any WIM images (install.wim\win7x64.wim) to ADKTools\WININSTALLER\sources 
 11. Download [Rufus](//rufus.akeo.ie) and insert USB drive from step #1
-12. Launch Rufus, Alt+E, and then make a USB drive bootable with the following settings:
+12. Launch Rufus, Alt+E (important), and then make a USB drive bootable with the following settings:
 ![RufusSettings](debug/RufusSettings.png)
 13. After formating completes, copy WININSTALLER\ contents to flash drive.
 14. Safely eject the USB drive.
@@ -87,7 +90,7 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 
 ### To automatically map drives to image over the network:
 
-1. Install and configure an FTP server [FileZilla](//sourceforge.net/projects/filezilla/files/FileZilla%20Server/0.9.57/FileZilla_Server-0_9_57.exe/download)
+1. Install and configure an FTP server such as [FileZilla](//sourceforge.net/projects/filezilla/files/FileZilla%20Server/0.9.57/FileZilla_Server-0_9_57.exe/download)
 2. create a text file named "credentialsForNetworkDrive.txt" with the following contents:
 ```
 clientDriveLetter=Y
@@ -101,7 +104,7 @@ deployClientPathAndExe=AriaDeploy\client\AriaDeployClient.bat
 ```
 3. place "credentialsForNetworkDrive.txt" in the FTP home directory
 4. modify "winPEWorkspace\Updates\peRuntime\scripts\mapNetworkDrive.bat" to include the serveraddress (IP or NetBIOS name), and the FTP credentials (user name/password)
-5. Update the WinPE scripts
+5. Update the WinPE runtime scripts
 6. share a folder with an images\ directory as myshare$ 
 Example Path:
 ```
@@ -135,7 +138,7 @@ massupdate export all
 ```
 Note: Drivers from winPEWorkspace\Updates\drivers\3_x\x86 will be installed automatically. To not install drivers, delete them from this folder.
 
-### To facilitate a post-imaging boot menu that includes DaRT/WinRE/WinPE (normal install):
+### For a system boot menu with DaRT/WinRE/WinPE (normal install):
 
 Place the following files in "WININSTALLER\sources\Win7\winPETools":
 ```
@@ -159,7 +162,7 @@ WinPE10_x86.wim, WinPE10_x64.wim
 ```
 
 - To reduce the user prompt duration: "bcdedit /timeout 3"
-- On Win8-10, the legacy boot menu is also recommended: "bcdedit /set {default} bootmenupolicy legacy"
+- On Win 8-10, the legacy boot menu is also recommended: "bcdedit /set {default} bootmenupolicy legacy"
 - For more information on Microsoft's Diagnostics and Recovery Toolset: ([DaRT](//technet.microsoft.com/en-us/windows/hh826071))
 - For additional information on Windows Recovery Enviornment: ([WinRE](//technet.microsoft.com/en-us/library/cc765966%28v=ws.10%29.aspx))
 
@@ -190,16 +193,17 @@ TODO: put stuff here (bcdaddpe.bat)
 
 - Remember that when not using a Compatability Support Module (CSM), the native UEFI architecture must match the running OS version. This applies both to the PE and installed OS.
 - If a hardware manufacturer implemented the UEFI API in a weird way (most do), then bcdboot cannot add the boot entry reliably. 
-    - Expect to add UEFI boot entries manually to the NVRAM boot menu (NVRAM boot menu != windows boot manager) [more](http://homepage.ntlworld.com/jonathan.deboynepollard/FGA/efi-boot-process.html) [information](//www.happyassassin.net/2014/01/25/uefi-boot-how-does-that-actually-work-then) or instead consider using CSM/BIOS boot mode.
+    - Expect to add UEFI boot entries manually to the NVRAM boot menu (NVRAM boot menu != windows boot manager) 
+    - Read [this](http://homepage.ntlworld.com/jonathan.deboynepollard/FGA/efi-boot-process.html) and [this](//www.happyassassin.net/2014/01/25/uefi-boot-how-does-that-actually-work-then) or instead consider using CSM/BIOS boot mode.
 - Hardware manufacturer X did not make drivers for Windows Version Y for Model Z.
     - Please consult the system unit's OEM website to see which OSs and in what configurations they support. Not following the OEM's advice can mean drivers may become an issue.
-    - Also check if a driver pack is available: [Dell](//en.community.dell.com/techcenter/enterprise-client/w/wiki/2065.dell-command-deploy-driver-packs-for-enterprise-client-os-deployment), [HP](//www8.hp.com/us/en/ads/clientmanagement/drivers-pack.html), [Lenovo](//support.lenovo.com/us/en/documents/ht074984)
-- For single deployments of non-RTM images, the only important driver to install after the imaging process (but before booting) is the storage driver (SATA/AHCI/RAID). The rest can be installed after windows setup completes.
+    - Also check if a driver pack is available: [Dell](//en.community.dell.com/techcenter/enterprise-client/w/wiki/2065.dell-command-deploy-driver-packs-for-enterprise-client-os-deployment), [HP](//www8.hp.com/us/en/ads/clientmanagement/drivers-pack.html), [Lenovo](//support.lenovo.com/us/en/documents/ht074984) and consider purchasing systems with driver packs in the future
+- For single deployments of non-RTM images, the only important driver to install after the imaging process (but before booting) is the storage driver (SATA/AHCI/RAID). The rest can be installed after Windows Setup completes.
 
 ## Dependencies:
 
 - Requires Microsoft Windows 7 or newer.
-- The ADKs require [Microsoft .NET Framework 4.5+](//www.microsoft.com/en-us/download/details.aspx?id=49982) (included in Win 8+)
+- The ADKs require [Microsoft .NET Framework 4.5+](//www.microsoft.com/en-us/download/details.aspx?id=49982) (already included in Win 8+)
 - Requires Administrative access.
 - 30GB+ HD space (The ADKs take like 17GB alone.) 
 - ~2 hours to download + install.
@@ -207,4 +211,4 @@ TODO: put stuff here (bcdaddpe.bat)
 ## License:
 - I am not responsible for you deleting your data, messing up your flashdrive, OS install, activation or anything ever period.
 - I make no claim that said software is "fit" to perform any particular purpose and provide no warranty or assurance of quality any kind. Neither is implied nor given.
-- For additional licensing information, pick your License: GPL (any) or BSD (any) or MIT/Apache
+- For additional information, pick your License: GPL (any) or BSD (any) or MIT/Apache

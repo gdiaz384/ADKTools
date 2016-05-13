@@ -179,7 +179,7 @@ if not exist "%AIK7Path%\%AIK7DetectionFile%" (echo  Error downloading Win 7 AIK
 echo "%Win7AIKURL%"
 goto :eof)
 call :hashCheck "%AIK7Path%\%AIK7DetectionFile%" "%Win7AIKCRC32%" crc32
-if /i "!hash!" neq "valid" (echo  Error downloading Win 7 AIK, please download manually
+if /i "%hash%" neq "valid" (echo  Error downloading Win 7 AIK, please download manually
 echo "%Win7AIKURL%"
 goto :eof)
 :afterAIKDownload
@@ -189,7 +189,7 @@ call "%toolsPath%\%architecture%\aria2\%AIK7StagingExe%" --out="%AIK7Path%\%AIK7
 if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (echo  Error downloading Win 7 AIK Sup, please download manually
 echo "%Win7AIKSupplementURL%")
 call :hashCheck "%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplementCRC32%" crc32
-if /i "!hash!" neq "valid" (echo  Error downloading Win 7 AIK Sup, please download manually
+if /i "%hash%" neq "valid" (echo  Error downloading Win 7 AIK Sup, please download manually
 echo "%Win7AIKSupplementURL%")
 goto :eof
 
