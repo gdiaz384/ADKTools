@@ -168,9 +168,9 @@ WinPE10_x86.wim, WinPE10_x64.wim
 
 ### To add additional DaRT/WinRE/WinPE.wim images to the USB boot menu:
 
-- Note: This section of ADKTools is under active development.
-
-- Background: There are two boot configuration database (BCD) stores used when booting, one for BIOS style booting and one for UEFI booting. They should be configured the same so modifying both of these BCD stores with be necessary.
+- Note: This aspect of ADKTools is under active development.
+- Background: There are two boot configuration database (BCD) stores used when booting, one for BIOS style booting and one for UEFI booting. 
+- They should be configured the same so modifying both of these BCD stores with be necessary.
 - These BCD stores are located at 
 ```
 BIOS: WININSTALLER\Boot\BCD
@@ -180,9 +180,9 @@ UEFI: WININSTALLER\EFI\Microsoft\Boot\BCD
 - More background: Vista and 7 boot stores and tools are considered legacy and should not be used. bcdedit.exe from these versions of Windows can damage a Windows 8+  bcdstore.  An updated version of bcdedit.exe can be found natively installed in Windows 8 or above and is installed with the ADKs. ADKTools v0.1.0 does not use the version installed by the ADKs but this will be updated later.
 - bcdAddPE.bat is a CLI frontend to bcdedit.exe and is included in ADKTools at ADKTools\resources\scripts\wimMgmt\resources\bcdAddPE.bat. 
 
-BCDAddPE.bat
+**bcdAddPE.bat**
 ```
-USB/ISO booting (addPE) Syntax:
+bcdAddPE.bat USB/ISO booting (addPE) Syntax:
 bcdAddPE /addPE [boot.wim] [bcdstorepath] {description}
 
 Examples:
@@ -191,8 +191,10 @@ bcdAddPE /addPE \sources\PEv5x64.wim d:\iso\efi\microsoft\boot\bcd WinPEv5x64
 bcdAddPE /addPE \sources\WinPEv5x86.wim c:\iso\boot\bcd "Win PEv5 x86"
 ```
 
-Step-by-Step Guide:
-With an existing ADKTools install on Win 8 or above:
+**Step-by-Step Guide:**
+
+**With an existing ADKTools install on Win 8 or above:**
+
 1. Copy DaRT.wim and the related WinPE.wim images to the directories specified in the ADKTools documentation under "For a system boot menu with DaRT/WinRE […]."
 2. Using a CLI, navigate to ADKTools\resources\scripts\wimMgmt\resources
 3. set BIOSstore=C:\Users\User\Desktop\ADKTools\WININSTALLER\Boot\BCD
@@ -200,16 +202,21 @@ With an existing ADKTools install on Win 8 or above:
 Note: Adjust your paths accordingly.
 
 5. To add a single entry:
+```
 bcdAddPE.bat /addPE \sources\Win81\winPETools\DaRT81_x86.wim "%BIOSstore%"
 bcdAddPE.bat /addPE \sources\Win81\winPETools\DaRT81_x86.wim "%UEFIstore%"
+```
 
 6. To add both x86 and x64 versions:
+```
 bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x86.wim "%BIOSstore%"
 bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x86.wim "%UEFIstore%"
 bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x64.wim "%BIOSstore%"
 bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x64.wim "%UEFIstore%"
+```
 
-With no existing ADKTools install or one on Win 7 or below: 
+**With no existing ADKTools install or one on Win 7 or below:**
+
 1. Start a Windows 8+ VM
 2. download/copy and extract ADKTools.zip to that VM
 3. Extract ADKTools\resources\archives\WININSTALLER.7z to ADKTools\
