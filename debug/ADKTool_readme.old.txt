@@ -5,8 +5,8 @@ This ADKTools project lets (nearly) anyone with an internet connection and thumb
 
 This project could be seen as an extension to AriaDeploy (my free open source deployment tool available on GitHub) but is also a fully stand alone project sharing similar design considerations. I've tried to make everything as simple as possible while retaining the full functionality of all of the involved systems. This includes support for custom.wim/ESD files and no weird limitations on anything.
 
-Project Page:
-Download Link:
+Project Page: https://github.com/gdiaz384/ADKTools
+Download Link: https://github.com/gdiaz384/ADKTools/releases
 
 Possible Uses:
 - The "How do I Clean Install?" problem solved. Forever.
