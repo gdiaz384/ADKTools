@@ -1,0 +1,24 @@
+ADKTools
+
+Bug: add bcdAddPE to ADK path (mgmtScripts\resources to environment.template)
+Bug: bcdAddPE.bat should use use the latest version of bcdedit available if ADKs are installed
+Rewrite: remove environment variables from AIK7 (not supported)
+Rewrite: make installation easier (how?)
+Feature: add optional "extraPackages=false" option to update.bat to add .Net runtime
+Docs: split documentation into seperate file (published Google doc)
+Rewrite: Less text, more pictures
+Docs: document what "Installer" program does better
+Docs: document what happens when winPE.wim boots by default
+Docs: document each script better
+Docs: link to third party apps able to run in PE (such as WinPE_SE projects)
+Rewrite: fully support PE50 (not updating to 51 should not break anything)
+Rewrite: enumerate tools\ directory (if present) and dynamically add each path to environment in at runtime
+Feature: Finish writing addDrivers.bat
+
+autoImage:
+Bug: detects boot.wims as deployable images (if .wim is <1gb in size toss it out)
+Bug: if no images found, there should be no output (no errors)
+Bug: erase previously selected image enviornmental variable on screen #2 when going back
+UI: improve user interface of final screen (How it looks depends on if complex flag was triggered) -done (Part D skipped)
+UI: remove PE info from final screen
+UI: make controls and bi-directionality of script more Clear, and on every screen -partial

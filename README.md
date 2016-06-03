@@ -11,8 +11,8 @@ The development emphasis is on zero-configuration "just works" software.
 
 ## Screenshots:
 
-![Screenshot1](debug/AutoImage.png)
-![Screenshot2](debug/WindowsBootMgr.png)
+![Screenshot1](pics/AutoImage.png)
+![Screenshot2](pics/WindowsBootMgr.png)
 
 ## Features:
 
@@ -55,10 +55,10 @@ The development emphasis is on zero-configuration "just works" software.
 13. Stage AriaDeploy
 
 ## Download:
-```
-Latest Version: 0.1.0-beta
-In Development: 0.1.0-rc1
-```
+    ```
+    Latest Version: 0.1.0-beta
+    In Development: 0.1.0-rc1
+    ```
 Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the top to download the latest version.
 
 ## Typical Usage Guide:
@@ -70,7 +70,7 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 5. Run installADK.bat to install at least one of the ADKs (AIK != ADK). All 3 (AIK + ADKs x2) are preferred.
 6. Wait to install AIK manually (next->next->next)
 7. Run createWinPE.bat to generate updated WinPE.wim and WinPE.iso files
-    - Note: Windows Deployment Services can PXE boot these WinPE.wim files (WDS 2012+ does both BIOS/UEFI PXE)
+    - Note: Windows Deployment Services can PXE boot WinPE.wim files (WDS 2012+ supports both BIOS/UEFI)
 8. If not using WDS or USB: It is possible to burn these ISO files to optical media.
     - Use a Deployment Prompt and run "convertwim toiso" or "massupdate export" to regenerate ISO files.
 9. Obtain installer.wim files (or ISOs) for the versions/architectures/editions of windows to install. MS links:
@@ -80,7 +80,7 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 10. Copy any WIM images (install.wim\win7x64.wim) to ADKTools\WININSTALLER\sources 
 11. Download [Rufus](//rufus.akeo.ie) and insert USB drive from step #1
 12. Launch Rufus, Alt+E (important), and then make a USB drive bootable with the following settings:
-![RufusSettings](debug/RufusSettings.png)
+![RufusSettings](pics/RufusSettings.png)
 13. After formating completes, copy WININSTALLER\ contents to flash drive.
 14. Safely eject the USB drive.
 15. Boot the target system from USB drive. Consult the manufacturer's documentation for this.
@@ -92,25 +92,25 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 
 1. Install and configure an FTP server such as [FileZilla](//sourceforge.net/projects/filezilla/files/FileZilla%20Server/0.9.57/FileZilla_Server-0_9_57.exe/download)
 2. create a text file named "credentialsForNetworkDrive.txt" with the following contents:
-```
-clientDriveLetter=Y
-sharePath=myshare$
-serverAddress=2008R2mdt
-username=limitedUser
-password=mypassword
+    ```
+    clientDriveLetter=Y
+    sharePath=myshare$
+    serverAddress=2008R2mdt
+    username=limitedUser
+    password=mypassword
 
-::(optional) this path is relative to the share path
-deployClientPathAndExe=AriaDeploy\client\AriaDeployClient.bat
-```
+    ::(optional) this path is relative to the share path
+    deployClientPathAndExe=AriaDeploy\client\AriaDeployClient.bat
+    ```
 3. place "credentialsForNetworkDrive.txt" in the FTP home directory
 4. modify "winPEWorkspace\Updates\peRuntime\scripts\mapNetworkDrive.bat" to include the serveraddress (IP or NetBIOS name), and the FTP credentials (user name/password)
 5. Update the WinPE runtime scripts
 6. share a folder with an images\ directory as myshare$ 
-Example Path:
-```
-C:\Users\User\Desktop\winPEWorkspace\Images\Win7\Win7Sp1_x64_RTM.wim
-net share myshare$=C:\Users\User\Desktop\winPEWorkspace /grant:limitedAccount,READ
-```
+    Example Path:
+    ```
+    C:\Users\User\Desktop\winPEWorkspace\Images\Win7\Win7Sp1_x64_RTM.wim
+    net share myshare$=C:\Users\User\Desktop\winPEWorkspace /grant:limitedAccount,READ
+    ```
 7. Allow ICMP echo requests through the local firewall
 8. Disable FTP server when not in use to limit exposure.
 
@@ -118,48 +118,48 @@ net share myshare$=C:\Users\User\Desktop\winPEWorkspace /grant:limitedAccount,RE
 
 1. Make any changes winPEWorkspace\Updates\peRuntime\scripts
 2. open a Deployment Tools Environment
-```
-massupdate scripts 5 x64
-massupdate export 5 x64
-or
-massupdate scripts all
-massupdate export all
-```
+    ```
+    massupdate scripts 5 x64
+    massupdate export 5 x64
+    or
+    massupdate scripts all
+    massupdate export all
+    ```
 
 ### To reset the WinPE images (add/remove drivers or packages):
 
 1. open a Deployment Tools Environment
-```
-massupdate reset 3 x86
-massupdate export 3 x86
-or
-massupdate reset all
-massupdate export all
-```
+    ```
+    massupdate reset 3 x86
+    massupdate export 3 x86
+    or
+    massupdate reset all
+    massupdate export all
+    ```
 Note: Drivers from winPEWorkspace\Updates\drivers\3_x\x86 will be installed automatically. To not install drivers, delete them from this folder.
 
 ### For a system boot menu with DaRT/WinRE/WinPE (normal install):
 
 Place the following files in "WININSTALLER\sources\Win7\winPETools":
-```
-DaRT7_x86.wim, DaRT7_x64.wim
-WinRE31_x86.wim, WinRE31_x64.wim
-WinPE31_x86.wim, WinPE31_x64.wim
-```
+    ```
+    DaRT7_x86.wim, DaRT7_x64.wim
+    WinRE31_x86.wim, WinRE31_x64.wim
+    WinPE31_x86.wim, WinPE31_x64.wim
+    ```
 
 Place the following files in "WININSTALLER\sources\Win81\winPETools":
-```
-DaRT81_x86.wim, DaRT81_x64.wim
-WinRE51_x86.wim, WinRE51_x64.wim
-WinPE51_x86.wim, WinPE51_x64.wim
-```
+    ```
+    DaRT81_x86.wim, DaRT81_x64.wim
+    WinRE51_x86.wim, WinRE51_x64.wim
+    WinPE51_x86.wim, WinPE51_x64.wim
+    ```
 
 Place the following files in "WININSTALLER\sources\Win10\winPETools":
-```
-DaRT10_x86.wim, DaRT10_x64.wim
-WinRE10_x86.wim, WinRE10_x64.wim
-WinPE10_x86.wim, WinPE10_x64.wim
-```
+    ```
+    DaRT10_x86.wim, DaRT10_x64.wim
+    WinRE10_x86.wim, WinRE10_x64.wim
+    WinPE10_x86.wim, WinPE10_x64.wim
+    ```
 
 - To reduce the user prompt duration: "bcdedit /timeout 3"
 - On Win 8-10, the legacy boot menu is also recommended: "bcdedit /set {default} bootmenupolicy legacy"
@@ -172,24 +172,24 @@ WinPE10_x86.wim, WinPE10_x64.wim
 - Background: There are two boot configuration database (BCD) stores used when booting, one for BIOS style booting and one for UEFI booting. 
 - They should be configured the same so modifying both of these BCD stores with be necessary.
 - These BCD stores are located at 
-```
-BIOS: WININSTALLER\Boot\BCD
-UEFI: WININSTALLER\EFI\Microsoft\Boot\BCD
-```
+    ```
+    BIOS: WININSTALLER\Boot\BCD
+    UEFI: WININSTALLER\EFI\Microsoft\Boot\BCD
+    ```
 
 - More background: Vista and 7 boot stores and tools are considered legacy and should not be used. bcdedit.exe from these versions of Windows can damage a Windows 8+  bcdstore.  An updated version of bcdedit.exe can be found natively installed in Windows 8 or above and is installed with the ADKs. ADKTools v0.1.0 does not use the version installed by the ADKs but this will be updated later.
 - bcdAddPE.bat is a CLI frontend to bcdedit.exe and is included in ADKTools at ADKTools\resources\scripts\wimMgmt\resources\bcdAddPE.bat. 
 
 **bcdAddPE.bat**
-```
-bcdAddPE.bat USB/ISO booting (addPE) Syntax:
-bcdAddPE /addPE [boot.wim] [bcdstorepath] {description}
+    ```
+    bcdAddPE.bat USB/ISO booting (addPE) Syntax:
+    bcdAddPE /addPE [boot.wim] [bcdstorepath] {description}
 
-Examples:
-bcdAddPE /addPE \sources\WinPEv3_x64.wim c:\boot\bcd
-bcdAddPE /addPE \sources\PEv5x64.wim d:\iso\efi\microsoft\boot\bcd WinPEv5x64
-bcdAddPE /addPE \sources\WinPEv5x86.wim c:\iso\boot\bcd "Win PEv5 x86"
-```
+    Examples:
+    bcdAddPE /addPE \sources\WinPEv3_x64.wim c:\boot\bcd
+    bcdAddPE /addPE \sources\PEv5x64.wim d:\iso\efi\microsoft\boot\bcd WinPEv5x64
+    bcdAddPE /addPE \sources\WinPEv5x86.wim c:\iso\boot\bcd "Win PEv5 x86"
+    ```
 
 **Step-by-Step Guide:**
 
@@ -199,28 +199,28 @@ bcdAddPE /addPE \sources\WinPEv5x86.wim c:\iso\boot\bcd "Win PEv5 x86"
 2. Using a CLI, navigate to ADKTools\resources\scripts\wimMgmt\resources
 3. set BIOSstore=C:\Users\User\Desktop\ADKTools\WININSTALLER\Boot\BCD
 4. set UEFIstore=C:\Users\User\Desktop\ADKTools\WININSTALLER\EFI\Microsoft\Boot\BCD
-Note: Adjust your paths accordingly.
+    Note: Adjust your paths accordingly.
 
 5. To add a single entry:
-```
-bcdAddPE.bat /addPE \sources\Win81\winPETools\DaRT81_x86.wim "%BIOSstore%"
-bcdAddPE.bat /addPE \sources\Win81\winPETools\DaRT81_x86.wim "%UEFIstore%"
-```
+    ```
+    bcdAddPE.bat /addPE \sources\Win81\winPETools\DaRT81_x86.wim "%BIOSstore%"
+    bcdAddPE.bat /addPE \sources\Win81\winPETools\DaRT81_x86.wim "%UEFIstore%"
+    ```
 
 6. To add both x86 and x64 versions:
-```
-bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x86.wim "%BIOSstore%"
-bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x86.wim "%UEFIstore%"
-bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x64.wim "%BIOSstore%"
-bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x64.wim "%UEFIstore%"
-```
+    ```
+    bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x86.wim "%BIOSstore%"
+    bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x86.wim "%UEFIstore%"
+    bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x64.wim "%BIOSstore%"
+    bcdAddPE.bat /addPE \sources\Win7\winPETools\DaRT7_x64.wim "%UEFIstore%"
+    ```
 
 **With no existing ADKTools install or one on Win 7 or below:**
 
 1. Start a Windows 8+ VM
 2. download/copy and extract ADKTools.zip to that VM
-3. Extract ADKTools\resources\archives\WININSTALLER.7z to ADKTools\
-4. Go to step 1 above, and then return here after step 6.
+3. Extract ADKTools\resources\archives\WININSTALLER.7z to ADKTools
+4. Go to step 1 of the section entitled "With an existing ADKTools install on Win 8 or above:" and then return here after step 6.
 
 - These “updated” boot configuration database stores can be transfered from the Win8+ VM to ADKTools\WININSTALLER on Win7 or below. 
 - To “undo” the above commands, replace the bcdstores with the “original” ones found in WININSTALLER.zip
@@ -254,12 +254,12 @@ to: ADKTools\WININSTALLER\EFI\Microsoft\Boot\BCD
 ## Hardware Notes:
 
 - Remember that when not using a Compatability Support Module (CSM), the native UEFI architecture must match the running OS version. This applies both to the PE and installed OS.
-- If a hardware manufacturer implemented the UEFI API in a weird way (most do), then bcdboot cannot add the boot entry reliably. 
+- If a hardware manufacturer implements UEFI in a weird way (most do), then bcdboot cannot add the boot entry reliably.
     - Expect to add UEFI boot entries manually to the NVRAM boot menu (NVRAM boot menu != windows boot manager) 
     - Read [this](http://homepage.ntlworld.com/jonathan.deboynepollard/FGA/efi-boot-process.html) and [this](//www.happyassassin.net/2014/01/25/uefi-boot-how-does-that-actually-work-then) or instead consider using CSM/BIOS boot mode.
 - Hardware manufacturer X did not make drivers for Windows Version Y for Model Z.
-    - Please consult the system unit's OEM website to see which OSs and in what configurations they support. Not following the OEM's advice can mean drivers may become an issue.
-    - Also check if a driver pack is available: [Dell](//en.community.dell.com/techcenter/enterprise-client/w/wiki/2065.dell-command-deploy-driver-packs-for-enterprise-client-os-deployment), [HP](//www8.hp.com/us/en/ads/clientmanagement/drivers-pack.html), [Lenovo](//support.lenovo.com/us/en/documents/ht074984) and consider purchasing systems with driver packs in the future
+    - Please consult the system unit's OEM website to see which OSs and in what configurations they support. Drivers may become an issue when not following the OEM's advice.
+    - Check if a driver pack is available: [Dell](//en.community.dell.com/techcenter/enterprise-client/w/wiki/2065.dell-command-deploy-driver-packs-for-enterprise-client-os-deployment), [HP](//www8.hp.com/us/en/ads/clientmanagement/drivers-pack.html), [Lenovo](//support.lenovo.com/us/en/documents/ht074984) and consider purchasing systems with driver packs.
 - For single deployments of non-RTM images, the only important driver to install after the imaging process (but before booting) is the storage driver (SATA/AHCI/RAID). The rest can be installed after Windows Setup completes.
 
 ## Dependencies:

@@ -1,0 +1,2125 @@
+Folder PATH listing
+Volume serial number is D412-9A03
+D:.
+|   WinPEtree.txt
+|   WinPEtree_files.txt
+|   winpe_miku.bmp
+|   winpe_miku.jpg
+|   
++---10_x
+|   |   bootStuffs.7z
+|   |   winpe.jpg
+|   |   
+|   +---DaRT
+|   |       DaRT10_x64.wim
+|   |       DaRT10_x86.wim
+|   |       
+|   +---PE_x64
+|   |   |   WinPE10_x64.iso
+|   |   |   
+|   |   +---bootmanager
+|   |   |   |   bootmgr
+|   |   |   |   bootmgr.efi
+|   |   |   |   
+|   |   |   +---Boot
+|   |   |   |   |   BCD
+|   |   |   |   |   boot.sdi
+|   |   |   |   |   bootfix.bin
+|   |   |   |   |   memtest.exe
+|   |   |   |   |   
+|   |   |   |   +---bg-bg
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---cs-cz
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---da-dk
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---de-de
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---el-gr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---en-gb
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---en-us
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---es-es
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---es-mx
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---et-ee
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---fi-fi
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---Fonts
+|   |   |   |   |       chs_boot.ttf
+|   |   |   |   |       cht_boot.ttf
+|   |   |   |   |       jpn_boot.ttf
+|   |   |   |   |       kor_boot.ttf
+|   |   |   |   |       malgunn_boot.ttf
+|   |   |   |   |       malgun_boot.ttf
+|   |   |   |   |       meiryon_boot.ttf
+|   |   |   |   |       meiryo_boot.ttf
+|   |   |   |   |       msjhn_boot.ttf
+|   |   |   |   |       msjh_boot.ttf
+|   |   |   |   |       msyhn_boot.ttf
+|   |   |   |   |       msyh_boot.ttf
+|   |   |   |   |       segmono_boot.ttf
+|   |   |   |   |       segoen_slboot.ttf
+|   |   |   |   |       segoe_slboot.ttf
+|   |   |   |   |       wgl4_boot.ttf
+|   |   |   |   |       
+|   |   |   |   +---fr-ca
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---fr-fr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---hr-hr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---hu-hu
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---it-it
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---ja-jp
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---ko-kr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---lt-lt
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---lv-lv
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---nb-no
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---nl-nl
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---pl-pl
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---pt-br
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---pt-pt
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---Resources
+|   |   |   |   |       bootres.dll
+|   |   |   |   |       
+|   |   |   |   +---ro-ro
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---ru-ru
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---sk-sk
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---sl-si
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---sr-latn-rs
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---sv-se
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---tr-tr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---uk-ua
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---zh-cn
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---zh-hk
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   \---zh-tw
+|   |   |   |           bootmgr.exe.mui
+|   |   |   |           memtest.exe.mui
+|   |   |   |           
+|   |   |   \---EFI
+|   |   |       +---Boot
+|   |   |       |   |   bootx64.efi
+|   |   |       |   |   
+|   |   |       |   +---bg-bg
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---cs-cz
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---da-dk
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---de-de
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---el-gr
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---en-gb
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---en-us
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---es-es
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---es-mx
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---et-ee
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---fi-fi
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---fr-ca
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---fr-fr
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---hr-hr
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---hu-hu
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---it-it
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---ja-jp
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---ko-kr
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---lt-lt
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---lv-lv
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---nb-no
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---nl-nl
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---pl-pl
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---pt-br
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---pt-pt
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---ro-ro
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---ru-ru
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---sk-sk
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---sl-si
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---sr-latn-rs
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---sv-se
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---tr-tr
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---uk-ua
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---zh-cn
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---zh-hk
+|   |   |       |   |       bootx64.efi.mui
+|   |   |       |   |       
+|   |   |       |   \---zh-tw
+|   |   |       |           bootx64.efi.mui
+|   |   |       |           
+|   |   |       \---Microsoft
+|   |   |           \---Boot
+|   |   |               |   BCD
+|   |   |               |   memtest.efi
+|   |   |               |   
+|   |   |               +---cs-cz
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---da-dk
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---de-de
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---el-gr
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---en-us
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---es-es
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---fi-fi
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---Fonts
+|   |   |               |       chs_boot.ttf
+|   |   |               |       cht_boot.ttf
+|   |   |               |       jpn_boot.ttf
+|   |   |               |       kor_boot.ttf
+|   |   |               |       malgun_boot.ttf
+|   |   |               |       meiryo_boot.ttf
+|   |   |               |       msjh_boot.ttf
+|   |   |               |       msyh_boot.ttf
+|   |   |               |       segmono_boot.ttf
+|   |   |               |       segoe_slboot.ttf
+|   |   |               |       wgl4_boot.ttf
+|   |   |               |       
+|   |   |               +---fr-fr
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---hu-hu
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---it-it
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---ja-jp
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---ko-kr
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---nb-no
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---nl-nl
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---pl-pl
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---pt-br
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---pt-pt
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---Resources
+|   |   |               |       bootres.dll
+|   |   |               |       
+|   |   |               +---ru-ru
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---sv-se
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---tr-tr
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---zh-cn
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---zh-hk
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               \---zh-tw
+|   |   |                       memtest.efi.mui
+|   |   |                       
+|   |   +---ISO
+|   |   |   +---fwfiles
+|   |   |   |       efisys.bin
+|   |   |   |       etfsboot.com
+|   |   |   |       
+|   |   |   +---media
+|   |   |   |   |   bootmgr
+|   |   |   |   |   bootmgr.efi
+|   |   |   |   |   
+|   |   |   |   +---Boot
+|   |   |   |   |   |   BCD
+|   |   |   |   |   |   boot.sdi
+|   |   |   |   |   |   bootfix.bin
+|   |   |   |   |   |   memtest.exe
+|   |   |   |   |   |   
+|   |   |   |   |   +---bg-bg
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---cs-cz
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---da-dk
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---de-de
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---el-gr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---en-gb
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---en-us
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---es-es
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---es-mx
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---et-ee
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---fi-fi
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---Fonts
+|   |   |   |   |   |       chs_boot.ttf
+|   |   |   |   |   |       cht_boot.ttf
+|   |   |   |   |   |       jpn_boot.ttf
+|   |   |   |   |   |       kor_boot.ttf
+|   |   |   |   |   |       malgunn_boot.ttf
+|   |   |   |   |   |       malgun_boot.ttf
+|   |   |   |   |   |       meiryon_boot.ttf
+|   |   |   |   |   |       meiryo_boot.ttf
+|   |   |   |   |   |       msjhn_boot.ttf
+|   |   |   |   |   |       msjh_boot.ttf
+|   |   |   |   |   |       msyhn_boot.ttf
+|   |   |   |   |   |       msyh_boot.ttf
+|   |   |   |   |   |       segmono_boot.ttf
+|   |   |   |   |   |       segoen_slboot.ttf
+|   |   |   |   |   |       segoe_slboot.ttf
+|   |   |   |   |   |       wgl4_boot.ttf
+|   |   |   |   |   |       
+|   |   |   |   |   +---fr-ca
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---fr-fr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---hr-hr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---hu-hu
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---it-it
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---ja-jp
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---ko-kr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---lt-lt
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---lv-lv
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---nb-no
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---nl-nl
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---pl-pl
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---pt-br
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---pt-pt
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---Resources
+|   |   |   |   |   |       bootres.dll
+|   |   |   |   |   |       
+|   |   |   |   |   +---ro-ro
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---ru-ru
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---sk-sk
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---sl-si
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---sr-latn-rs
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---sv-se
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---tr-tr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---uk-ua
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---zh-cn
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---zh-hk
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   \---zh-tw
+|   |   |   |   |           bootmgr.exe.mui
+|   |   |   |   |           memtest.exe.mui
+|   |   |   |   |           
+|   |   |   |   +---EFI
+|   |   |   |   |   +---Boot
+|   |   |   |   |   |   |   bootx64.efi
+|   |   |   |   |   |   |   
+|   |   |   |   |   |   +---bg-bg
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---cs-cz
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---da-dk
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---de-de
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---el-gr
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---en-gb
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---en-us
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---es-es
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---es-mx
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---et-ee
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---fi-fi
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---fr-ca
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---fr-fr
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---hr-hr
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---hu-hu
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---it-it
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---ja-jp
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---ko-kr
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---lt-lt
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---lv-lv
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---nb-no
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---nl-nl
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---pl-pl
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---pt-br
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---pt-pt
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---ro-ro
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---ru-ru
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---sk-sk
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---sl-si
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---sr-latn-rs
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---sv-se
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---tr-tr
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---uk-ua
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---zh-cn
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---zh-hk
+|   |   |   |   |   |   |       bootx64.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   \---zh-tw
+|   |   |   |   |   |           bootx64.efi.mui
+|   |   |   |   |   |           
+|   |   |   |   |   \---Microsoft
+|   |   |   |   |       \---Boot
+|   |   |   |   |           |   BCD
+|   |   |   |   |           |   memtest.efi
+|   |   |   |   |           |   
+|   |   |   |   |           +---cs-cz
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---da-dk
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---de-de
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---el-gr
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---en-us
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---es-es
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---fi-fi
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---Fonts
+|   |   |   |   |           |       chs_boot.ttf
+|   |   |   |   |           |       cht_boot.ttf
+|   |   |   |   |           |       jpn_boot.ttf
+|   |   |   |   |           |       kor_boot.ttf
+|   |   |   |   |           |       malgun_boot.ttf
+|   |   |   |   |           |       meiryo_boot.ttf
+|   |   |   |   |           |       msjh_boot.ttf
+|   |   |   |   |           |       msyh_boot.ttf
+|   |   |   |   |           |       segmono_boot.ttf
+|   |   |   |   |           |       segoe_slboot.ttf
+|   |   |   |   |           |       wgl4_boot.ttf
+|   |   |   |   |           |       
+|   |   |   |   |           +---fr-fr
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---hu-hu
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---it-it
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---ja-jp
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---ko-kr
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---nb-no
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---nl-nl
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---pl-pl
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---pt-br
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---pt-pt
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---Resources
+|   |   |   |   |           |       bootres.dll
+|   |   |   |   |           |       
+|   |   |   |   |           +---ru-ru
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---sv-se
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---tr-tr
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---zh-cn
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---zh-hk
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           \---zh-tw
+|   |   |   |   |                   memtest.efi.mui
+|   |   |   |   |                   
+|   |   |   |   \---sources
+|   |   |   |           boot.wim
+|   |   |   |           
+|   |   |   \---mount
+|   |   \---originalWim
+|   |           winpe10.wim
+|   |           
+|   +---PE_x86
+|   |   |   WinPE10_x86.iso
+|   |   |   
+|   |   +---bootmanager
+|   |   |   |   bootmgr
+|   |   |   |   bootmgr.efi
+|   |   |   |   
+|   |   |   +---Boot
+|   |   |   |   |   BCD
+|   |   |   |   |   boot.sdi
+|   |   |   |   |   bootfix.bin
+|   |   |   |   |   memtest.exe
+|   |   |   |   |   
+|   |   |   |   +---bg-bg
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---cs-cz
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---da-dk
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---de-de
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---el-gr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---en-gb
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---en-us
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---es-es
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---es-mx
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---et-ee
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---fi-fi
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---Fonts
+|   |   |   |   |       chs_boot.ttf
+|   |   |   |   |       cht_boot.ttf
+|   |   |   |   |       jpn_boot.ttf
+|   |   |   |   |       kor_boot.ttf
+|   |   |   |   |       malgunn_boot.ttf
+|   |   |   |   |       malgun_boot.ttf
+|   |   |   |   |       meiryon_boot.ttf
+|   |   |   |   |       meiryo_boot.ttf
+|   |   |   |   |       msjhn_boot.ttf
+|   |   |   |   |       msjh_boot.ttf
+|   |   |   |   |       msyhn_boot.ttf
+|   |   |   |   |       msyh_boot.ttf
+|   |   |   |   |       segmono_boot.ttf
+|   |   |   |   |       segoen_slboot.ttf
+|   |   |   |   |       segoe_slboot.ttf
+|   |   |   |   |       wgl4_boot.ttf
+|   |   |   |   |       
+|   |   |   |   +---fr-ca
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---fr-fr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---hr-hr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---hu-hu
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---it-it
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---ja-jp
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---ko-kr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---lt-lt
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---lv-lv
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---nb-no
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---nl-nl
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---pl-pl
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---pt-br
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---pt-pt
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---Resources
+|   |   |   |   |       bootres.dll
+|   |   |   |   |       
+|   |   |   |   +---ro-ro
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---ru-ru
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---sk-sk
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---sl-si
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---sr-latn-rs
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---sv-se
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---tr-tr
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---uk-ua
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---zh-cn
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   +---zh-hk
+|   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |       memtest.exe.mui
+|   |   |   |   |       
+|   |   |   |   \---zh-tw
+|   |   |   |           bootmgr.exe.mui
+|   |   |   |           memtest.exe.mui
+|   |   |   |           
+|   |   |   \---EFI
+|   |   |       +---Boot
+|   |   |       |   |   bootia32.efi
+|   |   |       |   |   
+|   |   |       |   +---bg-bg
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---cs-cz
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---da-dk
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---de-de
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---el-gr
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---en-gb
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---en-us
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---es-es
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---es-mx
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---et-ee
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---fi-fi
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---fr-ca
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---fr-fr
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---hr-hr
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---hu-hu
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---it-it
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---ja-jp
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---ko-kr
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---lt-lt
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---lv-lv
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---nb-no
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---nl-nl
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---pl-pl
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---pt-br
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---pt-pt
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---ro-ro
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---ru-ru
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---sk-sk
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---sl-si
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---sr-latn-rs
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---sv-se
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---tr-tr
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---uk-ua
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---zh-cn
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   +---zh-hk
+|   |   |       |   |       bootia32.efi.mui
+|   |   |       |   |       
+|   |   |       |   \---zh-tw
+|   |   |       |           bootia32.efi.mui
+|   |   |       |           
+|   |   |       \---Microsoft
+|   |   |           \---Boot
+|   |   |               |   BCD
+|   |   |               |   memtest.efi
+|   |   |               |   
+|   |   |               +---cs-cz
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---da-dk
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---de-de
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---el-gr
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---en-us
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---es-es
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---fi-fi
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---Fonts
+|   |   |               |       chs_boot.ttf
+|   |   |               |       cht_boot.ttf
+|   |   |               |       jpn_boot.ttf
+|   |   |               |       kor_boot.ttf
+|   |   |               |       malgun_boot.ttf
+|   |   |               |       meiryo_boot.ttf
+|   |   |               |       msjh_boot.ttf
+|   |   |               |       msyh_boot.ttf
+|   |   |               |       segmono_boot.ttf
+|   |   |               |       segoe_slboot.ttf
+|   |   |               |       wgl4_boot.ttf
+|   |   |               |       
+|   |   |               +---fr-fr
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---hu-hu
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---it-it
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---ja-jp
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---ko-kr
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---nb-no
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---nl-nl
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---pl-pl
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---pt-br
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---pt-pt
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---Resources
+|   |   |               |       bootres.dll
+|   |   |               |       
+|   |   |               +---ru-ru
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---sv-se
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---tr-tr
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---zh-cn
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               +---zh-hk
+|   |   |               |       memtest.efi.mui
+|   |   |               |       
+|   |   |               \---zh-tw
+|   |   |                       memtest.efi.mui
+|   |   |                       
+|   |   +---ISO
+|   |   |   +---fwfiles
+|   |   |   |       efisys.bin
+|   |   |   |       etfsboot.com
+|   |   |   |       
+|   |   |   +---media
+|   |   |   |   |   bootmgr
+|   |   |   |   |   bootmgr.efi
+|   |   |   |   |   
+|   |   |   |   +---Boot
+|   |   |   |   |   |   BCD
+|   |   |   |   |   |   boot.sdi
+|   |   |   |   |   |   bootfix.bin
+|   |   |   |   |   |   memtest.exe
+|   |   |   |   |   |   
+|   |   |   |   |   +---bg-bg
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---cs-cz
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---da-dk
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---de-de
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---el-gr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---en-gb
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---en-us
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---es-es
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---es-mx
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---et-ee
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---fi-fi
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---Fonts
+|   |   |   |   |   |       chs_boot.ttf
+|   |   |   |   |   |       cht_boot.ttf
+|   |   |   |   |   |       jpn_boot.ttf
+|   |   |   |   |   |       kor_boot.ttf
+|   |   |   |   |   |       malgunn_boot.ttf
+|   |   |   |   |   |       malgun_boot.ttf
+|   |   |   |   |   |       meiryon_boot.ttf
+|   |   |   |   |   |       meiryo_boot.ttf
+|   |   |   |   |   |       msjhn_boot.ttf
+|   |   |   |   |   |       msjh_boot.ttf
+|   |   |   |   |   |       msyhn_boot.ttf
+|   |   |   |   |   |       msyh_boot.ttf
+|   |   |   |   |   |       segmono_boot.ttf
+|   |   |   |   |   |       segoen_slboot.ttf
+|   |   |   |   |   |       segoe_slboot.ttf
+|   |   |   |   |   |       wgl4_boot.ttf
+|   |   |   |   |   |       
+|   |   |   |   |   +---fr-ca
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---fr-fr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---hr-hr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---hu-hu
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---it-it
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---ja-jp
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---ko-kr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---lt-lt
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---lv-lv
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---nb-no
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---nl-nl
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---pl-pl
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---pt-br
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---pt-pt
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---Resources
+|   |   |   |   |   |       bootres.dll
+|   |   |   |   |   |       
+|   |   |   |   |   +---ro-ro
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---ru-ru
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---sk-sk
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---sl-si
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---sr-latn-rs
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---sv-se
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---tr-tr
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---uk-ua
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---zh-cn
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   +---zh-hk
+|   |   |   |   |   |       bootmgr.exe.mui
+|   |   |   |   |   |       memtest.exe.mui
+|   |   |   |   |   |       
+|   |   |   |   |   \---zh-tw
+|   |   |   |   |           bootmgr.exe.mui
+|   |   |   |   |           memtest.exe.mui
+|   |   |   |   |           
+|   |   |   |   +---EFI
+|   |   |   |   |   +---Boot
+|   |   |   |   |   |   |   bootia32.efi
+|   |   |   |   |   |   |   
+|   |   |   |   |   |   +---bg-bg
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---cs-cz
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---da-dk
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---de-de
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---el-gr
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---en-gb
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---en-us
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---es-es
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---es-mx
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---et-ee
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---fi-fi
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---fr-ca
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---fr-fr
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---hr-hr
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---hu-hu
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---it-it
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---ja-jp
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---ko-kr
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---lt-lt
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---lv-lv
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---nb-no
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---nl-nl
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---pl-pl
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---pt-br
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---pt-pt
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---ro-ro
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---ru-ru
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---sk-sk
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---sl-si
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---sr-latn-rs
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---sv-se
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---tr-tr
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---uk-ua
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---zh-cn
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---zh-hk
+|   |   |   |   |   |   |       bootia32.efi.mui
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   \---zh-tw
+|   |   |   |   |   |           bootia32.efi.mui
+|   |   |   |   |   |           
+|   |   |   |   |   \---Microsoft
+|   |   |   |   |       \---Boot
+|   |   |   |   |           |   BCD
+|   |   |   |   |           |   memtest.efi
+|   |   |   |   |           |   
+|   |   |   |   |           +---cs-cz
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---da-dk
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---de-de
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---el-gr
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---en-us
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---es-es
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---fi-fi
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---Fonts
+|   |   |   |   |           |       chs_boot.ttf
+|   |   |   |   |           |       cht_boot.ttf
+|   |   |   |   |           |       jpn_boot.ttf
+|   |   |   |   |           |       kor_boot.ttf
+|   |   |   |   |           |       malgun_boot.ttf
+|   |   |   |   |           |       meiryo_boot.ttf
+|   |   |   |   |           |       msjh_boot.ttf
+|   |   |   |   |           |       msyh_boot.ttf
+|   |   |   |   |           |       segmono_boot.ttf
+|   |   |   |   |           |       segoe_slboot.ttf
+|   |   |   |   |           |       wgl4_boot.ttf
+|   |   |   |   |           |       
+|   |   |   |   |           +---fr-fr
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---hu-hu
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---it-it
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---ja-jp
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---ko-kr
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---nb-no
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---nl-nl
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---pl-pl
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---pt-br
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---pt-pt
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---Resources
+|   |   |   |   |           |       bootres.dll
+|   |   |   |   |           |       
+|   |   |   |   |           +---ru-ru
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---sv-se
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---tr-tr
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---zh-cn
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           +---zh-hk
+|   |   |   |   |           |       memtest.efi.mui
+|   |   |   |   |           |       
+|   |   |   |   |           \---zh-tw
+|   |   |   |   |                   memtest.efi.mui
+|   |   |   |   |                   
+|   |   |   |   \---sources
+|   |   |   |           boot.wim
+|   |   |   |           
+|   |   |   \---mount
+|   |   \---originalWim
+|   |           winpe10.wim
+|   |           
+|   \---winRE
+|           winre10_x64.wim
+|           winre10_x86.wim
+|           
++---2_x
+|   |   winpe.bmp
+|   |   
+|   +---PE_x64
+|   |   |   WinPE2_x64.iso
+|   |   |   
+|   |   +---bootmanager
+|   |   |   |   bootmgr
+|   |   |   |   bootmgr.efi
+|   |   |   |   
+|   |   |   +---boot
+|   |   |   |   |   bcd
+|   |   |   |   |   boot.sdi
+|   |   |   |   |   bootfix.bin
+|   |   |   |   |   efisys.bin
+|   |   |   |   |   efisys_noprompt.bin
+|   |   |   |   |   etfsboot.com
+|   |   |   |   |   
+|   |   |   |   \---fonts
+|   |   |   |           chs_boot.ttf
+|   |   |   |           cht_boot.ttf
+|   |   |   |           jpn_boot.ttf
+|   |   |   |           kor_boot.ttf
+|   |   |   |           wgl4_boot.ttf
+|   |   |   |           
+|   |   |   \---efi
+|   |   |       \---microsoft
+|   |   |           \---boot
+|   |   |               |   bcd
+|   |   |               |   
+|   |   |               \---fonts
+|   |   |                       chs_boot.ttf
+|   |   |                       cht_boot.ttf
+|   |   |                       jpn_boot.ttf
+|   |   |                       kor_boot.ttf
+|   |   |                       wgl4_boot.ttf
+|   |   |                       
+|   |   +---ISO
+|   |   |   +---fwfiles
+|   |   |   |       efisys.bin
+|   |   |   |       etfsboot.com
+|   |   |   |       
+|   |   |   +---media
+|   |   |   |   |   bootmgr
+|   |   |   |   |   bootmgr.efi
+|   |   |   |   |   
+|   |   |   |   +---boot
+|   |   |   |   |   |   bcd
+|   |   |   |   |   |   boot.sdi
+|   |   |   |   |   |   bootfix.bin
+|   |   |   |   |   |   efisys.bin
+|   |   |   |   |   |   efisys_noprompt.bin
+|   |   |   |   |   |   etfsboot.com
+|   |   |   |   |   |   
+|   |   |   |   |   \---fonts
+|   |   |   |   |           chs_boot.ttf
+|   |   |   |   |           cht_boot.ttf
+|   |   |   |   |           jpn_boot.ttf
+|   |   |   |   |           kor_boot.ttf
+|   |   |   |   |           wgl4_boot.ttf
+|   |   |   |   |           
+|   |   |   |   +---efi
+|   |   |   |   |   \---microsoft
+|   |   |   |   |       \---boot
+|   |   |   |   |           |   bcd
+|   |   |   |   |           |   
+|   |   |   |   |           \---fonts
+|   |   |   |   |                   chs_boot.ttf
+|   |   |   |   |                   cht_boot.ttf
+|   |   |   |   |                   jpn_boot.ttf
+|   |   |   |   |                   kor_boot.ttf
+|   |   |   |   |                   wgl4_boot.ttf
+|   |   |   |   |                   
+|   |   |   |   \---sources
+|   |   |   |           boot.wim
+|   |   |   |           
+|   |   |   \---mount
+|   |   \---originalWim
+|   |           winpe2.wim
+|   |           
+|   +---PE_x86
+|   |   |   WinPE2_x86.iso
+|   |   |   
+|   |   +---bootmanager
+|   |   |   |   bootmgr
+|   |   |   |   
+|   |   |   +---boot
+|   |   |   |   |   bcd
+|   |   |   |   |   boot.sdi
+|   |   |   |   |   bootfix.bin
+|   |   |   |   |   etfsboot.com
+|   |   |   |   |   
+|   |   |   |   \---fonts
+|   |   |   |           chs_boot.ttf
+|   |   |   |           cht_boot.ttf
+|   |   |   |           jpn_boot.ttf
+|   |   |   |           kor_boot.ttf
+|   |   |   |           wgl4_boot.ttf
+|   |   |   |           
+|   |   |   \---efi
+|   |   |       \---microsoft
+|   |   |           \---boot
+|   |   |               |   bcd
+|   |   |               |   
+|   |   |               \---fonts
+|   |   |                       chs_boot.ttf
+|   |   |                       cht_boot.ttf
+|   |   |                       jpn_boot.ttf
+|   |   |                       kor_boot.ttf
+|   |   |                       wgl4_boot.ttf
+|   |   |                       
+|   |   +---ISO
+|   |   |   +---fwfiles
+|   |   |   |       efisys.bin
+|   |   |   |       etfsboot.com
+|   |   |   |       
+|   |   |   +---media
+|   |   |   |   |   bootmgr
+|   |   |   |   |   
+|   |   |   |   +---boot
+|   |   |   |   |   |   bcd
+|   |   |   |   |   |   boot.sdi
+|   |   |   |   |   |   bootfix.bin
+|   |   |   |   |   |   etfsboot.com
+|   |   |   |   |   |   
+|   |   |   |   |   \---fonts
+|   |   |   |   |           chs_boot.ttf
+|   |   |   |   |           cht_boot.ttf
+|   |   |   |   |           jpn_boot.ttf
+|   |   |   |   |           kor_boot.ttf
+|   |   |   |   |           wgl4_boot.ttf
+|   |   |   |   |           
+|   |   |   |   +---EFI
+|   |   |   |   |   \---microsoft
+|   |   |   |   |       \---boot
+|   |   |   |   |           |   bcd
+|   |   |   |   |           |   
+|   |   |   |   |           \---fonts
+|   |   |   |   |                   chs_boot.ttf
+|   |   |   |   |                   cht_boot.ttf
+|   |   |   |   |                   jpn_boot.ttf
+|   |   |   |   |                   kor_boot.ttf
+|   |   |   |   |                   wgl4_boot.ttf
+|   |   |   |   |                   
+|   |   |   |   \---sources
+|   |   |   |           boot.wim
+|   |   |   |           
+|   |   |   \---mount
+|   |   \---originalWim
+|   |           winpe2.wim
+|   |           
+|   \---winRE
+|           winre2_x64.wim
+|           winre2_x86.wim
+|           
++---3_x
+|   |   winpe.bmp
+|   |   
+|   +---DaRT
+|   |       DaRT7_x64.wim
+|   |       DaRT7_x86.wim
+|   |       
+|   +---PE_x64
+|   |   |   WinPE31_x64.iso
+|   |   |   
+|   |   +---bootmanager
+|   |   |   |   BOOTMGR
+|   |   |   |   BOOTMGR.EFI
+|   |   |   |   
+|   |   |   +---BOOT
+|   |   |   |       BCD
+|   |   |   |       BOOT.SDI
+|   |   |   |       BOOTFIX.BIN
+|   |   |   |       
+|   |   |   \---EFI
+|   |   |       +---BOOT
+|   |   |       |       BOOTX64.EFI
+|   |   |       |       
+|   |   |       \---MICROSOFT
+|   |   |           \---BOOT
+|   |   |                   BCD
+|   |   |                   
+|   |   +---ISO
+|   |   |   +---fwfiles
+|   |   |   |       efisys.bin
+|   |   |   |       etfsboot.com
+|   |   |   |       
+|   |   |   +---media
+|   |   |   |   |   bootmgr
+|   |   |   |   |   bootmgr.efi
+|   |   |   |   |   
+|   |   |   |   +---boot
+|   |   |   |   |   |   bcd
+|   |   |   |   |   |   boot.sdi
+|   |   |   |   |   |   bootfix.bin
+|   |   |   |   |   |   efisys.bin
+|   |   |   |   |   |   efisys_noprompt.bin
+|   |   |   |   |   |   etfsboot.com
+|   |   |   |   |   |   
+|   |   |   |   |   \---fonts
+|   |   |   |   |           chs_boot.ttf
+|   |   |   |   |           cht_boot.ttf
+|   |   |   |   |           jpn_boot.ttf
+|   |   |   |   |           kor_boot.ttf
+|   |   |   |   |           wgl4_boot.ttf
+|   |   |   |   |           
+|   |   |   |   +---EFI
+|   |   |   |   |   +---boot
+|   |   |   |   |   |       bootx64.efi
+|   |   |   |   |   |       
+|   |   |   |   |   \---microsoft
+|   |   |   |   |       \---boot
+|   |   |   |   |           |   bcd
+|   |   |   |   |           |   
+|   |   |   |   |           \---fonts
+|   |   |   |   |                   chs_boot.ttf
+|   |   |   |   |                   cht_boot.ttf
+|   |   |   |   |                   jpn_boot.ttf
+|   |   |   |   |                   kor_boot.ttf
+|   |   |   |   |                   wgl4_boot.ttf
+|   |   |   |   |                   
+|   |   |   |   \---sources
+|   |   |   |           boot.wim
+|   |   |   |           
+|   |   |   \---mount
+|   |   \---originalWim
+|   |           winpe31.wim
+|   |           
+|   +---PE_x86
+|   |   |   WinPE31_x86.iso
+|   |   |   
+|   |   +---bootmanager
+|   |   |   |   BOOTMGR
+|   |   |   |   
+|   |   |   +---BOOT
+|   |   |   |       BCD
+|   |   |   |       BOOT.SDI
+|   |   |   |       BOOTFIX.BIN
+|   |   |   |       
+|   |   |   \---EFI
+|   |   |       \---MICROSOFT
+|   |   |           \---BOOT
+|   |   |                   BCD
+|   |   |                   
+|   |   +---ISO
+|   |   |   +---fwfiles
+|   |   |   |       efisys.bin
+|   |   |   |       etfsboot.com
+|   |   |   |       
+|   |   |   +---media
+|   |   |   |   |   bootmgr
+|   |   |   |   |   bootmgr.efi
+|   |   |   |   |   
+|   |   |   |   +---boot
+|   |   |   |   |       bcd
+|   |   |   |   |       boot.sdi
+|   |   |   |   |       bootfix.bin
+|   |   |   |   |       etfsboot.com
+|   |   |   |   |       
+|   |   |   |   +---EFI
+|   |   |   |   |   +---Boot
+|   |   |   |   |   |       bootia32.efi
+|   |   |   |   |   |       
+|   |   |   |   |   \---microsoft
+|   |   |   |   |       \---boot
+|   |   |   |   |               bcd
+|   |   |   |   |               
+|   |   |   |   \---sources
+|   |   |   |           boot.wim
+|   |   |   |           
+|   |   |   \---mount
+|   |   \---originalWim
+|   |           winpe31.wim
+|   |           
+|   \---winRE
+|           winre31_x64.wim
+|           winre31_x86.wim
+|           
++---4_x
+|   +---PE_x64
+|   |   +---ISO
+|   |   |   +---media
+|   |   |   \---mount
+|   |   \---original_wim
+|   +---PE_x86
+|   |   +---ISO
+|   |   |   +---media
+|   |   |   \---mount
+|   |   \---original_wim
+|   \---winRE
++---5_x
+|   |   winpe.jpg
+|   |   
+|   +---DaRT
+|   |       DaRT81_x64.wim
+|   |       DaRT81_x86.wim
+|   |       
+|   +---PE_x64
+|   |   |   WinPE51_x64.iso
+|   |   |   
+|   |   +---bootmanager
+|   |   |   |   bootmgr
+|   |   |   |   bootmgr.efi
+|   |   |   |   
+|   |   |   +---Boot
+|   |   |   |   |   BCD
+|   |   |   |   |   boot.sdi
+|   |   |   |   |   bootfix.bin
+|   |   |   |   |   memtest.exe
+|   |   |   |   |   
+|   |   |   |   \---Resources
+|   |   |   |           bootres.dll
+|   |   |   |           
+|   |   |   \---EFI
+|   |   |       +---Boot
+|   |   |       |       bootx64.efi
+|   |   |       |       
+|   |   |       \---Microsoft
+|   |   |           \---Boot
+|   |   |               |   BCD
+|   |   |               |   memtest.efi
+|   |   |               |   
+|   |   |               \---Resources
+|   |   |                       bootres.dll
+|   |   |                       
+|   |   +---ISO
+|   |   |   +---fwfiles
+|   |   |   |       efisys.bin
+|   |   |   |       etfsboot.com
+|   |   |   |       
+|   |   |   +---media
+|   |   |   |   |   bootmgr
+|   |   |   |   |   bootmgr.efi
+|   |   |   |   |   
+|   |   |   |   +---Boot
+|   |   |   |   |   |   BCD
+|   |   |   |   |   |   boot.sdi
+|   |   |   |   |   |   bootfix.bin
+|   |   |   |   |   |   memtest.exe
+|   |   |   |   |   |   
+|   |   |   |   |   \---Resources
+|   |   |   |   |           bootres.dll
+|   |   |   |   |           
+|   |   |   |   +---EFI
+|   |   |   |   |   +---Boot
+|   |   |   |   |   |       bootx64.efi
+|   |   |   |   |   |       
+|   |   |   |   |   \---Microsoft
+|   |   |   |   |       \---Boot
+|   |   |   |   |           |   BCD
+|   |   |   |   |           |   memtest.efi
+|   |   |   |   |           |   
+|   |   |   |   |           \---Resources
+|   |   |   |   |                   bootres.dll
+|   |   |   |   |                   
+|   |   |   |   \---sources
+|   |   |   |           boot.wim
+|   |   |   |           
+|   |   |   \---mount
+|   |   \---originalWim
+|   |           winpe50.wim
+|   |           winpe51.wim
+|   |           
+|   +---PE_x86
+|   |   |   WinPE50_x86.iso
+|   |   |   WinPE51_x86.iso
+|   |   |   
+|   |   +---bootmanager
+|   |   |   |   bootmgr
+|   |   |   |   bootmgr.efi
+|   |   |   |   
+|   |   |   +---Boot
+|   |   |   |   |   BCD
+|   |   |   |   |   boot.sdi
+|   |   |   |   |   bootfix.bin
+|   |   |   |   |   memtest.exe
+|   |   |   |   |   
+|   |   |   |   \---Resources
+|   |   |   |           bootres.dll
+|   |   |   |           
+|   |   |   \---EFI
+|   |   |       +---Boot
+|   |   |       |       bootia32.efi
+|   |   |       |       
+|   |   |       \---Microsoft
+|   |   |           \---Boot
+|   |   |               |   BCD
+|   |   |               |   memtest.efi
+|   |   |               |   
+|   |   |               \---Resources
+|   |   |                       bootres.dll
+|   |   |                       
+|   |   +---ISO
+|   |   |   +---fwfiles
+|   |   |   |       efisys.bin
+|   |   |   |       etfsboot.com
+|   |   |   |       
+|   |   |   +---media
+|   |   |   |   |   bootmgr
+|   |   |   |   |   bootmgr.efi
+|   |   |   |   |   
+|   |   |   |   +---Boot
+|   |   |   |   |   |   BCD
+|   |   |   |   |   |   boot.sdi
+|   |   |   |   |   |   bootfix.bin
+|   |   |   |   |   |   memtest.exe
+|   |   |   |   |   |   
+|   |   |   |   |   \---Resources
+|   |   |   |   |           bootres.dll
+|   |   |   |   |           
+|   |   |   |   +---EFI
+|   |   |   |   |   +---Boot
+|   |   |   |   |   |       bootia32.efi
+|   |   |   |   |   |       
+|   |   |   |   |   \---Microsoft
+|   |   |   |   |       \---Boot
+|   |   |   |   |           |   BCD
+|   |   |   |   |           |   memtest.efi
+|   |   |   |   |           |   
+|   |   |   |   |           \---Resources
+|   |   |   |   |                   bootres.dll
+|   |   |   |   |                   
+|   |   |   |   \---sources
+|   |   |   |           boot.wim
+|   |   |   |           
+|   |   |   \---mount
+|   |   \---originalWim
+|   |           winpe50.wim
+|   |           winpe51.wim
+|   |           
+|   \---winRE
+|           winre51_x64.wim
+|           winre51_x86.wim
+|           
+\---bootFiles
+    +---bootManager
+    |   +---10
+    |   |   +---x64
+    |   |   |   |   bootmgr
+    |   |   |   |   bootmgr.efi
+    |   |   |   |   
+    |   |   |   +---Boot
+    |   |   |   |   |   BCD
+    |   |   |   |   |   boot.sdi
+    |   |   |   |   |   bootfix.bin
+    |   |   |   |   |   memtest.exe
+    |   |   |   |   |   
+    |   |   |   |   \---Resources
+    |   |   |   |           bootres.dll
+    |   |   |   |           
+    |   |   |   \---EFI
+    |   |   |       +---Boot
+    |   |   |       |       bootx64.efi
+    |   |   |       |       
+    |   |   |       \---Microsoft
+    |   |   |           \---Boot
+    |   |   |               |   BCD
+    |   |   |               |   memtest.efi
+    |   |   |               |   
+    |   |   |               \---Resources
+    |   |   |                       bootres.dll
+    |   |   |                       
+    |   |   \---x86
+    |   |       |   bootmgr
+    |   |       |   bootmgr.efi
+    |   |       |   
+    |   |       +---Boot
+    |   |       |   |   BCD
+    |   |       |   |   boot.sdi
+    |   |       |   |   bootfix.bin
+    |   |       |   |   memtest.exe
+    |   |       |   |   
+    |   |       |   \---Resources
+    |   |       |           bootres.dll
+    |   |       |           
+    |   |       \---EFI
+    |   |           +---Boot
+    |   |           |       bootia32.efi
+    |   |           |       
+    |   |           \---Microsoft
+    |   |               \---Boot
+    |   |                   |   BCD
+    |   |                   |   memtest.efi
+    |   |                   |   
+    |   |                   \---Resources
+    |   |                           bootres.dll
+    |   |                           
+    |   +---2
+    |   |   +---x64
+    |   |   |   |   bootmgr
+    |   |   |   |   bootmgr.efi
+    |   |   |   |   
+    |   |   |   +---boot
+    |   |   |   |       bcd
+    |   |   |   |       boot.sdi
+    |   |   |   |       bootfix.bin
+    |   |   |   |       efisys.bin
+    |   |   |   |       efisys_noprompt.bin
+    |   |   |   |       etfsboot.com
+    |   |   |   |       
+    |   |   |   \---efi
+    |   |   |       +---boot
+    |   |   |       |       bootx64.efi
+    |   |   |       |       
+    |   |   |       \---microsoft
+    |   |   |           \---boot
+    |   |   |                   bcd
+    |   |   |                   
+    |   |   \---x86
+    |   |       |   bootmgr
+    |   |       |   bootmgr.efi
+    |   |       |   
+    |   |       +---boot
+    |   |       |       bcd
+    |   |       |       boot.sdi
+    |   |       |       bootfix.bin
+    |   |       |       
+    |   |       \---EFI
+    |   |           +---Boot
+    |   |           |       bootia32.efi
+    |   |           |       
+    |   |           \---microsoft
+    |   |               \---boot
+    |   |                       bcd
+    |   |                       
+    |   +---3
+    |   |   +---x64
+    |   |   |   |   bootmgr
+    |   |   |   |   bootmgr.efi
+    |   |   |   |   
+    |   |   |   +---boot
+    |   |   |   |       bcd
+    |   |   |   |       boot.sdi
+    |   |   |   |       bootfix.bin
+    |   |   |   |       
+    |   |   |   \---EFI
+    |   |   |       +---boot
+    |   |   |       |       bootx64.efi
+    |   |   |       |       
+    |   |   |       \---microsoft
+    |   |   |           \---boot
+    |   |   |                   bcd
+    |   |   |                   
+    |   |   \---x86
+    |   |       |   bootmgr
+    |   |       |   bootmgr.efi
+    |   |       |   
+    |   |       +---boot
+    |   |       |       bcd
+    |   |       |       boot.sdi
+    |   |       |       bootfix.bin
+    |   |       |       
+    |   |       \---EFI
+    |   |           +---Boot
+    |   |           |       bootia32.efi
+    |   |           |       
+    |   |           \---microsoft
+    |   |               \---boot
+    |   |                       bcd
+    |   |                       
+    |   +---4
+    |   |   +---x64
+    |   |   \---x86
+    |   \---5
+    |       +---x64
+    |       |   |   bootmgr
+    |       |   |   bootmgr.efi
+    |       |   |   
+    |       |   +---Boot
+    |       |   |   |   BCD
+    |       |   |   |   boot.sdi
+    |       |   |   |   bootfix.bin
+    |       |   |   |   memtest.exe
+    |       |   |   |   
+    |       |   |   \---Resources
+    |       |   |           bootres.dll
+    |       |   |           
+    |       |   \---EFI
+    |       |       +---Boot
+    |       |       |       bootx64.efi
+    |       |       |       
+    |       |       \---Microsoft
+    |       |           \---Boot
+    |       |               |   BCD
+    |       |               |   memtest.efi
+    |       |               |   
+    |       |               \---Resources
+    |       |                       bootres.dll
+    |       |                       
+    |       \---x86
+    |           |   bootmgr
+    |           |   bootmgr.efi
+    |           |   
+    |           +---Boot
+    |           |   |   BCD
+    |           |   |   boot.sdi
+    |           |   |   bootfix.bin
+    |           |   |   memtest.exe
+    |           |   |   
+    |           |   \---Resources
+    |           |           bootres.dll
+    |           |           
+    |           \---EFI
+    |               +---Boot
+    |               |       bootia32.efi
+    |               |       
+    |               \---Microsoft
+    |                   \---Boot
+    |                       |   BCD
+    |                       |   memtest.efi
+    |                       |   
+    |                       \---Resources
+    |                               bootres.dll
+    |                               
+    \---isoBootSector
+            efisys_x64.bin
+            efisys_x86.bin
+            etfsboot.com
+            
