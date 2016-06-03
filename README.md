@@ -55,10 +55,10 @@ The development emphasis is on zero-configuration "just works" software.
 13. Stage AriaDeploy
 
 ## Download:
-    ```
+
     Latest Version: 0.1.0-beta
     In Development: 0.1.0-rc1
-    ```
+
 Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the top to download the latest version.
 
 ## Typical Usage Guide:
@@ -106,9 +106,8 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 4. modify "winPEWorkspace\Updates\peRuntime\scripts\mapNetworkDrive.bat" to include the serveraddress (IP or NetBIOS name), and the FTP credentials (user name/password)
 5. Update the WinPE runtime scripts
 6. share a folder with an images\ directory as myshare$ 
-    Example Path:
+Example Path: C:\Users\User\Desktop\winPEWorkspace\Images\Win7\Win7Sp1_x64_RTM.wim
     ```
-    C:\Users\User\Desktop\winPEWorkspace\Images\Win7\Win7Sp1_x64_RTM.wim
     net share myshare$=C:\Users\User\Desktop\winPEWorkspace /grant:limitedAccount,READ
     ```
 7. Allow ICMP echo requests through the local firewall
@@ -118,48 +117,48 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 
 1. Make any changes winPEWorkspace\Updates\peRuntime\scripts
 2. open a Deployment Tools Environment
-    ```
-    massupdate scripts 5 x64
-    massupdate export 5 x64
-    or
-    massupdate scripts all
-    massupdate export all
-    ```
+```
+massupdate scripts 5 x64
+massupdate export 5 x64
+or
+massupdate scripts all
+massupdate export all
+```
 
 ### To reset the WinPE images (add/remove drivers or packages):
 
-1. open a Deployment Tools Environment
-    ```
-    massupdate reset 3 x86
-    massupdate export 3 x86
-    or
-    massupdate reset all
-    massupdate export all
-    ```
+- Open a Deployment Tools Environment
+```
+massupdate reset 3 x86
+massupdate export 3 x86
+or
+massupdate reset all
+massupdate export all
+```
 Note: Drivers from winPEWorkspace\Updates\drivers\3_x\x86 will be installed automatically. To not install drivers, delete them from this folder.
 
 ### For a system boot menu with DaRT/WinRE/WinPE (normal install):
 
 Place the following files in "WININSTALLER\sources\Win7\winPETools":
-    ```
-    DaRT7_x86.wim, DaRT7_x64.wim
-    WinRE31_x86.wim, WinRE31_x64.wim
-    WinPE31_x86.wim, WinPE31_x64.wim
-    ```
+```
+DaRT7_x86.wim, DaRT7_x64.wim
+WinRE31_x86.wim, WinRE31_x64.wim
+WinPE31_x86.wim, WinPE31_x64.wim
+```
 
 Place the following files in "WININSTALLER\sources\Win81\winPETools":
-    ```
-    DaRT81_x86.wim, DaRT81_x64.wim
-    WinRE51_x86.wim, WinRE51_x64.wim
-    WinPE51_x86.wim, WinPE51_x64.wim
-    ```
+```
+DaRT81_x86.wim, DaRT81_x64.wim
+WinRE51_x86.wim, WinRE51_x64.wim
+WinPE51_x86.wim, WinPE51_x64.wim
+```
 
 Place the following files in "WININSTALLER\sources\Win10\winPETools":
-    ```
-    DaRT10_x86.wim, DaRT10_x64.wim
-    WinRE10_x86.wim, WinRE10_x64.wim
-    WinPE10_x86.wim, WinPE10_x64.wim
-    ```
+```
+DaRT10_x86.wim, DaRT10_x64.wim
+WinRE10_x86.wim, WinRE10_x64.wim
+WinPE10_x86.wim, WinPE10_x64.wim
+```
 
 - To reduce the user prompt duration: "bcdedit /timeout 3"
 - On Win 8-10, the legacy boot menu is also recommended: "bcdedit /set {default} bootmenupolicy legacy"
@@ -171,25 +170,30 @@ Place the following files in "WININSTALLER\sources\Win10\winPETools":
 - Note: This aspect of ADKTools is under active development.
 - Background: There are two boot configuration database (BCD) stores used when booting, one for BIOS style booting and one for UEFI booting. 
 - They should be configured the same so modifying both of these BCD stores with be necessary.
-- These BCD stores are located at 
-    ```
-    BIOS: WININSTALLER\Boot\BCD
-    UEFI: WININSTALLER\EFI\Microsoft\Boot\BCD
-    ```
+- These BCD stores are located at:
+```
+BIOS: WININSTALLER\Boot\BCD
+UEFI: WININSTALLER\EFI\Microsoft\Boot\BCD
+```
 
 - More background: Vista and 7 boot stores and tools are considered legacy and should not be used. bcdedit.exe from these versions of Windows can damage a Windows 8+  bcdstore.  An updated version of bcdedit.exe can be found natively installed in Windows 8 or above and is installed with the ADKs. ADKTools v0.1.0 does not use the version installed by the ADKs but this will be updated later.
 - bcdAddPE.bat is a CLI frontend to bcdedit.exe and is included in ADKTools at ADKTools\resources\scripts\wimMgmt\resources\bcdAddPE.bat. 
+- bcdAddPE.bat can be used to 
+    - modify the main menu of a bcdstore for USB/ISO booting (addPE)
+    - modify the main menu of a bcdstore for WinPE.wim booting at system boot (requres boot.sdi)
+    - modify the tools menu of a bcdstore for WinPE.wim booting at system boot (requres boot.sdi)
+    - Note: modifying the tools menu of a bcdstore for USB/ISO booting is not currently supported
 
 **bcdAddPE.bat**
-    ```
-    bcdAddPE.bat USB/ISO booting (addPE) Syntax:
-    bcdAddPE /addPE [boot.wim] [bcdstorepath] {description}
+```
+Syntax:
+bcdAddPE /addPE [boot.wim] [bcdstorepath] {description}
 
-    Examples:
-    bcdAddPE /addPE \sources\WinPEv3_x64.wim c:\boot\bcd
-    bcdAddPE /addPE \sources\PEv5x64.wim d:\iso\efi\microsoft\boot\bcd WinPEv5x64
-    bcdAddPE /addPE \sources\WinPEv5x86.wim c:\iso\boot\bcd "Win PEv5 x86"
-    ```
+Examples:
+bcdAddPE /addPE \sources\WinPEv3_x64.wim c:\boot\bcd
+bcdAddPE /addPE \sources\PEv5x64.wim d:\iso\efi\microsoft\boot\bcd WinPEv5x64
+bcdAddPE /addPE \sources\WinPEv5x86.wim c:\iso\boot\bcd "Win PEv5 x86"
+```
 
 **Step-by-Step Guide:**
 
@@ -200,7 +204,6 @@ Place the following files in "WININSTALLER\sources\Win10\winPETools":
 3. set BIOSstore=C:\Users\User\Desktop\ADKTools\WININSTALLER\Boot\BCD
 4. set UEFIstore=C:\Users\User\Desktop\ADKTools\WININSTALLER\EFI\Microsoft\Boot\BCD
     Note: Adjust your paths accordingly.
-
 5. To add a single entry:
     ```
     bcdAddPE.bat /addPE \sources\Win81\winPETools\DaRT81_x86.wim "%BIOSstore%"
@@ -220,10 +223,10 @@ Place the following files in "WININSTALLER\sources\Win10\winPETools":
 1. Start a Windows 8+ VM
 2. download/copy and extract ADKTools.zip to that VM
 3. Extract ADKTools\resources\archives\WININSTALLER.7z to ADKTools
-4. Go to step 1 of the section entitled "With an existing ADKTools install on Win 8 or above:" and then return here after step 6.
+4. Go to step 1 of section "With an existing ADKTools install on Win 8 or above:" and return here after step 6.
 
 - These “updated” boot configuration database stores can be transfered from the Win8+ VM to ADKTools\WININSTALLER on Win7 or below. 
-- To “undo” the above commands, replace the bcdstores with the “original” ones found in WININSTALLER.zip
+- To “undo” the above commands, replace the bcdstores with the “original” ones found in WININSTALLER.zip:
 ```
 copy: ADKTools\resources\archives\WININSTALLER.7z\WININSTALLER\boot\BCD
 to: ADKTools\WININSTALLER\boot\BCD

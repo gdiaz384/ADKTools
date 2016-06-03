@@ -3,6 +3,7 @@ ADKTools
 Bug: add bcdAddPE to ADK path (mgmtScripts\resources to environment.template)
 Bug: bcdAddPE.bat should use use the latest version of bcdedit available if ADKs are installed
 Rewrite: remove environment variables from AIK7 (not supported)
+Feature: add Murphy's script to default included list
 Rewrite: make installation easier (how?)
 Feature: add optional "extraPackages=false" option to update.bat to add .Net runtime
 Docs: split documentation into seperate file (published Google doc)
@@ -13,6 +14,7 @@ Docs: document each script better
 Docs: link to third party apps able to run in PE (such as WinPE_SE projects)
 Rewrite: fully support PE50 (not updating to 51 should not break anything)
 Rewrite: enumerate tools\ directory (if present) and dynamically add each path to environment in at runtime
+Feature: Check to make sure gimagex actually works
 Feature: Finish writing addDrivers.bat
 
 autoImage:
