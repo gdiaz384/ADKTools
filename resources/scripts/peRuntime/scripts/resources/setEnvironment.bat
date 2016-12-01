@@ -53,8 +53,8 @@ reg add "HKLM\Software\Microsoft\Command Processor" /v DelayedExpansion /t REG_D
 setlocal enabledelayedexpansion
 
 ::list current volumes 
-if exist .\scripts\diskpart\listdisk.bat diskpart.exe /s .\scripts\diskpart\listdisk.bat
-::"list volume" or "list partition" should also work due to list.bat script
+if exist .\scripts\diskpart\list_volume.bat diskpart.exe /s .\scripts\diskpart\list_volume.bat
+::"call list volume" or "call list partition" should also work due to list.bat script
 
 ::search for an autoDetect script at a root folder, with a fallback to x:\windows\system32\scripts
 for %%i in (Y,N,C,D,E,F,G,H,I,J,K) do (if exist "%%i:\%autoDetectImagesScript%" (set autoDetectDrive=%%i:))
