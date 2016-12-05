@@ -1,3 +1,5 @@
+
+::set ADKToolsRoot=C:\Users\User\Desktop\ADKTools
 @echo off
 pushd "%~dp0"
 
@@ -82,7 +84,7 @@ set aria2Path=%toolPath%\%architecture%\aria2
 ::a new dism path should not be added on systems that only installed aik7 and are newer than windows 7
 ::meh
 ::set tempPath=%tempDism%;%tempBcdBoot%;%OSCDImgRoot%;%peMgmtScripts%
-set tempPath=%peMgmtScripts%;%temp7zPath%;%aria2Path%
+set tempPath=%peMgmtScripts%;%peMgmtScripts%\resources;%temp7zPath%;%aria2Path%
 set path=%tempPath%;%PATH%
 
 popd

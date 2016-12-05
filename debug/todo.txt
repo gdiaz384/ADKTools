@@ -1,11 +1,11 @@
 ADKTools
 
-Bug: add bcdAddPE to ADK path (mgmtScripts\resources to environment.template)
+Bug: add bcdAddPE to ADK path (mgmtScripts\resources to environment.template) -done
 Bug: bcdAddPE.bat should use use the latest version of bcdedit available if ADKs are installed
 Rewrite: remove environment variables from AIK7 (not supported)
-Feature: add Murphy's script to default included list
+Feature: add Murphy's script to default included list -dependency, requires update to update.bat
+Feature: (dependency) add optional "extraPackages=false" option or installDotNetPackages to update.bat to add .Net runtime and winre
 Rewrite: make installation easier (how?)
-Feature: add optional "extraPackages=false" option to update.bat to add .Net runtime
 Docs: split documentation into seperate file (published Google doc)
 Rewrite: Less text, more pictures
 Docs: document what "Installer" program does better
@@ -24,3 +24,5 @@ Bug: erase previously selected image enviornmental variable on screen #2 when go
 UI: improve user interface of final screen (How it looks depends on if complex flag was triggered) -done (Part D skipped)
 UI: remove PE info from final screen
 UI: make controls and bi-directionality of script more Clear, and on every screen -partial
+
+http://forums.mydigitallife.info/threads/53532-murphy78-DiskPart-and-Apply-Image-Script

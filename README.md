@@ -1,11 +1,12 @@
 # ADKTools
 
-ADKTools provides a set of windows scripts to help manage the Windows Automated Deployment Kits (ADKs), Windows Imaging Format (WIM) images and Windows Preinstallation Environments (WinPE).
+ADKTools provides a set of Windows scripts to help manage the Windows Automated Deployment Kits (ADKs), Windows Imaging Format (WIM) images and Windows Preinstallation Environments (WinPE).
 
-The project goals are to:
+The project's specific goals are to:
 
-1. Create a USB drive that can install any (7+) version of Windows on any hardware (BIOS/UEFI) either from the local media or over the network.
-2. Stage [AriaDeploy](//github.com/gdiaz384/AriaDeploy)
+1. Dramtically simplify installing any recent version of Windows (7+) on any hardware (BIOS/UEFI).
+2. Stage [AriaDeploy](//github.com/gdiaz384/AriaDeploy).
+3. Simply the management of WIM images and typical deployment tasks.
 
 The development emphasis is on zero-configuration "just works" software.
 
@@ -40,24 +41,26 @@ The development emphasis is on zero-configuration "just works" software.
 ## Use Cases:
 
 1. The "How do I Clean Install?" problem solved. Forever.
-2. Upgrade to Win 7 or downgrade to Win 10 at leasure.
-3. Use predefined images on computers that need fixing (OEM style)
-    - Recovery tools (can) include DaRT+WindowsRE and a boot menu at startup
-4. Run arbitary windows software in a temporary (WinPE) environment
-5. Compare arbitary Windows versions (such as Windows 10 Enterprise LTSB vs RTM Home)
+3. Use predefined images on computers that need fixing OEM style.
+    - Recovery tools (can) include DaRT+WindowsRE and a boot menu at startup.
+4. Run arbitary windows software in a temporary (WinPE) environment. 
+    - Use alternative imaging software such as: Ghost, Acronis (maybe) and murphy78's diskpart script.
+5. Create a WIM backup of the current OS (image.bat or GImageX) for either restoration or deployment.
+    - Can be used with "hard disk swap" or "hardware transfer" scenarios.   
 6. Quickly regenerate WinPE images when minor changes need to be made.
-7. Configure WinPE multiboot scenarios on either USB or on target systems (i.e. boot WinRE or DaRT for recovery purposes)
-8. Save time when installing arbitary Windows versions in VM enviornments (especially when compiling software)
-9. Create a .wim backup of the current OS (image.bat or GImageX) for either restoration or deployment
-10. Can be used with "hard disk swap" scenarios
-11. Can be used with "hardware transfer" scenarios
-12. Create ESDs and deploy MS downloaded ESDs directly
-13. Stage AriaDeploy
+7. Configure WinPE.wim multiboot scenarios on either a portable USB drive or on target systems 
+    - This allows booting WinRE or DaRT for recovery purposes OEM style.
+8. Saves time when installing arbitary Windows versions 
+    - Upgrade to Win 7 or downgrade to Win 10 at leasure.
+    - Compare arbitary Windows versions (such as Windows 10 Enterprise LTSB vs RTM Home).
+    - Especially useful when compiling version/architecture specific software (Hint: Use VMs.)
+9. Compress WIM images into Electronic Software Delivery (ESD) formated files and deploy Microsoft's ESD images directly.
+10. Stage AriaDeploy.
 
 ## Download:
 
     Latest Version: 0.1.0-beta
-    In Development: 0.1.0-rc1
+    In Development: 0.1.1-beta
 
 Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the top to download the latest version.
 
@@ -69,9 +72,9 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 4. Start an administrative cmd prompt (or disable UAC) and navigate to ADKTools\
 5. Run installADK.bat to install at least one of the ADKs (AIK != ADK). All 3 (AIK + ADKs x2) are preferred.
 6. Wait to install AIK manually (next->next->next)
-7. Run createWinPE.bat to generate updated WinPE.wim and WinPE.iso files
+7. Run createWinPE.bat to generate updated WinPE.wim and WinPE.iso files (This will take a while.)
     - Note: Windows Deployment Services can PXE boot WinPE.wim files (WDS 2012+ supports both BIOS/UEFI)
-8. If not using WDS or USB: It is possible to burn these ISO files to optical media.
+    -  If not using WDS or USB: It is possible to burn these ISO files to optical media.
     - Use a Deployment Prompt and run "convertwim toiso" or "massupdate export" to regenerate ISO files.
 9. Obtain installer.wim files (or ISOs) for the versions/architectures/editions of windows to install. MS links:
     - [Windows 7](//www.microsoft.com/en-us/software-download/windows7), [Windows 8.1](//www.microsoft.com/en-us/software-download/windows8), [Windows 10](//www.microsoft.com/en-us/software-download/windows10)
@@ -179,9 +182,9 @@ UEFI: WININSTALLER\EFI\Microsoft\Boot\BCD
 - More background: Vista and 7 boot stores and tools are considered legacy and should not be used. bcdedit.exe from these versions of Windows can damage a Windows 8+  bcdstore.  An updated version of bcdedit.exe can be found natively installed in Windows 8 or above and is installed with the ADKs. ADKTools v0.1.0 does not use the version installed by the ADKs but this will be updated later.
 - bcdAddPE.bat is a CLI frontend to bcdedit.exe and is included in ADKTools at ADKTools\resources\scripts\wimMgmt\resources\bcdAddPE.bat. 
 - bcdAddPE.bat can be used to 
-    - modify the main menu of a bcdstore for USB/ISO booting (addPE)
-    - modify the main menu of a bcdstore for WinPE.wim booting at system boot (requres boot.sdi)
-    - modify the tools menu of a bcdstore for WinPE.wim booting at system boot (requres boot.sdi)
+    1. modify the main menu of a bcdstore for USB/ISO booting (addPE)
+    2. modify the main menu of a bcdstore for WinPE.wim booting at system boot (requres boot.sdi)
+    3. modify the tools menu of a bcdstore for WinPE.wim booting at system boot (requres boot.sdi)
     - Note: modifying the tools menu of a bcdstore for USB/ISO booting is not currently supported
 
 **bcdAddPE.bat**
@@ -195,7 +198,7 @@ bcdAddPE /addPE \sources\PEv5x64.wim d:\iso\efi\microsoft\boot\bcd WinPEv5x64
 bcdAddPE /addPE \sources\WinPEv5x86.wim c:\iso\boot\bcd "Win PEv5 x86"
 ```
 
-**Step-by-Step Guide:**
+**Using bcdAddPE to Add Additional Boot Entries Step-by-Step Guide:**
 
 **With an existing ADKTools install on Win 8 or above:**
 
@@ -244,15 +247,17 @@ to: ADKTools\WININSTALLER\EFI\Microsoft\Boot\BCD
 
 ## Release Notes:
 
-- This is "beta" quality-level software. Some of the scripts could use "touch ups" and additional testing.
-- When setting up a complicated partition layout (more than the default wipe/reload on disk 0 with an RE tools partition), refer to the [documentation on diskpart](//technet.microsoft.com/en-us/library/cc766118%28v=ws.10%29.aspx) and use "image.bat" with the "/noformat" switch. image /? for additional information.
-- If downloading from github manually (instead of using an official release.zip) remember to change the line ending format from Unix back to Windows using [Notepad++](//notepad-plus-plus.org/download).
-- MUI versions of WinPE and other ADKTools aspects are not currently supported.
-- I am still tweaking on the scripts to automatically install drivers on install.wim deployments. In the meantime, they can be manually installed via the DISM tool. Type "help" in the WinPE enviornment or "dism /online /add-driver /?" for the exact syntax.
+- This is "beta" quality-level software. Some of the scripts could use "touch ups," additional testing and better documentation. (Use "script.bat /?" for now.)
+- For USB multiboot scenarios, the windows binaries for booting purposes (bootmgr/bootmgr.efi) are version specific (although 8-10 should be cross compatible) and need to be swapped (from sources\WinPEBootFiles\bootmanager) when booting Windows 7 (e.g. WinPE3+ derivatives) and vice versa.- When setting up a complicated partition layout (more than the default wipe/reload on disk 0 with an RE tools partition), refer to the [documentation on diskpart](//technet.microsoft.com/en-us/library/cc766118%28v=ws.10%29.aspx) and use "image.bat" with the "/noformat" switch. image /? for additional information.
+- The automatic driver detection and installation functionality using WMI currently present in AriaDeploy has not been integrated into ADKTools yet (e.g. copied to addDrivers.bat).
+    - Until then, they can be manually installed via the DISM tool. Type "help" in the WinPE enviornment or "dism /online /add-driver /?" for the exact syntax.
+- MUI versions of WinPE and the other ADKTools aspects are not currently supported .
 - ADKTools is not developed, tested against or designed to work with UAC enabled.
-- WinPEx64 versions have Miku Mode enabled by default.
-- To disable Miku Mode: ADKTools\resources\scripts\wimMgmt\update.bat->set MikuModeEnabled=false and then reset the image (massupdate reset).
-- For USB multiboot scenarios, the windows binaries for booting purposes (bootmgr/bootmgr.efi) are version specific (although 8-10 should be cross compatible) and need to be swapped (from sources\WinPEBootFiles\bootmanager) when booting Windows 7 (e.g. WinPE3+ derivatives) and vice versa.
+- WinPEx64 versions have Miku Mode enabled by default. To disable Miku Mode:
+    1. Open .\ADKTools\resources\scripts\wimMgmt\update.bat
+    2. set MikuModeEnabled=false
+    3. Reset the images: "massupdate reset"
+- If downloading from github manually instead of using an official release.zip (not recommended) remember to change the line ending format from Unix back to Windows using [Notepad++](//notepad-plus-plus.org/download).
 
 ## Hardware Notes:
 
@@ -267,8 +272,8 @@ to: ADKTools\WININSTALLER\EFI\Microsoft\Boot\BCD
 
 ## Dependencies:
 
-- Requires Microsoft Windows 7 or newer.
-- The ADKs require [Microsoft .NET Framework 4.5+](//www.microsoft.com/en-us/download/details.aspx?id=49982) (already included in Win 8+)
+- Requires Microsoft Windows 7 or newer (64-bit only).
+- The ADKs require [Microsoft .NET Framework 4.5+](//www.microsoft.com/en-us/download/details.aspx?id=53344) (already included in Win 8+)
 - Requires Administrative access.
 - 30GB+ HD space (The ADKs take like 17GB alone.) 
 - ~2 hours to download + install.
@@ -276,4 +281,4 @@ to: ADKTools\WININSTALLER\EFI\Microsoft\Boot\BCD
 ## License:
 - I am not responsible for you deleting your data, messing up your flashdrive, OS install, activation or anything ever period.
 - I make no claim that said software is "fit" to perform any particular purpose and provide no warranty or assurance of quality any kind. Neither is implied nor given.
-- For additional information, pick your License: GPL (any) or BSD (any) or MIT/Apache
+- For additional information, pick your License: GPL (any) or BSD (any) or MIT/Apache (any)

@@ -172,13 +172,12 @@ goto end
 ::set defaults
 set default_adk3installpath=C:\Program Files\Windows AIK
 
-if /i "%processor_architecture%" equ "x86" (
-set default_adk5installpath=%ProgramFiles%\Windows Kits\8.1
-set default_adk10installpath=%ProgramFiles%\Windows Kits\10
-) else (
-set default_adk5installpath=%programfiles(x86)%\Windows Kits\8.1
-set default_adk10installpath=%programfiles(x86)%\Windows Kits\10
-)
+::do not use () here, it causes bug when referencing %programfiles(x86)% due to double (())
+if /i "%processor_architecture%" equ "x86" set default_adk5installpath=%ProgramFiles%\Windows Kits\8.1
+if /i "%processor_architecture%" equ "x86" set default_adk10installpath=%ProgramFiles%\Windows Kits\10
+
+if /i "%processor_architecture%" equ "AMD64" set default_adk5installpath=%programfiles(x86)%\Windows Kits\8.1
+if /i "%processor_architecture%" equ "AMD64" set default_adk10installpath=%programfiles(x86)%\Windows Kits\10
 
 set default_legacyx86packagesPath=Tools\PETools\x86\WinPE_FPs
 set default_legacyx64packagesPath=Tools\PETools\amd64\WinPE_FPs

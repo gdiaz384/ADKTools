@@ -4,6 +4,7 @@ if /i "%~1" equ "/?" goto usageHelp
 if /i "%~1" equ "" goto usageHelp
 
 ::TODO: image script add support for wimBoot (copy from source, format, and then apply), compactOS, minimalDisk formatting
+:: and set defaults sooner, switch from "goto myfunction" to "call myfunction" syntax
 
 pushd "%systemroot%\system32"
 ::check to see if Y: is mapped
@@ -54,9 +55,11 @@ if "%~4" equ "" (set imageName=capturedimage_%today%.wim
 
 ::echo   image  /capture  C:  Y:\capturedimage.wim  "Windows 7 Sp1 x86"  max /noprompt
 
-if "%~5" equ "" (set compressType=max
+::"recovery" compression type, used in ESDs, is not valid when creating WIM images, use convertwim for ESDs instead
+::"max" is unreliable, so default is "fast" instead
+if "%~5" equ "" (set compressType=fast
 ) else (set compressType=%~5)
-if /i "%compressType%" neq "max" if /i "%compressType%" neq "fast" if /i "%compressType%" neq "none" if /i "%compressType%" neq "recovery" (echo   error, compression type not supported: %compressType%
+if /i "%compressType%" neq "max" if /i "%compressType%" neq "fast" if /i "%compressType%" neq "none" (echo   error, compression type not supported: %compressType%
 goto end)
 
 if /i "%~6" equ "noprompt" goto afterFinalCaptureConfirmation
