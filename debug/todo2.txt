@@ -1,0 +1,25 @@
+﻿
+download .msi/.exe
+install/extract to some path
+click on setup.exe/.bat,setup.exe: (graphical?)
+ -installs ADKs
+   -ask to install Win10 ADK, optionally install Windows 7 and 8 ADK
+-generate .wim (pxe)
+   -ask to append scripts (default autoimage vs murphy's)
+   -ask to integrate drivers (Dell, HP, Lenovo)
+-generate .iso (usb/cd)
+
+Common Tasks:
+Regenerate images
+Updating scripts:
+Adding arbitrary executables:
+adding boot options
+
+Simple
+Install ADK10, generate images, add drivers, add scripts
+
+Full
+Install ADK10, ADK81U, AIK7, generate images, add drivers, add scripts
+
+Custom
+Install ADK10, and ask about the rest
