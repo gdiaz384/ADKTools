@@ -15,10 +15,10 @@ set ADK10version=latest
 set resourcePath=resources
 set toolsPath=%resourcePath%\tools
 set archivePath=%resourcePath%\archives
-set urlsFile=urls_debug.txt
+set urlsFile=urls.txt
 
 set sevenZ=7z.exe
-set aria2=aira2c.exe
+set aria2=aria2c.exe
 
 set shortcutsArchive=shortcuts.zip
 set AIK7Path=%ADKDownloadPath%\AIK7
@@ -159,69 +159,131 @@ goto end
 
 ::start functions::
 
-
 :AIK7Download
-if exist "%AIK7Path%\%AIK7DetectionFile%" if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (echo   Win7AIK and Supplement already downloaded at
-echo   "%cd%\%AIK7Path%\%AIK7DetectionFile%" 
-echo   "%cd%\%AIK7Path%\%AIK7SupplementDetectionFile%"
-goto :eof)
-
 if not exist "%resourcePath%\%urlsFile%" (echo  Unable to find ADK 7 Download URLs
 goto :eof)
-for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIK_URL=" %resourcePath%\%urlsFile%') do set Win7AIK_URL=%%i
-for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplement_URL=" %resourcePath%\%urlsFile%') do set Win7AIKSupplement_URL=%%i
-for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplement_URL2=" %resourcePath%\%urlsFile%') do set Win7AIKSupplement_URL2=%%i
+
 for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIK_CRC32=" %resourcePath%\%urlsFile%') do set Win7AIK_CRC32=%%i
 for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplement_CRC32=" %resourcePath%\%urlsFile%') do set Win7AIKSupplement_CRC32=%%i
-if not defined Win7AIK_URL (echo  Unable to find ADK 7 Download URL in %resourcePath%\%urlsFile%
-goto :eof)
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIK_URL=" %resourcePath%\%urlsFile%') do set Win7AIK_URL=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIK_URL2=" %resourcePath%\%urlsFile%') do set Win7AIK_URL2=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplement_URL=" %resourcePath%\%urlsFile%') do set Win7AIKSupplement_URL=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplement_URL2=" %resourcePath%\%urlsFile%') do set Win7AIKSupplement_URL2=%%i
 if not defined Win7AIK_CRC32 (echo  Unable to find ADK 7 CRC32 in %resourcePath%\%urlsFile%
-goto :eof)
-if not defined Win7AIKSupplement_URL (echo  Unable to find ADK 7 Supplement Download URL %resourcePath%\%urlsFile%
 goto :eof)
 if not defined Win7AIKSupplement_CRC32 (echo  Unable to find ADK 7 Supplement CRC32 in %resourcePath%\%urlsFile%
 goto :eof)
+if not defined Win7AIK_URL (echo  Unable to find ADK 7 Download URL in %resourcePath%\%urlsFile%
+goto :eof)
+if not defined Win7AIK_URL2 (echo  Unable to find ADK 7 Download URL2 in %resourcePath%\%urlsFile%
+goto :eof)
+if not defined Win7AIKSupplement_URL (echo  Unable to find ADK 7 Supplement Download URL %resourcePath%\%urlsFile%
+goto :eof)
+if not defined Win7AIKSupplement_URL2 (echo  Unable to find ADK 7 Supplement Download URL2 %resourcePath%\%urlsFile%
+goto :eof)
+
+set AIK7Hash=invalid
+if exist "%AIK7Path%\%AIK7DetectionFile%" call :hashCheck "%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_CRC32%" crc32
+if exist "%AIK7Path%\%AIK7DetectionFile%" (if /i "%hash%" neq "valid" ren "%AIK7Path%\%AIK7DetectionFile%" "%AIK7DetectionFile%.corrupt.%random%.iso"
+if /i "%hash%" equ "valid" set AIK7Hash=valid)
+
+
+set AIK7SupplementHash=invalid
+if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" call :hashCheck "%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_CRC32%" crc32
+if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (if /i "%hash%" neq "valid" ren "%AIK7Path%\%AIK7SupplementDetectionFile%" "%AIK7SupplementDetectionFile%.corrupt.%random%.iso"
+if /i "%hash%" equ "valid" set AIK7SupplementHash=valid)
+
 
 if not exist "%AIK7Path%" mkdir "%AIK7Path%"
-if exist "%AIK7Path%\%AIK7DetectionFile%" goto afterAIKDownload
-:: --dir=  is prolly a better alternative to --out
-call "%toolsPath%\%architecture%\aria2\%aria2%" --out="%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_URL%"
-if not exist "%AIK7Path%\%AIK7DetectionFile%" (echo  Error downloading Win 7 AIK, please download manually
+
+if /i "%AIK7Hash%" equ "valid" goto afterAIKDownload
+:: --dir=  is probably a better than --out to allow the server to decide the target file name
+echo.
+echo  Downloading %AIK7DetectionFile%...
+echo.
+call "%toolsPath%\%architecture%\aria2\%aria2%" --file-allocation=none --out="%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_URL%"
+if exist "%AIK7Path%\%AIK7DetectionFile%" call :hashCheck "%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_CRC32%" crc32
+if exist "%AIK7Path%\%AIK7DetectionFile%" (if /i "%hash%" neq "valid" ren "%AIK7Path%\%AIK7DetectionFile%" "%AIK7DetectionFile%.corrupt.%random%.iso"
+if /i "%hash%" equ "valid" set AIK7Hash=valid
+if /i "%hash%" equ "valid" goto afterAIKDownload)
+
+if not exist "%AIK7Path%\%AIK7DetectionFile%" (echo.
+echo  Downloading %AIK7DetectionFile%...
+echo.
+call "%toolsPath%\%architecture%\aria2\%aria2%" --file-allocation=none --out="%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_URL2%")
+if exist "%AIK7Path%\%AIK7DetectionFile%" call :hashCheck "%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_CRC32%" crc32
+if exist "%AIK7Path%\%AIK7DetectionFile%" (if /i "%hash%" neq "valid" ren "%AIK7Path%\%AIK7DetectionFile%" "%AIK7DetectionFile%.corrupt.%random%.iso"
+if /i "%hash%" equ "valid" set AIK7Hash=valid
+if /i "%hash%" equ "valid" goto afterAIKDownload)
+if not exist "%AIK7Path%\%AIK7DetectionFile%" (echo  Error downloading Win 7 AIK, please download manually from:
 echo "%Win7AIK_URL%"
-goto :eof)
-call :hashCheck "%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_CRC32%" crc32
-if /i "%hash%" neq "valid" (echo  Error downloading Win 7 AIK, please download manually
-echo "%Win7AIK_URL%"
+echo or
+echo "%Win7AIK_URL2%"
 goto :eof)
 :afterAIKDownload
 
-if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" goto :eof
-call "%toolsPath%\%architecture%\aria2\%aria2%" --out="%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_URL%"
-if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" call "%toolsPath%\%architecture%\aria2\%aria2%" --out="%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_URL2%"
+if /i "%AIK7SupplementHash%" equ "valid" goto :eof
+echo.
+echo  Downloading %AIK7SupplementDetectionFile%...
+echo.
+call "%toolsPath%\%architecture%\aria2\%aria2%" --file-allocation=none --out="%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_URL%"
+if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" call :hashCheck "%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_CRC32%" crc32
+if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (if /i "%hash%" neq "valid" ren "%AIK7Path%\%AIK7SupplementDetectionFile%" "%AIK7SupplementDetectionFile%.corrupt.%random%.iso"
+if /i "%hash%" equ "valid" goto :eof)
+
+if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (echo.
+echo  Downloading %AIK7SupplementDetectionFile%...
+echo.
+call "%toolsPath%\%architecture%\aria2\%aria2%" --file-allocation=none --out="%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_URL2%")
+if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" call :hashCheck "%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_CRC32%" crc32
+if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (if /i "%hash%" neq "valid" ren "%AIK7Path%\%AIK7SupplementDetectionFile%" "%AIK7SupplementDetectionFile%.corrupt.%random%.iso"
+if /i "%hash%" equ "valid" goto :eof)
+
 if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (echo  Error downloading Win 7 AIK Sup, please download manually
-echo "%Win7AIKSupplement_URL%")
-call :hashCheck "%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_CRC32%" crc32
-if /i "%hash%" neq "valid" (echo  Error downloading Win 7 AIK Sup, please download manually
-echo "%Win7AIKSupplement_URL%")
+echo  "%Win7AIKSupplement_URL%"
+echo   or
+echo  "%Win7AIKSupplement_URL2%")
 goto :eof
 
 
 :AIK7Install
 If /i "%downloadOnly%" equ "true" goto :eof
-if not exist "%AIK7Path%\%AIK7DetectionFile%" if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (echo  Win7AIK and Supplement not yet downloaded
+echo.
+echo  Preparing to install AIK7...
+echo.
+if exist "%AIK7Path%\%AIK7DetectionFile%" call :hashCheck "%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_CRC32%" crc32
+if /i "%hash%" neq "valid" ren "%AIK7Path%\%AIK7DetectionFile%" "%AIK7DetectionFile%.corrupt.%random%.iso"
+if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" call :hashCheck "%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_CRC32%" crc32
+if /i "%hash%" neq "valid" ren "%AIK7Path%\%AIK7SupplementDetectionFile%" "%AIK7SupplementDetectionFile%.corrupt.%random%.iso"
+
+if not exist "%AIK7Path%\%AIK7DetectionFile%" (echo  Win7AIK not yet downloaded, please download manually
+echo "%Win7AIK_URL%"
+echo or
+echo "%Win7AIK_URL2%"
+goto :eof)
+if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (echo  Win7AIK Supplement not yet downloaded, please download manually
+echo  "%Win7AIKSupplement_URL%"
+echo   or
+echo  "%Win7AIKSupplement_URL2%"
 goto :eof)
 if /i "%AIK7installed%" equ "true" (echo   AIK 7 already installed
 goto :eof)
 
+
 echo.
 echo  extracting AIK 7...
-call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%AIK7Path%\%AIK7DetectionFile%" -o"%AIK7Path%\%AIK7Folder%" -y -aos
+call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%AIK7Path%\%AIK7DetectionFile%" -o"%AIK7Path%\%AIK7Folder%" -y -aoa
 if not exist "%AIK7Path%\%AIK7Folder%\%AIK7InstallExe%" (echo  failed to extract AIK for Win7, please install it manually
 goto :eof)
 ::@echo on
+
+::start automation script
+start "" "%resourcePath%\scripts\setup\InstallAIK.exe"
 echo.
 echo  AIK 7 must be installed with a full UI, please go Next-^>Next-^>Next
 echo.
+::wait 5 seconds for it to start
+ping localhost -n 5 >nul
 call "%AIK7Path%\%AIK7Folder%\%AIK7InstallExe%"
 call :detectAIK7
 if /i "%AIK7Installed%" neq "true" (echo   AIK 7 not installed, please install it manually
@@ -231,7 +293,7 @@ echo.
 echo   Finished updating AIK 7 with supplement
 echo.
 echo   Extracting AIK 7 Supplement...
-call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%AIK7Path%\%AIK7SupplementDetectionFile%" -o"%AIK7Path%\%AIK7SupplementFolder%" -y -aos
+call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%AIK7Path%\%AIK7SupplementDetectionFile%" -o"%AIK7Path%\%AIK7SupplementFolder%" -y -aoa
 if not exist "%AIK7Path%\%AIK7SupplementFolder%\%AIK7SupplementExtractedDetectionFile%" (echo  failed to extract AIK7 Supplement, please install it manually
 goto :eof)
 
@@ -244,7 +306,7 @@ echo   Finished updating AIK 7 with supplement
 
 ::if not exist "%archivePath%\%shortcutsArchive%" goto :eof
 ::if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
-::call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
+::call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aoa
 ::if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 7 Deployment Tools Command Prompt.lnk" "%userprofile%\desktop\Win 7 Deployment Tools Command Prompt.lnk" /y
 ::copy "%resourcePath%\shortcuts\x86\Win 7 Deployment Tools Command Prompt.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 7 Deployment Tools Command Prompt.lnk" /y)
 ::if /i "%architecture%" equ "x64" (copy "%resourcePath%\shortcuts\x64\Win 7 Deployment Tools Command Prompt.lnk" "%userprofile%\desktop\Win 7 Deployment Tools Command Prompt.lnk" /y
@@ -296,7 +358,7 @@ if /i "%ADK81UInstalled%" equ "true" echo   ADK 81 U Installed Sucessfully
 
 if not exist "%archivePath%\%shortcutsArchive%" goto :eof
 if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
-call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
+call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aoa
 copy "%resourcePath%\shortcuts\x86\Win 81 Deployment and Tools Environment.lnk" "%cd%\Win 81 Deployment and Tools Environment.lnk" /y
 if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 81 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 81 Deployment and Tools Environment.lnk" /y
 copy "%resourcePath%\shortcuts\x86\Win 81 Deployment and Tools Environment.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 81 Deployment and Tools Environment.lnk" /y)
@@ -347,7 +409,7 @@ if /i "%ADK10Installed%" equ "true" echo   ADK 10 Installed Sucessfully
 
 if not exist "%archivePath%\%shortcutsArchive%" goto :eof
 if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
-call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
+call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aoa
 copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%cd%\Win 10_%ADK10version% Deployment and Tools Environment.lnk" /y
 if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 10_%ADK10version% Deployment and Tools Environment.lnk" /y
 copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 10_%ADK10version% Deployment and Tools Environment.lnk" /y)

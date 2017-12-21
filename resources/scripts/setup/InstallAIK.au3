@@ -1,0 +1,12 @@
+WinWaitActive("Windows Automated Installation Kit", "Welcome to the Windows Automated Installation Kit")
+Send("!n")
+WinWaitActive("Windows Automated Installation Kit", "SOFTWARE LICENSE TERMS")
+Send("!a")
+Send("!n")
+WinWaitActive("Windows Automated Installation Kit", "to the following folder")
+Send("!n")
+WinWaitActive("Windows Automated Installation Kit", "The installer is ready to install")
+Send("!n")
+;Error potential here
+WinWaitActive("Windows Automated Installation Kit", "has been successfully installed")
+Send("!c")

@@ -1,3 +1,13 @@
+::Win7AIK
+Win7AIK=KB3AIK_EN.iso
+Win7AIKURL=https://download.microsoft.com/download/8/E/9/8E9BBC64-E6F8-457C-9B8D-F6C9A16E6D6A/KB3AIK_EN.iso
+Win7AIKCRC32=9008BC2A
+
+Win7AIKSupplement=waik_supplement_en-us.iso
+Win7AIKSupplementURL=https://download.microsoft.com/download/0/4/C/04C805CC-4C04-4D76-BE80-7D67B951CF73/waik_supplement_en-us.iso
+Win7AIKSupplementCRC32=CD875E80
+
+::WinPEDrivers_Dell
 WinPE3_Dell=WINPE3.0-DRIVERS-A20-CT5DP.CAB
 WinPE3_DellURL=http://downloads.dell.com/FOLDER03652574M/1/WINPE3.0-DRIVERS-A20-CT5DP.CAB
 WinPE3_DellCRC32=CC02EE66
@@ -14,6 +24,7 @@ WinPE10_Dell=WINPE10.0-DRIVERS-A03-2K3RC.CAB
 WinPE10_DellURL=http://downloads.dell.com/FOLDER03652534M/1/WINPE10.0-DRIVERS-A03-2K3RC.CAB
 WinPE10_DellCRC32=B05AD7D7
 
+::WinPEDrivers_HP
 WinPE3_HP=sp71913.exe
 WinPE3_HPURL=http://ftp.hp.com/pub/softpaq/sp71501-72000/sp71913.exe
 WinPE3_HPCRC32=6379C209
