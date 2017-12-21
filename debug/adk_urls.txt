@@ -1,0 +1,32 @@
+﻿ADK_default(?) or latest(?)_1709 (16299)
+https://go.microsoft.com/fwlink/p/?linkid=859206
+adksetup.exe
+crc: FA893DE7
+
+ADK10_1703 (15063)
+https://go.microsoft.com/fwlink/p/?LinkId=845542
+adksetup.exe
+crc32: 493D7526
+
+ADK10_1607 (14393)
+https://go.microsoft.com/fwlink/p/?LinkId=526740
+adksetup.exe
+crc32: 7A5CB4E4
+
+AK10_1511 (10586)
+http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe
+resources\tools\ADK10setup.exe
+CRC32: 86CA2E8C
+
+ADK10_RTM (26624)
+http://download.microsoft.com/download/8/1/9/8197FEB9-FABE-48FD-A537-7D8709586715/adk/adksetup.exe
+CRC32: C1749D2E
+
+ADK81U (8.100.26866)
+https://go.microsoft.com/fwlink/p/?LinkId=393005
+adksetup.exe
+CRC32: 8715448B
+
+https://chocolatey.org/packages/windows-adk
+
+

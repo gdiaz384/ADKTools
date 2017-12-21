@@ -18,7 +18,7 @@ Feature: Check to make sure gimagex actually works
 Feature: Finish writing addDrivers.bat
 
 autoImage:
-Bug: detects boot.wims as deployable images (if .wim is <1gb in size toss it out)
+Bug: detects boot.wims as deployable images (if .wim is <650mb in size toss it out)
 Bug: if no images found, there should be no output (no errors)
 Bug: erase previously selected image enviornmental variable on screen #2 when going back
 UI: improve user interface of final screen (How it looks depends on if complex flag was triggered) -done (Part D skipped)

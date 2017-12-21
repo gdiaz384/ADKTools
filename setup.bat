@@ -8,24 +8,35 @@
 
 pushd "%~dp0"
 set ADKDownloadPath=WindowsADKs
+set ADK10version=latest
+::latest, RTM, 1511, 1607, 1703, 1709
 
-set AIK7Path=%ADKDownloadPath%\AIK7
-set ADK81UPath=%ADKDownloadPath%\ADK81U
-set ADK10Path=%ADKDownloadPath%\ADK10
 
 set resourcePath=resources
 set toolsPath=%resourcePath%\tools
 set archivePath=%resourcePath%\archives
+set urlsFile=urls_debug.txt
+
 set sevenZ=7z.exe
-set AIK7StagingExe=aria2c.exe
-set Win7AIKURLtxt=Win7AIK.txt
-set ADK81UStagingExe=adk81Usetup.exe
-set ADK10StagingExe=adk10setup.exe
+set aria2=aira2c.exe
+
 set shortcutsArchive=shortcuts.zip
+set AIK7Path=%ADKDownloadPath%\AIK7
+set ADK81UPath=%ADKDownloadPath%\ADK81U
+
+if /i "ADK10version" equ "latest" for /f "skip=2 eol=: delims== tokens=1-10" %%i in ('find /i "Win10ADK_latest=" %urlsFile%') do if /i "%%j" neq "" set ADK10version=%%j
+if /i "ADK10version" equ "latest" (echo  unable to determine latest ADK10 version using %resourcePath%\%urlsFile%
+goto end)
+
+set ADK10Path=%ADKDownloadPath%\ADK10_%ADK10version%
+
+set ADKSetup_defaultName=adksetup.exe
+set ADK81UStagingExe=adksetup_81U.exe
+set ADK10StagingExe=adksetup_%ADK10version%.exe
 
 if /i "%processor_architecture%" equ "x86" set architecture=x86
 if /i "%processor_architecture%" equ "AMD64" set architecture=x64
-if not defined architecture (echo    unspecified error
+if not defined architecture (echo   error architecture not defined
 goto end)
 
 set AIK7DetectionFile=KB3AIK_EN.iso
@@ -79,8 +90,7 @@ if /i "%ADK81Uinstalled%" neq "true" echo  3. Download and Install ADK 8.1 U    
 if /i "%ADK10installed%" neq "true" echo  4. Download and Install ADK 10           (6GB / 2.5 GB)
 echo  5. Only Download AIK 7                   (3GB)
 echo  6. Only Download ADK 8.1 U               (3GB)
-echo  7. Only Download ADK 10                  (3.3GB)
-
+echo  7. Only Download ADK 10_%ADK10version%              (3.3-4GB)
 
 
 :startInput
@@ -156,41 +166,43 @@ echo   "%cd%\%AIK7Path%\%AIK7DetectionFile%"
 echo   "%cd%\%AIK7Path%\%AIK7SupplementDetectionFile%"
 goto :eof)
 
-if not exist "%resourcePath%\%Win7AIKURLtxt%" (echo  Unable to find ADK 7 Download URLs
+if not exist "%resourcePath%\%urlsFile%" (echo  Unable to find ADK 7 Download URLs
 goto :eof)
-for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKURL=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKURL=%%i
-for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplementURL=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKSupplementURL=%%i
-for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKCRC32=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKCRC32=%%i
-for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplementCRC32=" %resourcePath%\%Win7AIKURLtxt%') do set Win7AIKSupplementCRC32=%%i
-if not defined Win7AIKURL (echo  Unable to find ADK 7 Download URL in %resourcePath%\%Win7AIKURLtxt%
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIK_URL=" %resourcePath%\%urlsFile%') do set Win7AIK_URL=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplement_URL=" %resourcePath%\%urlsFile%') do set Win7AIKSupplement_URL=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplement_URL2=" %resourcePath%\%urlsFile%') do set Win7AIKSupplement_URL2=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIK_CRC32=" %resourcePath%\%urlsFile%') do set Win7AIK_CRC32=%%i
+for /f "skip=2 tokens=2 delims==" %%i in ('find /i "Win7AIKSupplement_CRC32=" %resourcePath%\%urlsFile%') do set Win7AIKSupplement_CRC32=%%i
+if not defined Win7AIK_URL (echo  Unable to find ADK 7 Download URL in %resourcePath%\%urlsFile%
 goto :eof)
-if not defined Win7AIKCRC32 (echo  Unable to find ADK 7 CRC32 in %resourcePath%\%Win7AIKURLtxt%
+if not defined Win7AIK_CRC32 (echo  Unable to find ADK 7 CRC32 in %resourcePath%\%urlsFile%
 goto :eof)
-if not defined Win7AIKSupplementURL (echo  Unable to find ADK 7 Supplement Download URL %resourcePath%\%Win7AIKURLtxt%
+if not defined Win7AIKSupplement_URL (echo  Unable to find ADK 7 Supplement Download URL %resourcePath%\%urlsFile%
 goto :eof)
-if not defined Win7AIKSupplementCRC32 (echo  Unable to find ADK 7 Supplement CRC32 in %resourcePath%\%Win7AIKURLtxt%
+if not defined Win7AIKSupplement_CRC32 (echo  Unable to find ADK 7 Supplement CRC32 in %resourcePath%\%urlsFile%
 goto :eof)
 
 if not exist "%AIK7Path%" mkdir "%AIK7Path%"
 if exist "%AIK7Path%\%AIK7DetectionFile%" goto afterAIKDownload
 :: --dir=  is prolly a better alternative to --out
-call "%toolsPath%\%architecture%\aria2\%AIK7StagingExe%" --out="%AIK7Path%\%AIK7DetectionFile%" "%Win7AIKURL%"
+call "%toolsPath%\%architecture%\aria2\%aria2%" --out="%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_URL%"
 if not exist "%AIK7Path%\%AIK7DetectionFile%" (echo  Error downloading Win 7 AIK, please download manually
-echo "%Win7AIKURL%"
+echo "%Win7AIK_URL%"
 goto :eof)
-call :hashCheck "%AIK7Path%\%AIK7DetectionFile%" "%Win7AIKCRC32%" crc32
+call :hashCheck "%AIK7Path%\%AIK7DetectionFile%" "%Win7AIK_CRC32%" crc32
 if /i "%hash%" neq "valid" (echo  Error downloading Win 7 AIK, please download manually
-echo "%Win7AIKURL%"
+echo "%Win7AIK_URL%"
 goto :eof)
 :afterAIKDownload
 
 if exist "%AIK7Path%\%AIK7SupplementDetectionFile%" goto :eof
-call "%toolsPath%\%architecture%\aria2\%AIK7StagingExe%" --out="%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplementURL%"
+call "%toolsPath%\%architecture%\aria2\%aria2%" --out="%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_URL%"
+if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" call "%toolsPath%\%architecture%\aria2\%aria2%" --out="%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_URL2%"
 if not exist "%AIK7Path%\%AIK7SupplementDetectionFile%" (echo  Error downloading Win 7 AIK Sup, please download manually
-echo "%Win7AIKSupplementURL%")
-call :hashCheck "%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplementCRC32%" crc32
+echo "%Win7AIKSupplement_URL%")
+call :hashCheck "%AIK7Path%\%AIK7SupplementDetectionFile%" "%Win7AIKSupplement_CRC32%" crc32
 if /i "%hash%" neq "valid" (echo  Error downloading Win 7 AIK Sup, please download manually
-echo "%Win7AIKSupplementURL%")
+echo "%Win7AIKSupplement_URL%")
 goto :eof
 
 
@@ -229,13 +241,14 @@ robocopy "%cd%\%AIK7Path%\%AIK7SupplementFolder%" "%AIK7InstallPath%\Tools\PEToo
 ::xcopy E:\ "C:\Program Files\Windows AIK\Tools\PETools" /ERDY
 echo.
 echo   Finished updating AIK 7 with supplement
-if not exist "%archivePath%\%shortcutsArchive%" goto :eof
-if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
-call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
-if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 7 Deployment Tools Command Prompt.lnk" "%userprofile%\desktop\Win 7 Deployment Tools Command Prompt.lnk" /y
-copy "%resourcePath%\shortcuts\x86\Win 7 Deployment Tools Command Prompt.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 7 Deployment Tools Command Prompt.lnk" /y)
-if /i "%architecture%" equ "x64" (copy "%resourcePath%\shortcuts\x64\Win 7 Deployment Tools Command Prompt.lnk" "%userprofile%\desktop\Win 7 Deployment Tools Command Prompt.lnk" /y
-copy "%resourcePath%\shortcuts\x64\Win 7 Deployment Tools Command Prompt.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 7 Deployment Tools Command Prompt.lnk" /y)
+
+::if not exist "%archivePath%\%shortcutsArchive%" goto :eof
+::if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
+::call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
+::if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 7 Deployment Tools Command Prompt.lnk" "%userprofile%\desktop\Win 7 Deployment Tools Command Prompt.lnk" /y
+::copy "%resourcePath%\shortcuts\x86\Win 7 Deployment Tools Command Prompt.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 7 Deployment Tools Command Prompt.lnk" /y)
+::if /i "%architecture%" equ "x64" (copy "%resourcePath%\shortcuts\x64\Win 7 Deployment Tools Command Prompt.lnk" "%userprofile%\desktop\Win 7 Deployment Tools Command Prompt.lnk" /y
+::copy "%resourcePath%\shortcuts\x64\Win 7 Deployment Tools Command Prompt.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 7 Deployment Tools Command Prompt.lnk" /y)
 ::cleanup
 if exist "%AIK7Path%\%AIK7Folder%" rmdir /s /q "%AIK7Path%\%AIK7Folder%"
 if exist "%AIK7Path%\%AIK7SupplementFolder%" rmdir /s /q "%AIK7Path%\%AIK7SupplementFolder%"
@@ -243,15 +256,26 @@ goto :eof
 
 
 :ADK81UDownload
-if exist "%ADK81UPath%\%ADK81UDetectionFolder%" (echo   ADK 81 U already downloaded at
+if exist "%ADK81UPath%\%ADK81UDetectionFolder%" (echo   ADK 8.1 U already downloaded at
 echo   "%cd%\%ADK81UPath%"
 goto :eof)
 
 echo    Please wait, Downloading ADK 81 U (3GB will take a while)...
 echo    Check Resource Monitor-^>Network for transfer speed
 if not exist "%ADK81UPath%" mkdir "%ADK81UPath%"
+for /f "tokens=1* delims==" %%i in ('find /i "Win81UADK_URL=" %resourcePath%\%urlsFile%') do set Win81UADK_URL=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "Win81UADK_URL2=" %resourcePath%\%urlsFile%') do set Win81UADK_URL2=%%j
+call "%toolsPath%\%architecture%\aria2\%aria2%" --out="%toolsPath%\%ADK81UStagingExe%" "%Win81UADK_URL%"
+if not exist "%toolsPath%\%ADK81UStagingExe%" call "%toolsPath%\%architecture%\aria2\%aria2%" --out="%toolsPath%\%ADK81UStagingExe%" "%Win81UADK_URL2%"
+if not exist "%toolsPath%\%ADK81UStagingExe%"(echo   Error downloading ADK 8.1U %toolsPath%\%ADK81UStagingExe% , please download it manually from
+echo   %Win81UADK_URL%
+echo   or
+echo   %Win81UADK_URL2%
+goto :eof)
+::need to check crc32 of staging file here
+
 call "%toolsPath%\%ADK81UStagingExe%" /layout "%ADK81UPath%" /q /ceip off
-if not exist "%ADK81UPath%\%ADK81UDetectionFolder%" echo Error downloading ADK 81 U, please download it manually
+if not exist "%ADK81UPath%\%ADK81UDetectionFolder%" echo Error downloading ADK 8.1U, please download it manually
 goto :eof
 
 
@@ -261,7 +285,7 @@ if /i "%ADK81Uinstalled%" equ "true" (echo   ADK 81 U already installed
 goto :eof)
 if not exist "%ADK81UPath%\%ADK81UDetectionFolder%" (echo ADK 81 U not downloaded
 goto :eof)
-echo    Please wait, installing ADK 81 U (will take a while)...
+echo    Please wait, installing ADK 8.1Update (will take a while)...
 
 call "%ADK81UPath%\%ADK81UInstallExe%" /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment /ceip off /q
 
@@ -269,9 +293,11 @@ call :detectADK81UandADK10
 if /i "%ADK81UInstalled%" neq "true" (echo   ADK 81 U did not install sucessfully, please install it manually
 goto :eof)
 if /i "%ADK81UInstalled%" equ "true" echo   ADK 81 U Installed Sucessfully
+
 if not exist "%archivePath%\%shortcutsArchive%" goto :eof
 if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
 call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
+copy "%resourcePath%\shortcuts\x86\Win 81 Deployment and Tools Environment.lnk" "%cd%\Win 81 Deployment and Tools Environment.lnk" /y
 if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 81 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 81 Deployment and Tools Environment.lnk" /y
 copy "%resourcePath%\shortcuts\x86\Win 81 Deployment and Tools Environment.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 81 Deployment and Tools Environment.lnk" /y)
 if /i "%architecture%" equ "x64" (copy "%resourcePath%\shortcuts\x64\Win 81 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 81 Deployment and Tools Environment.lnk" /y
@@ -284,9 +310,21 @@ if exist "%ADK10Path%\%ADK10DetectionFolder%" (echo   ADK 10 already downloaded 
 echo   "%cd%\%ADK10Path%"
 goto :eof)
 
-echo    Please wait, Downloading ADK 10 (3.3GB will take a while)...
+echo    Please wait, Downloading ADK 10 (3.3-4GB will take a while)...
 echo    Check Resource Monitor-^>Network for transfer speed
 if not exist "%ADK10Path%" mkdir "%ADK10Path%"
+
+for /f "tokens=1* delims==" %%i in ('find /i "Win10ADK_%ADK10version%_URL=" %resourcePath%\%urlsFile%') do set Win10ADK_%ADK10version%_URL=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "Win10ADK_%ADK10version%_URL2=" %resourcePath%\%urlsFile%') do set Win10ADK_%ADK10version%_URL2=%%j
+call "%toolsPath%\%architecture%\aria2\%aria2%" --out "%toolsPath%\%ADK10StagingExe%" "!Win10ADK_%ADK10version%_URL!"
+if not exist "%toolsPath%\%ADK10StagingExe%" call "%toolsPath%\%architecture%\aria2\%aria2%" --out "%toolsPath%\%ADK10StagingExe%" "!Win10ADK_%ADK10version%_URL2!"
+if not exist "%toolsPath%\%ADK10StagingExe%"(echo   Error downloading ADK 10_%ADK10version% %toolsPath%\%ADK10StagingExe% , please download it manually from
+echo   !Win10ADK_%ADK10version%_URL!
+echo   or
+echo   !Win10ADK_%ADK10version%_URL2!
+goto :eof)
+::need to check crc32 of staging file
+
 call "%toolsPath%\%ADK10StagingExe%" /layout "%ADK10Path%" /q /ceip off
 if not exist "%ADK10Path%\%ADK10DetectionFolder%" echo Error downloading ADK 10, please download it manually
 goto :eof
@@ -298,21 +336,23 @@ if /i "%ADK10installed%" equ "true" (echo   ADK 10 already installed
 goto :eof)
 if not exist "%ADK10Path%\%ADK10DetectionFolder%" (echo ADK 10 not downloaded
 goto :eof)
-echo    Please wait, installing ADK 10 (will take a while)...
+echo    Please wait, installing ADK 10_%ADK10version% (will take a while)...
 
 call "%ADK10Path%\%ADK10InstallExe%" /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment /ceip off /q
 
 call :detectADK81UandADK10
-if /i "%ADK10Installed%" neq "true" (echo   ADK 10 did not install sucessfully, please install it manually
+if /i "%ADK10Installed%" neq "true" (echo   ADK 10_%ADK10version% did not install sucessfully, please install it manually
 goto :eof)
 if /i "%ADK10Installed%" equ "true" echo   ADK 10 Installed Sucessfully
+
 if not exist "%archivePath%\%shortcutsArchive%" goto :eof
 if not exist "%resourcePath%\shortcuts" mkdir "%resourcePath%\shortcuts"
 call "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%shortcutsArchive%" -o"%resourcePath%" -y -aos
-if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 10 Deployment and Tools Environment.lnk" /y
-copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 10 Deployment and Tools Environment.lnk" /y)
-if /i "%architecture%" equ "x64" (copy "%resourcePath%\shortcuts\x64\Win 10 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 10 Deployment and Tools Environment.lnk" /y
-copy "%resourcePath%\shortcuts\x64\Win 10 Deployment and Tools Environment.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 10 Deployment and Tools Environment.lnk" /y)
+copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%cd%\Win 10_%ADK10version% Deployment and Tools Environment.lnk" /y
+if /i "%architecture%" equ "x86" (copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 10_%ADK10version% Deployment and Tools Environment.lnk" /y
+copy "%resourcePath%\shortcuts\x86\Win 10 Deployment and Tools Environment.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 10_%ADK10version% Deployment and Tools Environment.lnk" /y)
+if /i "%architecture%" equ "x64" (copy "%resourcePath%\shortcuts\x64\Win 10 Deployment and Tools Environment.lnk" "%userprofile%\desktop\Win 10_%ADK10version% Deployment and Tools Environment.lnk" /y
+copy "%resourcePath%\shortcuts\x64\Win 10 Deployment and Tools Environment.lnk" "%programdata%\Microsoft\Windows\Start Menu\Programs\Win 10_%ADK10version% Deployment and Tools Environment.lnk" /y)
 goto :eof
 
 
