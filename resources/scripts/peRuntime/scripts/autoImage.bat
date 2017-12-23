@@ -32,7 +32,7 @@ set wimSearchDir18=\win10
 
 ::select which drives to search for them in
 set networkDrives=X,Z,T,Y
-set osDrives=W,T,D,E,C,B,S,R
+set osDrives=W,T,D,E,C,B,S,R,Z
 set removableDrives=X,Z,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,Y,G,F,C,B,D,E
 
 set foundWimList=foundWimList.txt
@@ -64,7 +64,7 @@ for %%i in (%removableDrives%) do (call :searchForWims %%i:%wimSearchDir18% %fou
 ::2) parse file to determine valid categories, based upon dism output into version and architecture specific filenames
 ::
 
-::make sure the files found are valid and put the valid ones into a currated list
+::make sure the files found are valid and put the valid ones into a curated list
 for /f "tokens=*" %%a in (%foundWimList%) do (
 dism /get-wiminfo /wimfile:"%%a" /index:1 >nul 2>nul
 if "!errorlevel!" equ "0" echo %%a>>"%validWimList%"

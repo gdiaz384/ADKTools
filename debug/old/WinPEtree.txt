@@ -1,5 +1,5 @@
 Folder PATH listing
-Volume serial number is D412-9A03
+Volume serial number is
 D:.
 +---10_x
 |   +---DaRT
