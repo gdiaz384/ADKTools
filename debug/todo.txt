@@ -2,11 +2,11 @@ ADKTools
 
 Bug: add bcdAddPE to ADK path (mgmtScripts\resources to environment.template) -done
 Bug: bcdAddPE.bat should use use the latest version of bcdedit available if ADKs are installed
-Rewrite: remove environment variables from AIK7 (not supported)
+Rewrite: remove environment variables from AIK7 (not supported) -done
 Feature: add Murphy's script to default included list -dependency, requires update to update.bat
 Feature: (dependency) add optional "extraPackages=false" option or installDotNetPackages to update.bat to add .Net runtime and winre
-Rewrite: make installation easier (how?)
-Docs: split documentation into seperate file (published Google doc)
+Rewrite: make installation easier (how?) -done, used menu
+Docs: split documentation into seperate file (published as Github Wiki)
 Rewrite: Less text, more pictures
 Docs: document what "Installer" program does better
 Docs: document what happens when winPE.wim boots by default
@@ -22,7 +22,7 @@ Bug: detects boot.wims as deployable images (if .wim is <650mb in size toss it o
 Bug: if no images found, there should be no output (no errors)
 Bug: erase previously selected image enviornmental variable on screen #2 when going back
 UI: improve user interface of final screen (How it looks depends on if complex flag was triggered) -done (Part D skipped)
-UI: remove PE info from final screen
+UI: remove PE info from final screen -unnecessary due to UI change
 UI: make controls and bi-directionality of script more Clear, and on every screen -partial
 
 http://forums.mydigitallife.info/threads/53532-murphy78-DiskPart-and-Apply-Image-Script

@@ -111,8 +111,8 @@ echo.
 echo  Select one:  (space needed to download/space used after install)
 echo.
 if /i "%allADKsInstalled%" neq "true" echo  1. Download and Install any missing ADKs and generate WinPE.wim images
-if /i "%allADKsInstalled%" neq "true" echo  2. Download and Install any missing ADKs       (17GB / 6GB)
-if /i "%ADK10installed%" neq "true" echo  3. Download and Install ADK 10_%ADK10version% (required) (6GB / 2.5 GB)
+if /i "%allADKsInstalled%" neq "true" echo  2. Download and Install any missing ADKs       (17GB / 8GB)
+if /i "%ADK10installed%" neq "true" echo  3. Download and Install ADK 10_%ADK10version% (required) (9GB / 5 GB)
 if /i "%ADK81Uinstalled%" neq "true" echo  4. Download and Install ADK 8.1 U              (5GB / 1.6GB)
 if /i "%AIK7Installed%" neq "true" echo  5. Download and Install AIK 7                  (7GB / 1.3GB)
 echo  6. Only Download ADK 10_%ADK10version% (latest)          (3.3-3.8GB)

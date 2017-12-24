@@ -23,3 +23,19 @@ Install ADK10, ADK81U, AIK7, generate images, add drivers, add scripts
 
 Custom
 Install ADK10, and ask about the rest
+
+
+Part2:
+required:
+integratePackages
+integrateDrivers
+integrateScripts
+hp driver version extraction
+
+cosmetic:
+Win8.1 update MSU URLs
+driver versions
+adk10 latest version
+windows pe5 should work as well as pe51
+
+rebuild folder structure (no ms anything)

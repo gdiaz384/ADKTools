@@ -78,7 +78,9 @@ goto end)
 if /i "%osVersion%" equ "nul" (echo error setting os version for: %version%
 goto end)
 set architecture=%~3
-if /i "%architecture%" neq "x64" if /i "%architecture%" neq "x86" goto usageHelp
+if /i "%architecture%" neq "x64" if /i "%architecture%" neq "x86" (echo.
+echo  architecture not supported: "%architecture%"
+goto usageHelp
 goto callback
 
 

@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 ::check if adks are installed
 ::prompt to install an ADK if one is not already installed
 ::unzip basic workspace -(create workspace) with pe versions, bootfiles and updates folder (scripts\tools\drivers)c
-::run enviornment setting script (from adk) (set local?)
+::run environment setting script (from adk) (set local?)
 ::copype amd64 pe_x64\iso (must be empty)
 ::delete extra muis (annoying)
 ::copy originalpe found under media\sources\boot.wim to pe_x64\originalwim\winpe31.wim
@@ -17,8 +17,8 @@ setlocal enabledelayedexpansion
 ::download dell drivers (hp?) -need to test driver dl reliability (hash check) dell3=http:url  dell3crc32hash=crc32hash
 ::extract drivers appropriately
 ::update environment.bat
-::insert enviornment.bat in the adks
-::run enviornment setting script (from adk)
+::insert environment.bat in the adks
+::run environment setting script (from adk)
 
 ::mount boot.wim and update (same as reset scenario) -wait, how does the reset scenario work again?
 ::mount pe version with it's dism version (use setenv.bat) 
@@ -61,57 +61,115 @@ set ADKsetEnvScript=DandISetEnv.bat
 
 if /i "%processor_architecture%" equ "x86" set architecture=x86
 if /i "%processor_architecture%" equ "AMD64" set architecture=x64
-if not defined architecture (echo    unspecified error
+if not defined architecture (echo    Error: unsupported architecture
 goto end)
 
 
 call :detectAIK7
 call :detectADK81UandADK10
 if /i "%AIK7Installed%" equ "true" if /i "%ADK81Uinstalled%" equ "true" if /i "%ADK10installed%" equ "true" set allADKsInstalled=true
+if /i "%ADK10installed%" neq "true" (echo.
+echo  Error: ADK 10 no installed. ADK10 must be installed to generate .wim files. 
+echo  Please install it and run setup again.
+goto end)
 cls
 
-if /i "%~1" equ "skipPrompt" goto afterPrompts
-if /i "%AIK7Installed%" neq "true" if exist "installADK.bat" (
-echo.
-echo   AIK 7 is not installed, download and install it now? ^(y/n^)
-call :booleanprompt
-if /i "!input!" equ "yes" call installADK 2
-call :detectAIK7
-)
 
-::set callback=postADK81UPrompt
-if /i "%ADK81Uinstalled%" neq "true" if exist "installADK.bat" (
-echo.
-echo   ADK 8.1 U is not installed, download and install it now? ^(y/n^)
-call :booleanprompt
-if /i "!input!" equ "yes" call installADK 3
-call :detectADK81UandADK10
-)
-
-if /i "%ADK10installed%" neq "true" if exist "installADK.bat" (
-echo.
-echo   ADK 10 is not installed, download and install it now? ^(y/n^)
-call :booleanprompt
-if /i "!input!" equ "yes" call installADK 4
-call :detectADK81UandADK10
-)
-:afterPrompts
-
-if /i "%AIK7Installed%" neq "true" if /i "%ADK81Uinstalled%" neq "true" if /i "%ADK10installed%" neq "true" (
-echo   Error, no ADKs installed, unable to create WinPE.wim
-echo   Please install at least one and run %~nx0 again
-goto end)
+::copy oscdimg to tools directory
 
 
 ::extract workspace
-"%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%winPEWorkspaceArchive%" -o"%workspaceDest%" -y -aos
+"%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%winPEWorkspaceArchive%" -o"%workspaceDest%" -y -aoa
 if not exist "%workspaceDest%\winPEWorkspace" (echo   error extracting workspace
 goto end)
 
 
 ::unarchive boot files to workspace\ root
-if not exist "%workspaceDest%\winPEWorkspace\winPEBootFiles" "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%winPEBootFilesArchive%" -o"%workspaceDest%\winPEWorkspace" -y -aos
+if not exist "%workspaceDest%\winPEWorkspace\winPEBootFiles" "%toolsPath%\%architecture%\7z\%sevenZ%" x "%archivePath%\%winPEBootFilesArchive%" -o"%workspaceDest%\winPEWorkspace" -y -aoa
+::
+mkdir "%workspaceDest%\winPEWorkspace\isoBootSector
+for /d %%i in (2,3,4,5,10) do mkdir %workspaceDest%\winPEWorkspace\bootmanager\%%i\x86\boot
+for /d %%i in (2,3,4,5,10) do mkdir %workspaceDest%\winPEWorkspace\bootmanager\%%i\x86\EFI\boot
+for /d %%i in (2,3,4,5,10) do mkdir %workspaceDest%\winPEWorkspace\bootmanager\%%i\x86\EFI\microsoft\boot
+for /d %%i in (2,3,4,5,10) do mkdir %workspaceDest%\winPEWorkspace\bootmanager\%%i\x64\boot
+for /d %%i in (2,3,4,5,10) do mkdir %workspaceDest%\winPEWorkspace\bootmanager\%%i\x64\EFI\boot
+for /d %%i in (2,3,4,5,10) do mkdir %workspaceDest%\winPEWorkspace\bootmanager\%%i\x64\EFI\microsoft\boot
 
+::copy PEv3 bootfiles
+if /i "%AIK7Installed%" equ "true" (
+copy /y "%AIK7InstallPath%\Tools\PETools\x86\bootmgr" "%workspaceDest%\winPEWorkspace\bootmanager\3\x86\"
+copy /y "%AIK7InstallPath%\Tools\PETools\x86\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\3\x86\boot\"
+copy /y "%AIK7InstallPath%\Tools\PETools\x86\boot\boot.sdi" "%workspaceDest%\winPEWorkspace\bootmanager\3\x86\boot\"
+copy /y "%AIK7InstallPath%\Tools\PETools\x86\boot\bootfix.bin" "%workspaceDest%\winPEWorkspace\bootmanager\3\x86\boot\"
+copy /y "%AIK7InstallPath%\Tools\PETools\x86\EFI\microsoft\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\3\x86\EFI\microsoft\boot\"
+copy /y "%AIK7InstallPath%\Tools\PETools\amd64\bootmgr" "%workspaceDest%\winPEWorkspace\bootmanager\3\x64\"
+copy /y "%AIK7InstallPath%\Tools\PETools\amd64\bootmgr.efi" "%workspaceDest%\winPEWorkspace\bootmanager\3\x64\"
+copy /y "%AIK7InstallPath%\Tools\PETools\amd64\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\3\x64\boot\"
+copy /y "%AIK7InstallPath%\Tools\PETools\amd64\boot\boot.sdi" "%workspaceDest%\winPEWorkspace\bootmanager\3\x64\boot\"
+copy /y "%AIK7InstallPath%\Tools\PETools\amd64\boot\bootfix.bin" "%workspaceDest%\winPEWorkspace\bootmanager\3\x64\boot\"
+copy /y "%AIK7InstallPath%\Tools\PETools\amd64\EFI\boot\bootx64.efi" "%workspaceDest%\winPEWorkspace\bootmanager\3\x64\EFI\boot\"
+copy /y "%AIK7InstallPath%\Tools\PETools\amd64\EFI\microsoft\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\3\x64\EFI\microsoft\boot\"
+)
+
+::copy PEv5 bootfiles
+if /i "%ADK81Uinstalled%" equ "true" (
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\bootmgr" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\bootmgr.efi" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\boot.sdi" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\bootfix.bin" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\memtest.exe" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\boot\"
+mkdir "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\boot\Resources\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\Resources\bootres.dll" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\boot\Resources\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\EFI\boot\bootia32.efi" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\EFI\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\EFI\microsoft\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\EFI\microsoft\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\EFI\microsoft\boot\memtest.efi" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\EFI\microsoft\boot\"
+mkdir "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\EFI\microsoft\boot\Resources"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\EFI\microsoft\boot\Resources\bootres.dll" "%workspaceDest%\winPEWorkspace\bootmanager\5\x86\EFI\microsoft\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\bootmgr" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\bootmgr.efi" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\boot.sdi" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\bootfix.bin" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\memtest.exe" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\boot\"
+mkdir "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\boot\Resources\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\Resources\bootres.dll" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\boot\Resources\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\EFI\boot\bootx64.efi" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\EFI\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\EFI\microsoft\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\EFI\microsoft\boot\"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\EFI\microsoft\boot\memtest.efi" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\EFI\microsoft\boot\"
+mkdir "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\EFI\microsoft\boot\Resources"
+copy /y "%ADK81Uinstallpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\EFI\microsoft\boot\Resources\bootres.dll" "%workspaceDest%\winPEWorkspace\bootmanager\5\x64\EFI\microsoft\boot\"
+)
+
+::copy PEv10 bootfiles
+if /i "%ADK10installed%" equ "true" (
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\bootmgr" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\bootmgr.efi" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\boot.sdi" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\bootfix.bin" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\memtest.exe" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\boot\"
+mkdir "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\boot\Resources\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\boot\Resources\bootres.dll" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\boot\Resources\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\EFI\boot\bootia32.efi" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\EFI\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\EFI\microsoft\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\EFI\microsoft\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\EFI\microsoft\boot\memtest.efi" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\EFI\microsoft\boot\"
+mkdir "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\EFI\microsoft\boot\Resources"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\Media\EFI\microsoft\boot\Resources\bootres.dll" "%workspaceDest%\winPEWorkspace\bootmanager\10\x86\EFI\microsoft\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\bootmgr" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\bootmgr.efi" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\boot.sdi" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\bootfix.bin" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\memtest.exe" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\boot\"
+mkdir "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\boot\Resources\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\boot\Resources\bootres.dll" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\boot\Resources\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\EFI\boot\bootx64.efi" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\EFI\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\EFI\microsoft\boot\bcd" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\EFI\microsoft\boot\"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\EFI\microsoft\boot\memtest.efi" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\EFI\microsoft\boot\"
+mkdir "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\EFI\microsoft\boot\Resources"
+copy /y "%ADK10Installpath%\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\Media\EFI\microsoft\boot\Resources\bootres.dll" "%workspaceDest%\winPEWorkspace\bootmanager\10\x64\EFI\microsoft\boot\"
+)
 
 :populateWorkspaces
 call :addWinPE31ToWorkspace
@@ -391,7 +449,7 @@ set driverArchiveFullPath=%~1
 set driverArchiveName=%~nx1
 set extractPath=%~2
 set archiveStyle=%~3
-"%toolsPath%\%architecture%\7z\%sevenz%" x "%driverArchiveFullPath%" -o"%extractPath%\%driverArchiveName%_" -aos -y
+"%toolsPath%\%architecture%\7z\%sevenz%" x "%driverArchiveFullPath%" -o"%extractPath%\%driverArchiveName%_" -aoa -y
 
 if /i "%archiveStyle%" equ "HP" goto HPExtractStyle
 ::this assumes Dell extract style
@@ -430,6 +488,7 @@ echo   from "%resourcePath%\%WinPEDriversURLtxt%"
 echo   Will not add drivers to PE images
 set winPEDriverDLs=invalid
 goto :eof)
+
 for /f "skip=2 tokens=2 delims==" %%i in ('find /i "WinPE3_Dell=" %resourcePath%\%WinPEDriversURLtxt%') do set WinPE3_Dell=%%i
 for /f "skip=2 tokens=2 delims==" %%i in ('find /i "WinPE3_DellURL=" %resourcePath%\%WinPEDriversURLtxt%') do set WinPE3_DellURL=%%i
 for /f "skip=2 tokens=2 delims==" %%i in ('find /i "WinPE3_DellCRC32=" %resourcePath%\%WinPEDriversURLtxt%') do set WinPE3_DellCRC32=%%i

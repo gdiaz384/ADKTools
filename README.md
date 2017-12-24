@@ -69,17 +69,18 @@ Click [here](//github.com/gdiaz384/ADKTools/releases) or on "releases" at the to
 1. Obtain a 32GB (minimum) or 64GB (recommended) flash drive [Ebay Search](//www.ebay.com/sch/i.html?_odkw=usb+64+3.0&Brand=ADATA|Kingston|Patriot%2520Memory|Samsung&_sop=15&LH_ItemCondition=3&_dcat=51071&_osacat=51071&_from=R40&_trksid=p2045573.m570.l1313.TR0.TRC0.H0.Xusb+64+3.0+newegg.TRS0&_nkw=usb+64+3.0+newegg&_sacat=51071)
 2. In a VM, download ADKTools from [here](//github.com/gdiaz384/ADKTools/releases) and extract.
 3. Check to make sure the VM will not sleep when idle (control panel->power options->change plan settings)
+3. For Win7, install .Net Framework 4.5+, or for Win8+, install the .Net Framework 3.5.
 4. Start an administrative cmd prompt (or disable UAC) and navigate to ADKTools\
-5. Run installADK.bat to install at least one of the ADKs (AIK != ADK). All 3 (AIK + ADKs x2) are preferred.
-6. Wait to install AIK manually (next->next->next)
+5. Run setup.bat and enter 1 or 2 to install at least ADK10. The others, AIK 7 and ADK 8.1U, are recommended but optional.
+
 7. Run createWinPE.bat to generate updated WinPE.wim and WinPE.iso files (This will take a while.)
     - Note: Windows Deployment Services can PXE boot WinPE.wim files (WDS 2012+ supports both BIOS/UEFI)
     -  If not using WDS or USB: It is possible to burn these ISO files to optical media.
-    - Use a Deployment Prompt and run "convertwim toiso" or "massupdate export" to regenerate ISO files.
+    - Use a Deployment Prompt and run `convertwim toiso` or `massupdate export` to regenerate ISO files.
 9. Obtain installer.wim files (or ISOs) for the versions/architectures/editions of windows to install. MS links:
     - [Windows 7](//www.microsoft.com/en-us/software-download/windows7), [Windows 8.1](//www.microsoft.com/en-us/software-download/windows8), [Windows 10](//www.microsoft.com/en-us/software-download/windows10)
     - Note: With ISOs, look for sources\install.wim, (not boot.wim). Extract out and rename them appropriately.
-    - "dism /get-wiminfo /wimfile:c:\install.wim" to check the included editions
+    - `dism /get-wiminfo /wimfile:c:\install.wim` to check the included editions
 10. Copy any WIM images (install.wim\win7x64.wim) to ADKTools\WININSTALLER\sources 
 11. Download [Rufus](//rufus.akeo.ie) and insert USB drive from step #1
 12. Launch Rufus, Alt+E (important), and then make a USB drive bootable with the following settings:
@@ -163,8 +164,8 @@ WinRE10_x86.wim, WinRE10_x64.wim
 WinPE10_x86.wim, WinPE10_x64.wim
 ```
 
-- To reduce the user prompt duration: "bcdedit /timeout 3"
-- On Win 8-10, the legacy boot menu is also recommended: "bcdedit /set {default} bootmenupolicy legacy"
+- To reduce the user prompt duration: `bcdedit /timeout 3`
+- On Win 8-10, the legacy boot menu is also recommended: `bcdedit /set {default} bootmenupolicy legacy`
 - For more information on Microsoft's Diagnostics and Recovery Toolset: ([DaRT](//technet.microsoft.com/en-us/windows/hh826071))
 - For additional information on Windows Recovery Environment: ([WinRE](//technet.microsoft.com/en-us/library/cc765966%28v=ws.10%29.aspx))
 
@@ -183,8 +184,8 @@ UEFI: WININSTALLER\EFI\Microsoft\Boot\BCD
 - bcdAddPE.bat is a CLI frontend to bcdedit.exe and is included in ADKTools at ADKTools\resources\scripts\wimMgmt\resources\bcdAddPE.bat. 
 - bcdAddPE.bat can be used to 
     1. modify the main menu of a bcdstore for USB/ISO booting (addPE)
-    2. modify the main menu of a bcdstore for WinPE.wim booting at system boot (requres boot.sdi)
-    3. modify the tools menu of a bcdstore for WinPE.wim booting at system boot (requres boot.sdi)
+    2. modify the main menu of a bcdstore for WinPE.wim booting at system boot (requires boot.sdi)
+    3. modify the tools menu of a bcdstore for WinPE.wim booting at system boot (requires boot.sdi)
     - Note: modifying the tools menu of a bcdstore for USB/ISO booting is not currently supported
 
 **bcdAddPE.bat**
@@ -272,8 +273,9 @@ to: ADKTools\WININSTALLER\EFI\Microsoft\Boot\BCD
 
 ## Dependencies:
 
-- Requires Microsoft Windows 7 or newer (64-bit only).
-- The ADKs require [Microsoft .NET Framework 4.5+](//www.microsoft.com/en-us/download/details.aspx?id=53344) (already included in Win 8+)
+- Requires Microsoft Windows 7 or newer.
+- The ADKs require [Microsoft .NET Framework 4.5+](//www.microsoft.com/en-us/download/details.aspx?id=56116) (preinstalled in Win 8+).
+- AIK 7 requires [Microsoft .NET Framework 2.0](//docs.microsoft.com/en-us/dotnet/framework/install/dotnet-35-windows-10), which is included with 3.5, (preinstalled in Win 7).
 - Requires Administrative access.
 - 30GB+ HD space (The ADKs take like 17GB alone.) 
 - ~2 hours to download + install.
