@@ -129,8 +129,82 @@ WinPE3_HP_105_URL=http://10.0.0.50/WinPEdrivers/sp71913.exe
 WinPE3_HP_105_URL2=http://ftp.hp.com/pub/softpaq/sp71501-72000/sp71913.exe
 WinPE3_HP_105_CRC32=6379C209
 
-
 Lenovo=https://support.lenovo.com/us/en/documents/ht074984
+
+
+::read x86 MSUs for 8.1U
+set update0_x86=Windows8.1-KB2919442-x86.msu
+set update0_x86_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2919442-x86.msu
+set update0_x86_url2=https://download.microsoft.com/download/9/D/A/9DA6C939-9E65-4681-BBBE-A8F73A5C116F/Windows8.1-KB2919442-x86.msu
+set update0_x86_crc32=9AA7770A
+
+set update1_x86=Windows8.1-KB2919355-x86.msu
+set update1_x86_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2919355-x86.msu
+set update1_x86_url2=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2919355-x86.msu
+set update1_x86_crc32=5AB54248
+
+set update2_x86=Windows8.1-KB2932046-x86.msu
+set update2_x86_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2932046-x86.msu
+set update2_x86_url2=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2932046-x86.msu
+set update2_x86_crc32=BC3E5E75
+
+set update3_x86=Windows8.1-KB2934018-x86.msu
+set update3_x86_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2934018-x86.msu
+set update3_x86_url2=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2934018-x86.msu
+set update3_x86_crc32=3CC92EC3
+
+set update4_x86=Windows8.1-KB2937592-x86.msu
+set update4_x86_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2937592-x86.msu
+set update4_x86_url2=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2937592-x86.msu
+set update4_x86_crc32=162CC2B6
+
+set update5_x86=Windows8.1-KB2938439-x86.msu
+set update5_x86_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2938439-x86.msu
+set update5_x86_url2=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2938439-x86.msu
+set update5_x86_crc32=E3CB4ECB
+
+set update6_x86=Windows8.1-KB2959977-x86.msu
+set update6_x86_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2959977-x86.msu
+set update6_x86_url2=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2959977-x86.msu
+set update6_x86_crc32=1DD2626C
+
+
+::read x64 MSUs for 8.1U
+set update0_x64=Windows8.1-KB2919442-x64.msu
+set update0_x64_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2919442-x64.msu
+set update0_x64_url2=https://download.microsoft.com/download/C/F/8/CF821C31-38C7-4C5C-89BB-B283059269AF/Windows8.1-KB2919442-x64.msu
+set update0_x64_crc32=763FA9DA
+
+set update1_x64=Windows8.1-KB2919355-x64.msu
+set update1_x64_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2919355-x64.msu
+set update1_x64_url2=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2919355-x64.msu
+set update1_x64_crc32=B45C9B9F
+
+set update2_x64=Windows8.1-KB2932046-x64.msu
+set update2_x64_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2932046-x64.msu
+set update2_x64_url2=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2932046-x64.msu
+set update2_x64_crc32=42AEEAB7
+
+set update3_x64=Windows8.1-KB2934018-x64.msu
+set update3_x64_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2934018-x64.msu
+set update3_x64_url2=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2934018-x64.msu
+set update3_x64_crc32=AAAEACDC
+
+set update4_x64=Windows8.1-KB2937592-x64.msu
+set update4_x64_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2937592-x64.msu
+set update4_x64_url2=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2937592-x64.msu
+set update4_x64_crc32=398F818D
+
+set update5_x64=Windows8.1-KB2938439-x64.msu
+set update5_x64_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2938439-x64.msu
+set update5_x64_url2=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2938439-x64.msu
+set update5_x64_crc32=7BD7DD9B
+
+set update6_x64=Windows8.1-KB2959977-x64.msu
+set update6_x64_url=http://10.0.0.50/win81UpdateMSUs/Windows8.1-KB2959977-x64.msu
+set update6_x64_url2=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2959977-x64.msu
+set update6_x64_crc32=BD47BE3C
+
 
 GImageX_URL=https://www.autoitscript.com/cgi-bin/getfile.pl?gimagex/gimagex.zip
 GImageX_URL2=https://www.autoitscript.com/cgi-bin/getfile.pl?gimagex/gimagex.zip

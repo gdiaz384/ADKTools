@@ -19,6 +19,8 @@ set workspaceDest=.
 set toolsPath=%resourcePath%\tools
 set sevenZ=7z.exe
 set aria=aria2c.exe
+set urlstxt=urls.txt
+
 set x86mountDir=%workspaceDest%\winPEWorkspace\5_x\PE_x86\ISO\mount
 set x64mountDir=%workspaceDest%\winPEWorkspace\5_x\PE_x64\ISO\mount
 set logfile=%temp%\winPE50upgrade%random%.log
@@ -28,63 +30,182 @@ set ADKsetEnvScript=DandISetEnv.bat
 
 if /i "%processor_architecture%" equ "x86" set architecture=x86
 if /i "%processor_architecture%" equ "AMD64" set architecture=x64
-if not defined architecture (echo    unspecified error
+if not defined architecture (echo    Error: architecture %processor_architecture% not supported
 goto end)
+
+set x86MSUsAvailable=true
+set x64MSUsAvailable=true
 
 call :detectADK81UandADK10
 cls
 
-
-if exist "%workspaceDest%\winPEWorkspace\5_x\PE_x86\originalWim\winpe51.wim" goto afterDownloadingx86MSUs
 if not exist "%downloadPath%" mkdir "%downloadPath%"
-call :readx86MSUs
-set count=0
-:downloadx86MSUs
-for /l %%i in (0,1,6) do if not exist "%downloadPath%\!update%%i!" call "%toolsPath%\%architecture%\aria2\%aria%" !update%%iurl! --dir="%cd%\%downloadPath%"
-set /a count+=1
+call :readMSUs
 
-for /l %%i in (0,1,6) do (if not exist "%downloadPath%\!update%%i!" if %count% leq 1 goto downloadx86MSUs
-if not exist "%downloadPath%\!update%%i!" echo   "!update%%i! not found at "%downloadPath%"
-if not exist "%downloadPath%\!update%%i!" echo   try restarting %~nx0 or downloading that update manually
-if not exist "%downloadPath%\!update%%i!" goto end)
+::downloadMSUs
+::if exist "%workspaceDest%\winPEWorkspace\5_x\PE_x86\originalWim\winpe51.wim" goto afterDownloadingMSUs
+if exist "%downloadPath%\%update6_x86%" goto afterDownloadingx86MSUs
 
-for /l %%i in (0,1,6) do (call :hashCheck "%downloadPath%\!update%%i!" "!update%%icrc32!" crc32
-echo hash: !hash!
-if /i "!hash!" neq "valid" goto invalidHashFound)
+for /l %%i in (0,1,6) do call "%toolsPath%\%architecture%\aria2\%aria%" "!update%%i_x86_url!" --dir="%cd%\%downloadPath%"
+
+::check hashes 1
+call :hashCheck "%downloadPath%\%update0_x86%" "%update0_x86_crc32%" crc32
+echo hash: %hash%
+if /i "!hash!" neq "valid" del "%downloadPath%\%update0_x86%"
+call :hashCheck "%downloadPath%\%update1_x86%" "%update1_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update1_x86%"
+call :hashCheck "%downloadPath%\%update2_x86%" "%update2_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update2_x86%"
+call :hashCheck "%downloadPath%\%update3_x86%" "%update3_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update3_x86%"
+call :hashCheck "%downloadPath%\%update4_x86%" "%update4_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update4_x86%"
+call :hashCheck "%downloadPath%\%update5_x86%" "%update5_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update5_x86%"
+call :hashCheck "%downloadPath%\%update6_x86%" "%update6_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update6_x86%"
+
+if not exist "%downloadPath%\%update0_x86%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update0_x86_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update1_x86%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update1_x86_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update2_x86%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update2_x86_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update3_x86%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update3_x86_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update4_x86%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update4_x86_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update5_x86%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update5_x86_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update6_x86%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update6_x86_url2%" --dir="%cd%\%downloadPath%"
+
+::check hashes 2
+call :hashCheck "%downloadPath%\%update0_x86%" "%update0_x86_crc32%" crc32
+echo hash: %hash%
+if /i "!hash!" neq "valid" del "%downloadPath%\%update0_x86%"
+call :hashCheck "%downloadPath%\%update1_x86%" "%update1_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update1_x86%"
+call :hashCheck "%downloadPath%\%update2_x86%" "%update2_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update2_x86%"
+call :hashCheck "%downloadPath%\%update3_x86%" "%update3_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update3_x86%"
+call :hashCheck "%downloadPath%\%update4_x86%" "%update4_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update4_x86%"
+call :hashCheck "%downloadPath%\%update5_x86%" "%update5_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update5_x86%"
+call :hashCheck "%downloadPath%\%update6_x86%" "%update6_x86_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update6_x86%"
+
+if not exist "%downloadPath%\%update0_x86%" (echo   "%update0_x86%" not found at "%downloadPath%"
+set x86MSUsAvailable=false)
+if not exist "%downloadPath%\%update1_x86%" (echo   "%update1_x86%" not found at "%downloadPath%"
+set x86MSUsAvailable=false)
+if not exist "%downloadPath%\%update2_x86%" (echo   "%update2_x86%" not found at "%downloadPath%"
+set x86MSUsAvailable=false)
+if not exist "%downloadPath%\%update3_x86%" (echo   "%update3_x86%" not found at "%downloadPath%"
+set x86MSUsAvailable=false)
+if not exist "%downloadPath%\%update4_x86%" (echo   "%update4_x86%" not found at "%downloadPath%"
+set x86MSUsAvailable=false)
+if not exist "%downloadPath%\%update5_x86%" (echo   "%update5_x86%" not found at "%downloadPath%"
+set x86MSUsAvailable=false)
+if not exist "%downloadPath%\%update6_x86%" (echo   "%update6_x86%" not found at "%downloadPath%"
+set x86MSUsAvailable=false)
+
 :afterDownloadingx86MSUs
 
+if exist "%downloadPath%\%update6_x64%" goto afterDownloadingx64MSUs
 
-if exist "%workspaceDest%\winPEWorkspace\5_x\PE_x64\originalWim\winpe51.wim" goto afterDownloadingx64MSUs
-if not exist "%downloadPath%" mkdir "%downloadPath%"
-call :readx64MSUs
-set count=0
-:downloadx64MSUs
-for /l %%i in (0,1,6) do if not exist "%downloadPath%\!update%%i!" call "%toolsPath%\%architecture%\aria2\%aria%" !update%%iurl! --dir="%cd%\%downloadPath%"
-set /a count+=1
+for /l %%i in (0,1,6) do call "%toolsPath%\%architecture%\aria2\%aria%" "!update%%i_x64_url!" --dir="%cd%\%downloadPath%"
 
-for /l %%i in (0,1,6) do (if not exist "%downloadPath%\!update%%i!" if %count% leq 1 goto downloadx64MSUs
-if not exist "%downloadPath%\!update%%i!" echo   "!update%%i! not found at "%downloadPath%"
-if not exist "%downloadPath%\!update%%i!" echo   try restarting %~nx0 or downloading that update manually
-if not exist "%downloadPath%\!update%%i!" goto end)
+::check hashes 3
+call :hashCheck "%downloadPath%\%update0_x64%" "%update0_x64_crc32%" crc32
+echo hash: %hash%
+if /i "!hash!" neq "valid" del "%downloadPath%\%update0_x64%"
+call :hashCheck "%downloadPath%\%update1_x64%" "%update1_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update1_x64%"
+call :hashCheck "%downloadPath%\%update2_x64%" "%update2_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update2_x64%"
+call :hashCheck "%downloadPath%\%update3_x64%" "%update3_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update3_x64%"
+call :hashCheck "%downloadPath%\%update4_x64%" "%update4_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update4_x64%"
+call :hashCheck "%downloadPath%\%update5_x64%" "%update5_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update5_x64%"
+call :hashCheck "%downloadPath%\%update6_x64%" "%update6_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update6_x64%"
 
-for /l %%i in (0,1,6) do (call :hashCheck "%downloadPath%\!update%%i!" "!update%%icrc32!" crc32
-echo hash: !hash!
-if /i "!hash!" neq "valid" goto invalidHashFound)
+if not exist "%downloadPath%\%update0_x64%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update0_x64_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update1_x64%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update1_x64_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update2_x64%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update2_x64_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update3_x64%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update3_x64_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update4_x64%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update4_x64_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update5_x64%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update5_x64_url2%" --dir="%cd%\%downloadPath%"
+if not exist "%downloadPath%\%update6_x64%" call "%toolsPath%\%architecture%\aria2\%aria%" "%update6_x64_url2%" --dir="%cd%\%downloadPath%"
+
+::check hashes 4
+call :hashCheck "%downloadPath%\%update0_x64%" "%update0_x64_crc32%" crc32
+echo hash: %hash%
+if /i "!hash!" neq "valid" del "%downloadPath%\%update0_x64%"
+call :hashCheck "%downloadPath%\%update1_x64%" "%update1_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update1_x64%"
+call :hashCheck "%downloadPath%\%update2_x64%" "%update2_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update2_x64%"
+call :hashCheck "%downloadPath%\%update3_x64%" "%update3_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update3_x64%"
+call :hashCheck "%downloadPath%\%update4_x64%" "%update4_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update4_x64%"
+call :hashCheck "%downloadPath%\%update5_x64%" "%update5_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update5_x64%"
+call :hashCheck "%downloadPath%\%update6_x64%" "%update6_x64_crc32%" crc32
+echo hash: %hash%
+if /i "%hash%" neq "valid" del "%downloadPath%\%update6_x64%"
+
+if not exist "%downloadPath%\%update0_x64%" (echo   "%update0_x64%" not found at "%downloadPath%"
+set x64MSUsAvailable=false)
+if not exist "%downloadPath%\%update1_x64%" (echo   "%update1_x64%" not found at "%downloadPath%"
+set x64MSUsAvailable=false)
+if not exist "%downloadPath%\%update2_x64%" (echo   "%update2_x64%" not found at "%downloadPath%"
+set x64MSUsAvailable=false)
+if not exist "%downloadPath%\%update3_x64%" (echo   "%update3_x64%" not found at "%downloadPath%"
+set x64MSUsAvailable=false)
+if not exist "%downloadPath%\%update4_x64%" (echo   "%update4_x64%" not found at "%downloadPath%"
+set x64MSUsAvailable=false)
+if not exist "%downloadPath%\%update5_x64%" (echo   "%update5_x64%" not found at "%downloadPath%"
+set x64MSUsAvailable=false)
+if not exist "%downloadPath%\%update6_x64%" (echo   "%update6_x64%" not found at "%downloadPath%"
+set x64MSUsAvailable=false)
+
 :afterDownloadingx64MSUs
 
 
-::alright so all of them are available and downloaded sucessfully.
+::Alright, so all of them downloaded successfully and are available. Now to mount and update the images.
 pushd "%cd%"
 call "%ADK81Uinstallpath%\%ADKDeploymentToolsPath%\%ADKsetEnvScript%"
 popd
 
-
 if exist "%workspaceDest%\winPEWorkspace\5_x\PE_x86\originalWim\winpe51.wim" goto afterUpdatingPE50x86
-call :readx86MSUs
+if /i "%x86MSUsAvailable%" neq "true" goto afterUpdatingPE50x86
 
 dism /Mount-Image /ImageFile:"%workspaceDest%\winPEWorkspace\5_x\PE_x86\originalWim\winpe50.wim" /index:1 /MountDir:"%x86mountDir%"
 
-for /l %%i in (0,1,6) do dism /Add-Package /PackagePath:"%downloadPath%\!update%%i!" /Image:"%x86mountDir%" /LogPath:"%logfile%"
+for /l %%i in (0,1,6) do dism /Add-Package /PackagePath:"%downloadPath%\!update%%i_x86!" /Image:"%x86mountDir%" /LogPath:"%logfile%"
 
 ::dism /Add-Package /PackagePath:C:\MSU\Windows8.1-KB2919442-x64.msu /Image:C:\WinPE_amd64\mount /LogPath:AddPackage.log
 ::dism /Add-Package /PackagePath:C:\MSU\Windows8.1-KB2919355-x64.msu /Image:C:\WinPE_amd64\mount /LogPath:AddPackage.log
@@ -99,32 +220,36 @@ dism /image:"%x86mountDir%" /Cleanup-Image /StartComponentCleanup /ResetBase
 dism /capture-image /imagefile:"%workspaceDest%\winPEWorkspace\5_x\PE_x86\originalWim\winpe51.wim" /capturedir:"%x86mountDir%" /name:"%description%x86" /description:"%description%x86" /compress:max /bootable
 
 dism /Unmount-Image /MountDir:"%x86mountDir%" /discard
-::del C:\WinPE_amd64\media\sources\boot.wim
-::rename C:\WinPE_amd64\media\sources\boot2.wim boot.wim
-
-::now need to check if was captured and copy over sources\boot.wim
-if exist "%workspaceDest%\winPEWorkspace\5_x\PE_x86\originalWim\winpe51.wim" (del "%workspaceDest%\winPEWorkspace\5_x\PE_x86\ISO\media\sources\boot.wim"
-copy /y "%workspaceDest%\winPEWorkspace\5_x\PE_x86\originalWim\winpe51.wim" "%workspaceDest%\winPEWorkspace\5_x\PE_x86\ISO\media\sources\boot.wim")
 :afterUpdatingPE50x86
 
 
 if exist "%workspaceDest%\winPEWorkspace\5_x\PE_x64\originalWim\winpe51.wim" goto afterUpdatingPE50x64
-call :readx64MSUs
+if /i "%x64MSUsAvailable%" neq "true" goto end
 
 dism /Mount-Image /ImageFile:"%workspaceDest%\winPEWorkspace\5_x\PE_x64\originalWim\winpe50.wim" /index:1 /MountDir:"%x64mountDir%"
 
-for /l %%i in (0,1,6) do dism /Add-Package /PackagePath:"%downloadPath%\!update%%i!" /Image:"%x64mountDir%" /LogPath:"%logfile%"
+for /l %%i in (0,1,6) do dism /Add-Package /PackagePath:"%downloadPath%\!update%%i_x64!" /Image:"%x64mountDir%" /LogPath:"%logfile%"
 
-dism /image:%x64mountDir% /Cleanup-Image /StartComponentCleanup /ResetBase
+dism /image:"%x64mountDir%" /Cleanup-Image /StartComponentCleanup /ResetBase
 
 dism /capture-image /imagefile:"%workspaceDest%\winPEWorkspace\5_x\PE_x64\originalWim\winpe51.wim" /capturedir:%x64mountDir% /name:"%description%x64" /description:"%description%x64" /compress:max /bootable
 
 dism /Unmount-Image /MountDir:"%x64mountDir%" /discard
+:afterUpdatingPE50x64
 
-::now need to check if was captured and copy over sources\boot.wim
+
+::now need to copy over sources\boot.wim
+::del C:\WinPE_amd64\media\sources\boot.wim
+::rename C:\WinPE_amd64\media\sources\boot2.wim boot.wim
+::x86
+if exist "%workspaceDest%\winPEWorkspace\5_x\PE_x86\originalWim\winpe51.wim" (del "%workspaceDest%\winPEWorkspace\5_x\PE_x86\ISO\media\sources\boot.wim"
+copy /y "%workspaceDest%\winPEWorkspace\5_x\PE_x86\originalWim\winpe51.wim" "%workspaceDest%\winPEWorkspace\5_x\PE_x86\ISO\media\sources\boot.wim")
+
+::x64
 if exist "%workspaceDest%\winPEWorkspace\5_x\PE_x64\originalWim\winpe51.wim" (del "%workspaceDest%\winPEWorkspace\5_x\PE_x64\ISO\media\sources\boot.wim"
 copy /y "%workspaceDest%\winPEWorkspace\5_x\PE_x64\originalWim\winpe51.wim" "%workspaceDest%\winPEWorkspace\5_x\PE_x64\ISO\media\sources\boot.wim")
-:afterUpdatingPE50x64
+
+
 
 goto end
 
@@ -170,66 +295,81 @@ set hash=%hashData%
 goto :eof
 
 
-:readx86MSUs
-set update0=Windows8.1-KB2919442-x86.msu
-set update0url=https://download.microsoft.com/download/9/D/A/9DA6C939-9E65-4681-BBBE-A8F73A5C116F/Windows8.1-KB2919442-x86.msu
-set update0crc32=9AA7770A
+:readMSUs
+::set update0=Windows8.1-KB2919442-x86.msu
+::set update0url=https://download.microsoft.com/download/9/D/A/9DA6C939-9E65-4681-BBBE-A8F73A5C116F/Windows8.1-KB2919442-x86.msu
+::set update0crc32=9AA7770A
 
-set update1=Windows8.1-KB2919355-x86.msu
-set update1url=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2919355-x86.msu
-set update1crc32=5AB54248
+for /f "tokens=1* delims==" %%i in ('find /i "update0_x86=" %resourcePath%\%urlstxt%') do set update0_x86=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update0_x86_url=" %resourcePath%\%urlstxt%') do set update0_x86_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update0_x86_url2=" %resourcePath%\%urlstxt%') do set update0_x86_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update0_x86_crc32=" %resourcePath%\%urlstxt%') do set update0_x86_crc32=%%j
 
-set update2=Windows8.1-KB2932046-x86.msu
-set update2url=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2932046-x86.msu
-set update2crc32=BC3E5E75
+for /f "tokens=1* delims==" %%i in ('find /i "update1_x86=" %resourcePath%\%urlstxt%') do set update1_x86=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update1_x86_url=" %resourcePath%\%urlstxt%') do set update1_x86_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update1_x86_url2=" %resourcePath%\%urlstxt%') do set update1_x86_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update1_x86_crc32=" %resourcePath%\%urlstxt%') do set update1_x86_crc32=%%j
 
-set update3=Windows8.1-KB2934018-x86.msu
-set update3url=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2934018-x86.msu
-set update3crc32=3CC92EC3
-::set update3crc32=3CC92EC2
+for /f "tokens=1* delims==" %%i in ('find /i "update2_x86=" %resourcePath%\%urlstxt%') do set update2_x86=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update2_x86_url=" %resourcePath%\%urlstxt%') do set update2_x86_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update2_x86_url2=" %resourcePath%\%urlstxt%') do set update2_x86_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update2_x86_crc32=" %resourcePath%\%urlstxt%') do set update2_x86_crc32=%%j
 
-set update4=Windows8.1-KB2937592-x86.msu
-set update4url=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2937592-x86.msu
-set update4crc32=162CC2B6
+for /f "tokens=1* delims==" %%i in ('find /i "update3_x86=" %resourcePath%\%urlstxt%') do set update3_x86=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update3_x86_url=" %resourcePath%\%urlstxt%') do set update3_x86_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update3_x86_url2=" %resourcePath%\%urlstxt%') do set update3_x86_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update3_x86_crc32=" %resourcePath%\%urlstxt%') do set update3_x86_crc32=%%j
 
-set update5=Windows8.1-KB2938439-x86.msu
-set update5url=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2938439-x86.msu
-set update5crc32=E3CB4ECB
+for /f "tokens=1* delims==" %%i in ('find /i "update4_x86=" %resourcePath%\%urlstxt%') do set update4_x86=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update4_x86_url=" %resourcePath%\%urlstxt%') do set update4_x86_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update4_x86_url2=" %resourcePath%\%urlstxt%') do set update4_x86_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update4_x86_crc32=" %resourcePath%\%urlstxt%') do set update4_x86_crc32=%%j
 
-set update6=Windows8.1-KB2959977-x86.msu
-set update6url=https://download.microsoft.com/download/4/E/C/4EC66C83-1E15-43FD-B591-63FB7A1A5C04/Windows8.1-KB2959977-x86.msu
-set update6crc32=1DD2626C
-goto :eof
+for /f "tokens=1* delims==" %%i in ('find /i "update5_x86=" %resourcePath%\%urlstxt%') do set update5_x86=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update5_x86_url=" %resourcePath%\%urlstxt%') do set update5_x86_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update5_x86_url2=" %resourcePath%\%urlstxt%') do set update5_x86_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update5_x86_crc32=" %resourcePath%\%urlstxt%') do set update5_x86_crc32=%%j
+
+for /f "tokens=1* delims==" %%i in ('find /i "update6_x86=" %resourcePath%\%urlstxt%') do set update6_x86=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update6_x86_url=" %resourcePath%\%urlstxt%') do set update6_x86_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update6_x86_url2=" %resourcePath%\%urlstxt%') do set update6_x86_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update6_x86_crc32=" %resourcePath%\%urlstxt%') do set update6_x86_crc32=%%j
 
 
-:readx64MSUs
-set update0=Windows8.1-KB2919442-x64.msu
-set update0url=https://download.microsoft.com/download/C/F/8/CF821C31-38C7-4C5C-89BB-B283059269AF/Windows8.1-KB2919442-x64.msu
-set update0crc32=763FA9DA
+for /f "tokens=1* delims==" %%i in ('find /i "update0_x64=" %resourcePath%\%urlstxt%') do set update0_x64=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update0_x64_url=" %resourcePath%\%urlstxt%') do set update0_x64_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update0_x64_url2=" %resourcePath%\%urlstxt%') do set update0_x64_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update0_x64_crc32=" %resourcePath%\%urlstxt%') do set update0_x64_crc32=%%j
 
-set update1=Windows8.1-KB2919355-x64.msu
-set update1url=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2919355-x64.msu
-set update1crc32=B45C9B9F
+for /f "tokens=1* delims==" %%i in ('find /i "update1_x64=" %resourcePath%\%urlstxt%') do set update1_x64=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update1_x64_url=" %resourcePath%\%urlstxt%') do set update1_x64_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update1_x64_url2=" %resourcePath%\%urlstxt%') do set update1_x64_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update1_x64_crc32=" %resourcePath%\%urlstxt%') do set update1_x64_crc32=%%j
 
-set update2=Windows8.1-KB2932046-x64.msu
-set update2url=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2932046-x64.msu
-set update2crc32=42AEEAB7
+for /f "tokens=1* delims==" %%i in ('find /i "update2_x64=" %resourcePath%\%urlstxt%') do set update2_x64=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update2_x64_url=" %resourcePath%\%urlstxt%') do set update2_x64_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update2_x64_url2=" %resourcePath%\%urlstxt%') do set update2_x64_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update2_x64_crc32=" %resourcePath%\%urlstxt%') do set update2_x64_crc32=%%j
 
-set update3=Windows8.1-KB2934018-x64.msu
-set update3url=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2934018-x64.msu
-set update3crc32=AAAEACDC
+for /f "tokens=1* delims==" %%i in ('find /i "update3_x64=" %resourcePath%\%urlstxt%') do set update3_x64=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update3_x64_url=" %resourcePath%\%urlstxt%') do set update3_x64_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update3_x64_url2=" %resourcePath%\%urlstxt%') do set update3_x64_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update3_x64_crc32=" %resourcePath%\%urlstxt%') do set update3_x64_crc32=%%j
 
-set update4=Windows8.1-KB2937592-x64.msu
-set update4url=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2937592-x64.msu
-set update4crc32=398F818D
+for /f "tokens=1* delims==" %%i in ('find /i "update4_x64=" %resourcePath%\%urlstxt%') do set update4_x64=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update4_x64_url=" %resourcePath%\%urlstxt%') do set update4_x64_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update4_x64_url2=" %resourcePath%\%urlstxt%') do set update4_x64_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update4_x64_crc32=" %resourcePath%\%urlstxt%') do set update4_x64_crc32=%%j
 
-set update5=Windows8.1-KB2938439-x64.msu
-set update5url=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2938439-x64.msu
-set update5crc32=7BD7DD9B
+for /f "tokens=1* delims==" %%i in ('find /i "update5_x64=" %resourcePath%\%urlstxt%') do set update5_x64=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update5_x64_url=" %resourcePath%\%urlstxt%') do set update5_x64_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update5_x64_url2=" %resourcePath%\%urlstxt%') do set update5_x64_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update5_x64_crc32=" %resourcePath%\%urlstxt%') do set update5_x64_crc32=%%j
 
-set update6=Windows8.1-KB2959977-x64.msu
-set update6url=https://download.microsoft.com/download/D/B/1/DB1F29FC-316D-481E-B435-1654BA185DCF/Windows8.1-KB2959977-x64.msu
-set update6crc32=BD47BE3C
+for /f "tokens=1* delims==" %%i in ('find /i "update6_x64=" %resourcePath%\%urlstxt%') do set update6_x64=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update6_x64_url=" %resourcePath%\%urlstxt%') do set update6_x64_url=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update6_x64_url2=" %resourcePath%\%urlstxt%') do set update6_x64_url2=%%j
+for /f "tokens=1* delims==" %%i in ('find /i "update6_x64_crc32=" %resourcePath%\%urlstxt%') do set update6_x64_crc32=%%j
 goto :eof
 
 

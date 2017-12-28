@@ -142,7 +142,7 @@ goto forkPoint)
 if /i "%input%" equ "5" (set buildImages=false
 set customMode=DownloadAndInstallAIK7
 goto forkPoint)
-if /i "%input%" equ "6" (set buildImages=falsee
+if /i "%input%" equ "6" (set buildImages=false
 et customMode=DownloadADK10
 goto forkPoint)
 if /i "%input%" equ "7" (set buildImages=false
@@ -222,45 +222,41 @@ if /i "%installMode%" equ "custom" goto %customMode%
 echo  unspecified error
 goto end
 
+
 ::download and install all ADKs
 :All
-call :AIK7Download
-call :AIK7Install
+if /i "%AIK7Installed%" neq "true" call :AIK7Download
+if /i "%AIK7Installed%" neq "true" call :AIK7Install
 echo.
-call :ADK81UDownload
-call :ADK81UInstall
+if /i "%ADK81Uinstalled%" neq "true" call :ADK81UDownload
+if /i "%ADK81Uinstalled%" neq "true" call :ADK81UInstall
 echo.
-call :ADK10Download
-call :ADK10Install
-
-goto end
+if /i "%ADK10installed%" neq "true" call :ADK10Download
+if /i "%ADK10installed%" neq "true" call :ADK10Install
+if /i "%buildImages%" equ "true" (goto generateWorkspace) else (goto end)
 
 ::download and install ADK10
 :DownloadAndInstallADK10
-call :ADK10Download
-call :ADK10Install
-if /i "%buildImages%" equ true (goto generateWorkspace) else (goto end)
+if /i "%ADK10installed%" neq "true" call :ADK10Download
+if /i "%ADK10installed%" neq "true" call :ADK10Install
+if /i "%buildImages%" equ "true" (goto generateWorkspace) else (goto end)
 
 ::download and install ADK81U
 :DownloadAndInstallADK81U
-call :ADK81UDownload
-call :ADK81UInstall
-if /i "%buildImages%" equ true (goto generateWorkspace) else (goto end)
+if /i "%ADK81Uinstalled%" neq "true" call :ADK81UDownload
+if /i "%ADK81Uinstalled%" neq "true" call :ADK81UInstall
+if /i "%buildImages%" equ "true" (goto generateWorkspace) else (goto end)
 
 ::download and install AIK7
 :DownloadAndInstallAIK7
-call :AIK7Download
-call :AIK7Install
-if /i "%buildImages%" equ true (goto generateWorkspace) else (goto end)
+if /i "%AIK7Installed%" neq "true" call :AIK7Download
+if /i "%AIK7Installed%" neq "true" call :AIK7Install
+if /i "%buildImages%" equ "true" (goto generateWorkspace) else (goto end)
 
-
-
-
-
-::download AIK7
-:DownloadAIK7
+::download ADK10
+:DownloadADK10
 set downloadOnly=true
-call :AIK7Download
+call :ADK10Download
 goto end
 
 ::download ADK81U
@@ -269,12 +265,24 @@ set downloadOnly=true
 call :ADK81UDownload
 goto end
 
-::download ADK10
-:DownloadADK10
+::download AIK7
+:DownloadAIK7
 set downloadOnly=true
-call :ADK10Download
+call :AIK7Download
 goto end
 
+
+:generateWorkspace
+set sourceScript=%resourcePath%\createWinPE.bat
+set tempScript=%sourceScript%_temp_%random%.bat
+
+echo. >"%tempScript%"
+echo set integratePackages=%integratePackages%>>"%tempScript%"
+echo set integrateDrivers=%integrateDrivers%>>"%tempScript%"
+echo set integrateScripts=%integrateScripts%>>"%tempScript%"
+type "%sourceScript%">>"%tempScript%"
+
+"%tempScript%"
 
 
 ::start functions::
